@@ -1,0 +1,20 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ReminderWG", "ReminderWG\ReminderWG.csproj", "{42849D84-03FD-4207-A007-7ECC4D9DB527}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{42849D84-03FD-4207-A007-7ECC4D9DB527}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42849D84-03FD-4207-A007-7ECC4D9DB527}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42849D84-03FD-4207-A007-7ECC4D9DB527}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42849D84-03FD-4207-A007-7ECC4D9DB527}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
