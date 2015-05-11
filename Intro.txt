@@ -6,20 +6,25 @@ CREATE TABLE [dbo].[Users] (
     [Password] nvarchar(max)  NOT NULL,
     [Email] nvarchar(max)  NOT NULL,
     [Admin] bit  NOT NULL,
-    [Name] nvarchar(max)  NOT NULL
+    [Name] nvarchar(max)  NOT NULL,
+	PRIMARY KEY ([UserID])
 );
 GO
 
+DROP TABLE [dbo].[Users]
+
 CREATE TABLE [dbo].[MessageSlips] (
     [mId] int IDENTITY(1,1) NOT NULL,
-    [UserID] nvarchar(max)  NOT NULL,
-    [Property1] nvarchar(max)  NOT NULL,
     [Sender] nvarchar(max)  NOT NULL,
     [TimeDate] nvarchar(max)  NOT NULL,
     [PhoneNum] nvarchar(max)  NULL,
     [MessageTask] nvarchar(max)  NOT NULL,
     [Location] nvarchar(max)  NULL,
     [Other] nvarchar(max)  NULL,
-    [User_UserID] int  NOT NULL
+    [UserID] int  NOT NULL,
+	PRIMARY KEY ([mID]),
+	FOREIGN KEY ([UserID]) REFERENCES [dbo].[Users]([UserID])
 );
 GO
+
+DROP TABLE [dbo].[MessageSlips]
