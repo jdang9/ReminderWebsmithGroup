@@ -7,6 +7,6 @@ namespace MessageSlips.Models
 {
     public class Login
     {
-        
+        public IEnumerable<User> GetUsers { get; set; }
     }
 }

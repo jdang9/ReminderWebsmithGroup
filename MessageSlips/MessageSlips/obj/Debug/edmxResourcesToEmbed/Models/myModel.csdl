@@ -47,7 +47,7 @@
     <Property Name="Admin" Type="Boolean" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
   </EntityType>
-  <EntityContainer Name="MessageSlipsWSGEntities2" annotation:LazyLoadingEnabled="true">
+  <EntityContainer Name="MessageSlipsWSGEntities" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="MessageSlips" EntityType="Self.MessageSlip" />
     <EntitySet Name="Users" EntityType="Self.User" />

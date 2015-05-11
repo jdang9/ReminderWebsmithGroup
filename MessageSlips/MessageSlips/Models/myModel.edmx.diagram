@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="28b8722ccb9f4a6d95af914d132135ce" Name="Diagram1">
+      <Diagram DiagramId="474d7b53823948e6a70d92852c357597" Name="Diagram1">
         <EntityTypeShape EntityType="MessageSlipsWSGModel.sysdiagram" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MessageSlipsWSGModel.MessageSlip" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MessageSlipsWSGModel.User" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />

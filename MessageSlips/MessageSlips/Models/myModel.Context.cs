@@ -15,10 +15,10 @@ namespace MessageSlips.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class MessageSlipsWSGEntities2 : DbContext
+    public partial class MessageSlipsWSGEntities : DbContext
     {
-        public MessageSlipsWSGEntities2()
-            : base("name=MessageSlipsWSGEntities2")
+        public MessageSlipsWSGEntities()
+            : base("name=MessageSlipsWSGEntities")
         {
         }
     

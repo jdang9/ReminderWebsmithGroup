@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-  <EntityContainerMapping StorageEntityContainer="MessageSlipsWSGModelStoreContainer" CdmEntityContainer="MessageSlipsWSGEntities2">
+  <EntityContainerMapping StorageEntityContainer="MessageSlipsWSGModelStoreContainer" CdmEntityContainer="MessageSlipsWSGEntities">
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="MessageSlipsWSGModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">

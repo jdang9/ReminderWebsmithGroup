@@ -166,7 +166,7 @@ warning 6002: The table/view 'MessageSlipsWSG.dbo.Users' does not have a primary
           <Property Name="Admin" Type="Boolean" Nullable="false" />
           <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
         </EntityType>
-        <EntityContainer Name="MessageSlipsWSGEntities2" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="MessageSlipsWSGEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="MessageSlips" EntityType="Self.MessageSlip" />
           <EntitySet Name="Users" EntityType="Self.User" />
@@ -217,7 +217,7 @@ warning 6002: The table/view 'MessageSlipsWSG.dbo.Users' does not have a primary
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="MessageSlipsWSGModelStoreContainer" CdmEntityContainer="MessageSlipsWSGEntities2">
+        <EntityContainerMapping StorageEntityContainer="MessageSlipsWSGModelStoreContainer" CdmEntityContainer="MessageSlipsWSGEntities">
           <EntitySetMapping Name="sysdiagrams">
             <EntityTypeMapping TypeName="MessageSlipsWSGModel.sysdiagram">
               <MappingFragment StoreEntitySet="sysdiagrams">
