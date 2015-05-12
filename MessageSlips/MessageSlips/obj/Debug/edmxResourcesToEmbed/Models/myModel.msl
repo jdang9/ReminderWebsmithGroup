@@ -1,6 +1,20 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="MessageSlipsWSGModelStoreContainer" CdmEntityContainer="MessageSlipsWSGEntities">
+    <EntitySetMapping Name="MessageSlips">
+      <EntityTypeMapping TypeName="MessageSlipsWSGModel.MessageSlip">
+        <MappingFragment StoreEntitySet="MessageSlips">
+          <ScalarProperty Name="mId" ColumnName="mId" />
+          <ScalarProperty Name="Sender" ColumnName="Sender" />
+          <ScalarProperty Name="TimeDate" ColumnName="TimeDate" />
+          <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
+          <ScalarProperty Name="MessageTask" ColumnName="MessageTask" />
+          <ScalarProperty Name="Location" ColumnName="Location" />
+          <ScalarProperty Name="Other" ColumnName="Other" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="MessageSlipsWSGModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -9,22 +23,6 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="MessageSlips">
-      <EntityTypeMapping TypeName="MessageSlipsWSGModel.MessageSlip">
-        <MappingFragment StoreEntitySet="MessageSlips">
-          <ScalarProperty Name="mId" ColumnName="mId" />
-          <ScalarProperty Name="UserID" ColumnName="UserID" />
-          <ScalarProperty Name="Property1" ColumnName="Property1" />
-          <ScalarProperty Name="Sender" ColumnName="Sender" />
-          <ScalarProperty Name="TimeDate" ColumnName="TimeDate" />
-          <ScalarProperty Name="PhoneNum" ColumnName="PhoneNum" />
-          <ScalarProperty Name="MessageTask" ColumnName="MessageTask" />
-          <ScalarProperty Name="Location" ColumnName="Location" />
-          <ScalarProperty Name="Other" ColumnName="Other" />
-          <ScalarProperty Name="User_UserID" ColumnName="User_UserID" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

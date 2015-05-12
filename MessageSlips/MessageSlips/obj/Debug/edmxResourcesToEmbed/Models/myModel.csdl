@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MessageSlipsWSGModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="MessageSlip">
+    <Key>
+      <PropertyRef Name="mId" />
+    </Key>
+    <Property Name="mId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Sender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="TimeDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PhoneNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="MessageTask" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Other" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="UserID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="Self.FK__MessageSl__UserI__24927208" FromRole="MessageSlips" ToRole="Users" />
+  </EntityType>
   <EntityType Name="sysdiagram">
     <Key>
       <PropertyRef Name="diagram_id" />
@@ -10,35 +24,9 @@
     <Property Name="version" Type="Int32" />
     <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
   </EntityType>
-  <EntityType Name="MessageSlip">
-    <Key>
-      <PropertyRef Name="mId" />
-      <PropertyRef Name="UserID" />
-      <PropertyRef Name="Property1" />
-      <PropertyRef Name="Sender" />
-      <PropertyRef Name="TimeDate" />
-      <PropertyRef Name="MessageTask" />
-      <PropertyRef Name="User_UserID" />
-    </Key>
-    <Property Name="mId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="UserID" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Property1" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Sender" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="TimeDate" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="PhoneNum" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="MessageTask" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-    <Property Name="Location" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="Other" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-    <Property Name="User_UserID" Type="Int32" Nullable="false" />
-  </EntityType>
   <EntityType Name="User">
     <Key>
       <PropertyRef Name="UserID" />
-      <PropertyRef Name="UserName" />
-      <PropertyRef Name="Password" />
-      <PropertyRef Name="Email" />
-      <PropertyRef Name="Admin" />
-      <PropertyRef Name="Name" />
     </Key>
     <Property Name="UserID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
@@ -46,11 +34,28 @@
     <Property Name="Email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
     <Property Name="Admin" Type="Boolean" Nullable="false" />
     <Property Name="Name" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="MessageSlips" Relationship="Self.FK__MessageSl__UserI__24927208" FromRole="Users" ToRole="MessageSlips" />
   </EntityType>
+  <Association Name="FK__MessageSl__UserI__24927208">
+    <End Role="Users" Type="Self.User" Multiplicity="1" />
+    <End Role="MessageSlips" Type="Self.MessageSlip" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="MessageSlips">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="MessageSlipsWSGEntities" annotation:LazyLoadingEnabled="true">
-    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="MessageSlips" EntityType="Self.MessageSlip" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
     <EntitySet Name="Users" EntityType="Self.User" />
+    <AssociationSet Name="FK__MessageSl__UserI__24927208" Association="Self.FK__MessageSl__UserI__24927208">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="MessageSlips" EntitySet="MessageSlips" />
+    </AssociationSet>
     <FunctionImport Name="sp_alterdiagram">
       <Parameter Name="diagramname" Mode="In" Type="String" />
       <Parameter Name="owner_id" Mode="In" Type="Int32" />

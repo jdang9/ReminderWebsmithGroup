@@ -1,27 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Schema Namespace="MessageSlipsWSGModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'MessageSlipsWSG.dbo.MessageSlips' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="MessageSlips">
     <Key>
       <PropertyRef Name="mId" />
-      <PropertyRef Name="UserID" />
-      <PropertyRef Name="Property1" />
-      <PropertyRef Name="Sender" />
-      <PropertyRef Name="TimeDate" />
-      <PropertyRef Name="MessageTask" />
-      <PropertyRef Name="User_UserID" />
     </Key>
     <Property Name="mId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="UserID" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="Property1" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Sender" Type="nvarchar(max)" Nullable="false" />
     <Property Name="TimeDate" Type="nvarchar(max)" Nullable="false" />
     <Property Name="PhoneNum" Type="nvarchar(max)" />
     <Property Name="MessageTask" Type="nvarchar(max)" Nullable="false" />
     <Property Name="Location" Type="nvarchar(max)" />
     <Property Name="Other" Type="nvarchar(max)" />
-    <Property Name="User_UserID" Type="int" Nullable="false" />
+    <Property Name="UserID" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -33,16 +23,9 @@ warning 6002: The table/view 'MessageSlipsWSG.dbo.MessageSlips' does not have a 
     <Property Name="version" Type="int" />
     <Property Name="definition" Type="varbinary(max)" />
   </EntityType>
-  <!--Errors Found During Generation:
-warning 6002: The table/view 'MessageSlipsWSG.dbo.Users' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
   <EntityType Name="Users">
     <Key>
       <PropertyRef Name="UserID" />
-      <PropertyRef Name="UserName" />
-      <PropertyRef Name="Password" />
-      <PropertyRef Name="Email" />
-      <PropertyRef Name="Admin" />
-      <PropertyRef Name="Name" />
     </Key>
     <Property Name="UserID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
     <Property Name="UserName" Type="nvarchar(max)" Nullable="false" />
@@ -51,6 +34,18 @@ warning 6002: The table/view 'MessageSlipsWSG.dbo.Users' does not have a primary
     <Property Name="Admin" Type="bit" Nullable="false" />
     <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
   </EntityType>
+  <Association Name="FK__MessageSl__UserI__24927208">
+    <End Role="Users" Type="Self.Users" Multiplicity="1" />
+    <End Role="MessageSlips" Type="Self.MessageSlips" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Users">
+        <PropertyRef Name="UserID" />
+      </Principal>
+      <Dependent Role="MessageSlips">
+        <PropertyRef Name="UserID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
   <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
     <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -83,30 +78,12 @@ warning 6002: The table/view 'MessageSlipsWSG.dbo.Users' does not have a primary
   </Function>
   <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
   <EntityContainer Name="MessageSlipsWSGModelStoreContainer">
+    <EntitySet Name="MessageSlips" EntityType="Self.MessageSlips" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
-    <EntitySet Name="MessageSlips" EntityType="Self.MessageSlips" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [MessageSlips].[mId] AS [mId], 
-    [MessageSlips].[UserID] AS [UserID], 
-    [MessageSlips].[Property1] AS [Property1], 
-    [MessageSlips].[Sender] AS [Sender], 
-    [MessageSlips].[TimeDate] AS [TimeDate], 
-    [MessageSlips].[PhoneNum] AS [PhoneNum], 
-    [MessageSlips].[MessageTask] AS [MessageTask], 
-    [MessageSlips].[Location] AS [Location], 
-    [MessageSlips].[Other] AS [Other], 
-    [MessageSlips].[User_UserID] AS [User_UserID]
-    FROM [dbo].[MessageSlips] AS [MessageSlips]</DefiningQuery>
-    </EntitySet>
-    <EntitySet Name="Users" EntityType="Self.Users" store:Type="Tables" store:Schema="dbo">
-      <DefiningQuery>SELECT 
-    [Users].[UserID] AS [UserID], 
-    [Users].[UserName] AS [UserName], 
-    [Users].[Password] AS [Password], 
-    [Users].[Email] AS [Email], 
-    [Users].[Admin] AS [Admin], 
-    [Users].[Name] AS [Name]
-    FROM [dbo].[Users] AS [Users]</DefiningQuery>
-    </EntitySet>
+    <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__MessageSl__UserI__24927208" Association="Self.FK__MessageSl__UserI__24927208">
+      <End Role="Users" EntitySet="Users" />
+      <End Role="MessageSlips" EntitySet="MessageSlips" />
+    </AssociationSet>
   </EntityContainer>
 </Schema>

@@ -15,14 +15,14 @@ namespace MessageSlips.Models
     public partial class MessageSlip
     {
         public int mId { get; set; }
-        public string UserID { get; set; }
-        public string Property1 { get; set; }
         public string Sender { get; set; }
         public string TimeDate { get; set; }
         public string PhoneNum { get; set; }
         public string MessageTask { get; set; }
         public string Location { get; set; }
         public string Other { get; set; }
-        public int User_UserID { get; set; }
+        public int UserID { get; set; }
+    
+        public virtual User User { get; set; }
     }
 }
