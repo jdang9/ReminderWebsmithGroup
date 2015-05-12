@@ -1,16 +1,27 @@
 ﻿<!DOCTYPE html>
-<html>
+<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Message Slips - Websmith Group</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/css/component.css" />
+    <link rel="stylesheet" href="~/Content/css/foundation-icons.css" />
+    <link rel="stylesheet" href="~/Content/css/foundation.css" />
+    <script src="~/Content/js/vendor/modernizr.js"></script>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
 
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+    <div class="row">
+        <div class="large-12 columns">
+
+        </div>
+    </div>
+    <!--
+    <div class="row">
+        <div class="large-12 columns">
             <div class="navbar-header">
                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
                     <span class="icon-bar"></span>
@@ -28,12 +39,12 @@
                 @Html.Partial("_LoginPartial")
             </div>
         </div>
-    </div>
+    </div>-->
     <div class="container body-content">
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+            <p>&copy; @DateTime.Now.Year - Message Slips - Websmith Group</p>
         </footer>
     </div>
 
