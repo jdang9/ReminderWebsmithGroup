@@ -1,0 +1,29 @@
+﻿body {
+}
+
+.main-background {
+    background-color: #151816;
+    font-family: 'Libre Baskerville', serif;
+}
+
+.main-header {
+    color: #f2f2f2;
+    font-family: "Great Vibes", cursive;
+    font-size: 46px;
+    line-height: 50px;
+    font-weight: normal;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    text-align: center;
+    text-shadow: 0 3px 3px #ff8100;
+} 
+asd {
+    color: #c9d0d4;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 46px;
+    font-weight: 100;
+    line-height: 50px;
+    letter-spacing: 1px;
+    padding: 0 0 40px;
+    border-bottom: #555;
+}
