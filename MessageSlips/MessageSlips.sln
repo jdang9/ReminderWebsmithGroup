@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageSlips", "MessageSlips\MessageSlips.csproj", "{6067206A-8492-4FB9-AF39-9E461AF4F335}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MessageSlips", "MessageSlips\MessageSlips.csproj", "{FFE6C120-AB25-45D0-8919-8D089A8EBF9E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{6067206A-8492-4FB9-AF39-9E461AF4F335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6067206A-8492-4FB9-AF39-9E461AF4F335}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6067206A-8492-4FB9-AF39-9E461AF4F335}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6067206A-8492-4FB9-AF39-9E461AF4F335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFE6C120-AB25-45D0-8919-8D089A8EBF9E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFE6C120-AB25-45D0-8919-8D089A8EBF9E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFE6C120-AB25-45D0-8919-8D089A8EBF9E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFE6C120-AB25-45D0-8919-8D089A8EBF9E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
