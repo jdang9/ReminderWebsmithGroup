@@ -8,9 +8,31 @@ namespace MessageSlips.Controllers
 {
     public class HomeController : Controller
     {
+        private MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();
+ 
         public ActionResult Index()
         {
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Index(FormCollection form)
+        {
+            MessageSlips.Models.User login = new MessageSlips.Models.User();
+
+            foreach (var user in db.Users)
+            {
+                if (user.userName == form["username"] && user.password == form["password"])
+                {
+                    login = user;
+                    return RedirectToAction("Dashboard");
+                }
+                else
+                {
+                    return View("Index");
+                }
+            }
+            return View("Index");
         }
 
         public ActionResult Dashboard()

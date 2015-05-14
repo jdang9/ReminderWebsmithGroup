@@ -72,3 +72,4 @@
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\obj\Debug\MessageSlips.dll
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\obj\Debug\MessageSlips.pdb
+\\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\MessageSlips.dll.config

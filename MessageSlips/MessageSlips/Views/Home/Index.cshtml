@@ -45,19 +45,19 @@
                 <div id="main" class="radius panel">
                     <div class="row" id="login_form">
                         <h6 class="text-center subheader" id="textstyle">Please Sign in</h6>
-                        @using (Html.BeginForm("Login", "Home", FormMethod.Post)) {
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post)) {
                             <div class="large-8 columns small-12 small-centered">
                                 <label id="textstyle">
-                                    User Name<span style="color:red;">*</span>
+                                    User Name:<span style="color:red;">*</span>
                                     <input type="text" name="userName" id="user_name" placeholder="Username" required>
                                 </label>
                                 <label id="textstyle">
-                                    Password<span style="color:red;">*</span>
+                                    Password:<span style="color:red;">*</span>
                                     <input type="password" name="password" id="password" placeholder="Password" required>
                                 </label>
                             </div>
                             <div class="large-3 small-8 columns small-centered">
-                                <a href="#" id="login" class="button special expand round">Sign in</a>
+                                <input type="submit" class="button special expand round" value="Sign in"/>
                             </div>
                         }
                     </div>
