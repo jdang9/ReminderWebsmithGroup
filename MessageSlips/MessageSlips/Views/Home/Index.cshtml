@@ -45,20 +45,21 @@
                 <div id="main" class="radius panel">
                     <div class="row" id="login_form">
                         <h6 class="text-center subheader" id="textstyle">Please Sign in</h6>
-                        <div class="large-8 columns small-12 small-centered">
-                            <label id="textstyle">
-                                User Name<span style="color:red;">*</span>
-                                <input type="text" name="userName" id="user_name" placeholder="Username" required>
-                            </label>
-                            <label id="textstyle">
-                                Password<span style="color:red;">*</span>
-                                <input type="password" name="password" id="password" placeholder="Password" required>
-                            </label>
-                        </div>
-                        <div class="large-3 small-8 columns small-centered">
-                            <a href="#" id="login" class="button special expand round">Sign in</a>
-                        </div>
-
+                        @using (Html.BeginForm("Login", "Home", FormMethod.Post)) {
+                            <div class="large-8 columns small-12 small-centered">
+                                <label id="textstyle">
+                                    User Name<span style="color:red;">*</span>
+                                    <input type="text" name="userName" id="user_name" placeholder="Username" required>
+                                </label>
+                                <label id="textstyle">
+                                    Password<span style="color:red;">*</span>
+                                    <input type="password" name="password" id="password" placeholder="Password" required>
+                                </label>
+                            </div>
+                            <div class="large-3 small-8 columns small-centered">
+                                <a href="#" id="login" class="button special expand round">Sign in</a>
+                            </div>
+                        }
                     </div>
                     <div class="row hide" id="sign_in_success">
                         <h4 class="text-center subheader" id="textstyle">You are signed in as <span style="color:#4868AD;">$admin</span>.</h4>

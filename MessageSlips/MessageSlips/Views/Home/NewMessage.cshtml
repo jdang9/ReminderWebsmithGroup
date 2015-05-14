@@ -21,9 +21,54 @@
             <form>
                 <div class="large-12 columns">
                     <label id="textstyle">
-                        Name<span style="color:red;">*</span>
+                        To:<span style="color:red;">*</span>
                         <input type="text" placeholder="First, Last" required>
                     </label>
+                    <label id="textstyle">
+                        From:<span style="color:red;">*</span>
+                        <input type="text" placeholder="First, Last" required>
+                    </label>
+                    <label>
+                        Categories:<span style="color:red;">*</span>
+                        <select required>
+                            <optgroup label="Clients:">
+                                <option value="New Client">New Client</option>
+                                <option value="Current Client">Current Client</option>
+                            </optgroup>
+                            <optgroup label="Others:">
+                                <option value="Telemarketing">Telemarketing</option>
+                                <option value="Other">Other (Please specify in Other field below)</option>
+                                <option value="N/A">N/A</option>
+                            </optgroup>
+                        </select>
+                    </label>
+                    <label>
+                        Date:<span style="color:red;">*</span>
+                        <input type="date" placeholder="mm-dd-yyyy" required>
+                    </label>
+                    <label>
+                        Time:<span style="color:red;">*</span>
+                        <input type="time" placeholder="mm-dd-yyyy" required>
+                    </label>
+                    <label>
+                        Phone (if applicable):
+                        <input type="tel" placeholder="xxx-xxx-xxxx" maxlength="10">
+                    </label>
+                    <label>
+                        Message:<span style="color:red;">*</span>
+                        <textarea rows="4" cols="50" placeholder="Please enter message" required></textarea>
+                    </label>
+                    <label>
+                        Address (if applicable):
+                        <input type="text" placeholder="Please enter address" maxlength="50">
+                    </label>
+                    <label>
+                        Other (if applicable):
+                        <textarea rows="4" cols="40" placeholder="Please enter other info."></textarea>
+                    </label>
+                </div>
+                <div class="large-3 small-8 columns small-centered">
+                    <a href="#" id="login" class="button special expand round">Submit</a>
                 </div>
             </form>
         </div>
