@@ -1,11 +1,14 @@
-﻿<!DOCTYPE html>
+﻿@using System.Web.Optimization;
+@{
+    Layout = null;
+
+}
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Websmith Group</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
     <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/demo.css" />
     <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/component.css" />
     <link rel="stylesheet" href="~/Content/foundation-5/foundation-icons.css" />
@@ -16,23 +19,26 @@
 </head>
 <body class="main-background">
     <div class="row top">
-        <div class="large-12 columns">
+        <div class="large-10 columns">
             <div class="large-only-text-center">
                 <h1 class="logo"><img src="~/Content/foundation-5/img/wsgh59i.png"></h1>
             </div>
+        </div>
+        <div class="large-2 columns large-text-center">
+            <a class="small button" id="textstyle" href="~/Home/Index">Log out</a>
         </div>
     </div>
 
     <div class="row" id="navbar">
         <div class="icon-bar three-up radius">
-            <a class="item active">
-                <label>Dashboard</label>
+            <a class="item" href="~/Home/Dashboard">
+                <label id="textstyle">Dashboard</label>
             </a>
-            <a class="item">
-                <label>Courses</label>
+            <a class="item" href="~/Home/NewMessage">
+                <label id="textstyle">New Message</label>
             </a>
-            <a class="item">
-                <label>Announcements</label>
+            <a class="item" href="~/Home/Setting">
+                <label id="textstyle">Setting</label>
             </a>
         </div>
     </div>
@@ -52,50 +58,6 @@
             </footer>
         </div>
     </div>
+
 </body>
 </html>
-
-<!--
-<!DOCTYPE html>
-<html>
-<head>
-
-    <script type="text/javascript">
-        var appInsights=window.appInsights||function(config){
-            function s(config){t[config]=function(){var i=arguments;t.queue.push(function(){t[config].apply(t,i)})}}var t={config:config},r=document,f=window,e="script",o=r.createElement(e),i,u;for(o.src=config.url||"//az416426.vo.msecnd.net/scripts/a/ai.0.js",r.getElementsByTagName(e)[0].parentNode.appendChild(o),t.cookie=r.cookie,t.queue=[],i=["Event","Exception","Metric","PageView","Trace"];i.length;)s("track"+i.pop());return config.disableExceptionTracking||(i="onerror",s("_"+i),u=f[i],f[i]=function(config,r,f,e,o){var s=u&&u(config,r,f,e,o);return s!==!0&&t["_"+i](config,r,f,e,o),s}),t
-        }({
-            instrumentationKey:"1ac3d8d6-d447-467a-bbc4-f415c0af2de0"
-        });
-        
-        window.appInsights=appInsights;
-        appInsights.trackPageView();
-    </script>
-</head>
-<body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
-        </div>
-    </div>
-
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
-</html>
--->

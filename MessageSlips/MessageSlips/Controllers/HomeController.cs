@@ -20,10 +20,15 @@ namespace MessageSlips.Controllers
             return View();
         }
 
-        public ActionResult CreateMessage()
+        public ActionResult NewMessage()
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Setting()
+        {
             return View();
         }
     }

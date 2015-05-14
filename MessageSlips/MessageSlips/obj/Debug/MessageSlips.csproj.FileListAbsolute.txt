@@ -1,7 +1,6 @@
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\obj\Debug\MessageSlips.csprojResolveAssemblyReference.cache
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.ApplicationInsights.Extensions.Intercept_x86.dll
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.ApplicationInsights.Extensions.Intercept_x64.dll
-\\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\MessageSlips.dll.config
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\MessageSlips.dll
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\MessageSlips.pdb
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Antlr3.Runtime.dll
