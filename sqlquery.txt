@@ -1,0 +1,48 @@
+Reminder App @ Websmith Group
+
+CREATE TABLE [dbo].[User] (
+	[userID] int NOT NULL, 
+    [userName] nvarchar(max)  NOT NULL,
+    [password] nvarchar(max)  NOT NULL,
+    [email] nvarchar(max)  NULL,
+    [admin] bit  NOT NULL,
+    [firstName] nvarchar(max)  NOT NULL,
+	[lastName] nvarchar(max)  NOT NULL,
+	PRIMARY KEY ([userID])
+);
+GO
+
+insert into [dbo].[User] values('1', 'admin','password', 'jadang31@gmail', true, 'Jason','Dang');
+
+DROP TABLE [dbo].[User]
+
+CREATE TABLE [dbo].[GmailUser] (
+    [userName] nvarchar(max)  NOT NULL,
+    [Gmail] nvarchar(max)  NOT NULL,
+    [admin] bit  NOT NULL,
+    [firstName] nvarchar(max)  NOT NULL,
+	[lastName] nvarchar(max)  NOT NULL,
+	PRIMARY KEY ([Gmail]),
+	FOREIGN KEY ([userName]) REFERENCES [dbo].[User]([userName])
+);
+GO
+
+CREATE TABLE [dbo].[MessageSlip] (
+    [mID] int IDENTITY(1,1) NOT NULL,
+    [sender] nvarchar(max)  NOT NULL,
+	[receiver] nvarchar(max) NOT NULL,
+	[categories] nvarchar(max) NOT NULL,
+    [date] date NOT NULL,
+	[time] time NOT NULL,
+    [phoneNum] varchar(10)  NULL,
+    [message] nvarchar(max)  NOT NULL,
+    [location] nvarchar(max)  NULL,
+    [other] nvarchar(max)  NULL,
+	[userName] nvarchar(max)  NOT NULL,
+	[userID] int NOT NULL, 
+	PRIMARY KEY ([mID]),
+	FOREIGN KEY ([userID]) REFERENCES [dbo].[User]([userID])
+);
+GO
+
+DROP TABLE [dbo].[MessageSlips]
