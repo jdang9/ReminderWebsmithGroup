@@ -10,12 +10,12 @@
 
 .main-header {
     color: #f2f2f2;
-    font-family: "Great Vibes", cursive;
+    font-family: Verdana, Geneva, Tahoma, sans-serif, cursive;
     font-size: 46px;
     line-height: 50px;
     font-weight: normal;
-    margin-bottom: 100px;
-    margin-top: 30px;
+    margin-bottom: 70px;
+    margin-top: 20px;
     text-align: center;
     text-shadow: 0 3px 3px #ff8100;
 }

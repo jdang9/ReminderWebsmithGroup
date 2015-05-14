@@ -1,17 +1,32 @@
 ﻿@{
     ViewBag.Title = "Message";
 }
-<h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Websmith Group</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/component.css" />
+    <link rel="stylesheet" href="~/Content/foundation-5/foundation-icons.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/mainstyle.css" />
+    <link rel="stylesheet" href="~/Content/foundation-5/css/foundation.css" />
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+    <script src="~/Content/foundation-5/js/vendor/modernizr.js"></script>
+</head>
+<body>
+    <div class="row">
+        <div class="large-3 columns"><h1></h1></div>
+        <div class="large-6 columns radius panel">
+            <h6 class="text-center subheader" id="textstyle">Create New Message Slip</h6>
+            <form>
+                <div class="large-12 columns">
+                    <label id="textstyle">
+                        Name<span style="color:red;">*</span>
+                        <input type="text" placeholder="First, Last" required>
+                    </label>
+                </div>
+            </form>
+        </div>
+        <div class="large-3 columns"><h1></h1></div>
+    </div>
+</body>
