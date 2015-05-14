@@ -13,14 +13,14 @@ namespace MessageSlips.Controllers
             return View();
         }
 
-        public ActionResult About()
+        public ActionResult Dashboard()
         {
             ViewBag.Message = "Your application description page.";
 
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult CreateMessage()
         {
             ViewBag.Message = "Your contact page.";
 

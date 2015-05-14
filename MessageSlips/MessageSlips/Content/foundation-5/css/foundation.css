@@ -1164,12 +1164,12 @@ button, .button {
   display: inline-block;
   padding: 1rem 2rem 1.0625rem 2rem;
   font-size: 1rem;
-  background-color: #008CBA;
-  border-color: #007095;
+  background-color: #e17b13;
+  border-color: #db6e00;
   color: #FFFFFF;
   transition: background-color 300ms ease-out; }
   button:hover, button:focus, .button:hover, .button:focus {
-    background-color: #007095; }
+    background-color: #db6e00; }
   button:hover, button:focus, .button:hover, .button:focus {
     color: #FFFFFF; }
   button.secondary, .button.secondary {
@@ -3117,7 +3117,10 @@ meta.foundation-mq-topbar {
   display: inline-block;
   font-size: 0;
   width: 100%;
-  background: #333333; }
+  background: #333333;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
   .icon-bar > * {
     display: block;
     float: left;
@@ -3185,13 +3188,13 @@ meta.foundation-mq-topbar {
   .icon-bar > * i {
     color: #FFFFFF; }
   .icon-bar > a:hover {
-    background: #008CBA; }
+    background: #e17b13; }
     .icon-bar > a:hover label {
       color: #FFFFFF; }
     .icon-bar > a:hover i {
       color: #FFFFFF; }
   .icon-bar > a.active {
-    background: #008CBA; }
+    background: #e17b13; }
     .icon-bar > a.active label {
       color: #FFFFFF; }
     .icon-bar > a.active i {

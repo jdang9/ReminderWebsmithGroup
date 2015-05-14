@@ -1,9 +1,11 @@
 ﻿body {
 }
 
+.logo {
+    margin-top: 20px;
+}
 .main-background {
     background-color: #151816;
-    font-family: 'Libre Baskerville', serif;
 }
 
 .main-header {
@@ -12,18 +14,31 @@
     font-size: 46px;
     line-height: 50px;
     font-weight: normal;
-    margin-bottom: 20px;
-    margin-top: 20px;
+    margin-bottom: 100px;
+    margin-top: 30px;
     text-align: center;
     text-shadow: 0 3px 3px #ff8100;
-} 
-asd {
-    color: #c9d0d4;
-    font-family: 'Helvetica Neue', sans-serif;
-    font-size: 46px;
-    font-weight: 100;
-    line-height: 50px;
-    letter-spacing: 1px;
-    padding: 0 0 40px;
-    border-bottom: #555;
+}
+
+.footer {
+    clear: both;
+    margin-top:auto;
+    margin-bottom: auto;
+ 
+}
+
+#footerborder {
+    margin-top: 10%;
+    margin-bottom: 0px;
+    border-top: 1px solid #f2f2f2;
+}
+
+#footertext {
+
+    color: #f2f2f2;
+    font-size: 10px;
+}
+
+#textstyle {
+    font-family: 'Libre Baskerville', serif;
 }
