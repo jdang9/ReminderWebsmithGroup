@@ -9,4 +9,5 @@ namespace MessageSlips.Models
     {
         public IEnumerable<User> GetUsers { get; set; }
     }
+
 }
