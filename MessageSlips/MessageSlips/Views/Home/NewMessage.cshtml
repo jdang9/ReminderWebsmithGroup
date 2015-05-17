@@ -18,19 +18,20 @@
         <div class="large-3 columns"><h1></h1></div>
         <div class="large-6 columns radius panel">
             <h6 class="text-center subheader" id="textstyle">Create New Message Slip</h6>
-            <form>
+            @using (Html.BeginForm("NewMessage", "Home", FormMethod.Post))
+            {
                 <div class="large-12 columns">
                     <label id="textstyle">
-                        To:<span style="color:red;">*</span>
-                        <input type="text" placeholder="First, Last" required>
+                        From:<span style="color: red;">*</span>
+                        <input type="text" name="mSender" placeholder="First, Last" required>
                     </label>
                     <label id="textstyle">
-                        From:<span style="color:red;">*</span>
-                        <input type="text" placeholder="First, Last" required>
+                        To:<span style="color: red;">*</span>
+                        <input type="text" name="mReceiver" placeholder="First, Last" required>
                     </label>
                     <label>
-                        Categories:<span style="color:red;">*</span>
-                        <select required>
+                        Categories:<span style="color: red;">*</span>
+                        <select name="mCategories" required>
                             <optgroup label="Clients:">
                                 <option value="New Client">New Client</option>
                                 <option value="Current Client">Current Client</option>
@@ -43,34 +44,34 @@
                         </select>
                     </label>
                     <label>
-                        Date:<span style="color:red;">*</span>
-                        <input type="date" placeholder="mm-dd-yyyy" required>
+                        Date:<span style="color: red;">*</span>
+                        <input type="date" name="mDate" placeholder="mm-dd-yyyy" required>
                     </label>
                     <label>
-                        Time:<span style="color:red;">*</span>
-                        <input type="time" placeholder="mm-dd-yyyy" required>
+                        Time:<span style="color: red;">*</span>
+                        <input type="time" name="mTime" placeholder="mm-dd-yyyy" required>
                     </label>
                     <label>
                         Phone (if applicable):
-                        <input type="tel" placeholder="xxx-xxx-xxxx" maxlength="10">
+                        <input type="tel" name="mTel" placeholder="xxx-xxx-xxxx" maxlength="10">
                     </label>
                     <label>
-                        Message:<span style="color:red;">*</span>
-                        <textarea rows="4" cols="50" placeholder="Please enter message" required></textarea>
+                        Message:<span style="color: red;">*</span>
+                        <textarea rows="4" name="mMessage" cols="50" placeholder="Please enter message" required></textarea>
                     </label>
                     <label>
                         Address (if applicable):
-                        <input type="text" placeholder="Please enter address" maxlength="50">
+                        <input type="text" name="mAddress" placeholder="Please enter address" maxlength="50">
                     </label>
                     <label>
                         Other (if applicable):
-                        <textarea rows="4" cols="40" placeholder="Please enter other info."></textarea>
+                        <textarea rows="4" name="mOther" cols="40" placeholder="Please enter other info."></textarea>
                     </label>
                 </div>
                 <div class="large-3 small-8 columns small-centered">
-                    <a href="#" id="login" class="button special expand round">Submit</a>
+                    <input type="submit" id="login" class="button special expand round" value="Submit"/>
                 </div>
-            </form>
+            }
         </div>
         <div class="large-3 columns"><h1></h1></div>
     </div>
