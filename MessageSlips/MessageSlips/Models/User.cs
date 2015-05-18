@@ -19,7 +19,6 @@ namespace MessageSlips.Models
             this.MessageSlips = new HashSet<MessageSlip>();
         }
     
-        public int userID { get; set; }
         public string userName { get; set; }
         public string password { get; set; }
         public string email { get; set; }

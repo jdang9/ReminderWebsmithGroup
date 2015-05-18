@@ -5,8 +5,8 @@
       <PropertyRef Name="mID" />
     </Key>
     <Property Name="mID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="sender" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="receiver" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="sender" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="receiver" Type="nvarchar" MaxLength="25" Nullable="false" />
     <Property Name="categories" Type="nvarchar(max)" Nullable="false" />
     <Property Name="date" Type="date" Nullable="false" />
     <Property Name="time" Type="time" Precision="7" Nullable="false" />
@@ -14,8 +14,7 @@
     <Property Name="message" Type="nvarchar(max)" Nullable="false" />
     <Property Name="location" Type="nvarchar(max)" />
     <Property Name="other" Type="nvarchar(max)" />
-    <Property Name="userName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="userID" Type="int" Nullable="false" />
+    <Property Name="userName" Type="nvarchar" MaxLength="25" Nullable="false" />
   </EntityType>
   <EntityType Name="sysdiagrams">
     <Key>
@@ -29,25 +28,24 @@
   </EntityType>
   <EntityType Name="User">
     <Key>
-      <PropertyRef Name="userID" />
+      <PropertyRef Name="userName" />
     </Key>
-    <Property Name="userID" Type="int" Nullable="false" />
-    <Property Name="userName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="password" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="email" Type="nvarchar(max)" />
+    <Property Name="userName" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="password" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="email" Type="nvarchar" MaxLength="50" />
     <Property Name="admin" Type="bit" Nullable="false" />
-    <Property Name="firstName" Type="nvarchar(max)" Nullable="false" />
-    <Property Name="lastName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="firstName" Type="nvarchar" MaxLength="25" Nullable="false" />
+    <Property Name="lastName" Type="nvarchar" MaxLength="25" Nullable="false" />
   </EntityType>
-  <Association Name="FK__MessageSl__userI__25869641">
+  <Association Name="FK__MessageSl__userN__3A81B327">
     <End Role="User" Type="Self.User" Multiplicity="1" />
     <End Role="MessageSlip" Type="Self.MessageSlip" Multiplicity="*" />
     <ReferentialConstraint>
       <Principal Role="User">
-        <PropertyRef Name="userID" />
+        <PropertyRef Name="userName" />
       </Principal>
       <Dependent Role="MessageSlip">
-        <PropertyRef Name="userID" />
+        <PropertyRef Name="userName" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -86,7 +84,7 @@
     <EntitySet Name="MessageSlip" EntityType="Self.MessageSlip" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-    <AssociationSet Name="FK__MessageSl__userI__25869641" Association="Self.FK__MessageSl__userI__25869641">
+    <AssociationSet Name="FK__MessageSl__userN__3A81B327" Association="Self.FK__MessageSl__userN__3A81B327">
       <End Role="User" EntitySet="User" />
       <End Role="MessageSlip" EntitySet="MessageSlip" />
     </AssociationSet>

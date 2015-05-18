@@ -1,8 +1,9 @@
 ﻿@{
     Layout = null;
 }
+@using System.Web.Security;
 
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
     <meta charset="utf-8" />
@@ -16,6 +17,12 @@
     <link rel="stylesheet" href="~/Content/foundation-5/css/foundation.css" />
 
     <script src="~/Content/foundation-5/js/vendor/modernizr.js"></script>
+    <script>
+        function click(e) {
+            window.alert("Login successful");
+        };
+    </script>
+
 </head>
 <body class="main-background">
 
@@ -45,20 +52,23 @@
                 <div id="main" class="radius panel">
                     <div class="row" id="login_form">
                         <h6 class="text-center subheader" id="textstyle">Please Sign in</h6>
-                        @using (Html.BeginForm("Index", "Home", FormMethod.Post)) {
-                            <div class="large-8 columns small-12 small-centered">
-                                <label id="textstyle">
-                                    User Name:<span style="color:red;">*</span>
-                                    <input type="text" name="userName" id="user_name" placeholder="Username" required>
-                                </label>
-                                <label id="textstyle">
-                                    Password:<span style="color:red;">*</span>
-                                    <input type="password" name="password" id="password" placeholder="Password" required>
-                                </label>
-                            </div>
-                            <div class="large-3 small-8 columns small-centered">
-                                <input type="submit" class="button special expand round" value="Sign in"/>
-                            </div>
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                        {
+                            <form method="post">
+                                <div class="large-8 columns small-12 small-centered">
+                                    <label id="textstyle">
+                                        User Name:<span style="color:red;">*</span>
+                                        <input type="text" name="userName" id="username" placeholder="Username" required>
+                                    </label>
+                                    <label id="textstyle">
+                                        Password:<span style="color:red;">*</span>
+                                        <input type="password" name="password" id="password" placeholder="Password" required>
+                                    </label>
+                                </div>
+                                <div class="large-3 small-8 columns small-centered">
+                                    <input type="submit" class="button special expand round" value="Sign in" />
+                                </div>
+                            </form>
                         }
                     </div>
                 </div>

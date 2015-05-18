@@ -6,14 +6,17 @@ using System.Web.Mvc;
 using System.Windows.Forms;
 using MessageSlips.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Expression.Framework;
 using System.Data.SqlClient;
 using FormCollection = System.Web.Mvc.FormCollection;
+using WebMatrix.WebData;
 
 namespace MessageSlips.Controllers
 {
     public class HomeController : Controller
     {
+        
         private MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();
  
         public ActionResult Index()
@@ -24,7 +27,7 @@ namespace MessageSlips.Controllers
         [HttpPost]
         public ActionResult Index(FormCollection form)
         {
-            MessageSlips.Models.User login = new MessageSlips.Models.User();
+            /*MessageSlips.Models.User login = new MessageSlips.Models.User();
 
             foreach (var user in db.Users)
             {
@@ -33,11 +36,15 @@ namespace MessageSlips.Controllers
                     login = user;
                     return RedirectToAction("Dashboard");
                 }
-                else if (user.userName != form["username"] && user.password != form["password"])
-                {
-                    return View("Index");
-                }
+
             }
+
+            if(count = 0)
+            {
+                Label.text = "";
+                return RedirectToAction("Index");
+            }*/
+            //Label.text = "Incorrect Username or Password";
             return View("Index");
         }
 

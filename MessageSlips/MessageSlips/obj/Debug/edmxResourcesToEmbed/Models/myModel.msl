@@ -1,24 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
   <EntityContainerMapping StorageEntityContainer="MessageSlipsWSGModelStoreContainer" CdmEntityContainer="MessageSlipsWSGEntities">
-    <EntitySetMapping Name="MessageSlips">
-      <EntityTypeMapping TypeName="MessageSlipsWSGModel.MessageSlip">
-        <MappingFragment StoreEntitySet="MessageSlip">
-          <ScalarProperty Name="mID" ColumnName="mID" />
-          <ScalarProperty Name="sender" ColumnName="sender" />
-          <ScalarProperty Name="receiver" ColumnName="receiver" />
-          <ScalarProperty Name="categories" ColumnName="categories" />
-          <ScalarProperty Name="date" ColumnName="date" />
-          <ScalarProperty Name="time" ColumnName="time" />
-          <ScalarProperty Name="phoneNum" ColumnName="phoneNum" />
-          <ScalarProperty Name="message" ColumnName="message" />
-          <ScalarProperty Name="location" ColumnName="location" />
-          <ScalarProperty Name="other" ColumnName="other" />
-          <ScalarProperty Name="userName" ColumnName="userName" />
-          <ScalarProperty Name="userID" ColumnName="userID" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="sysdiagrams">
       <EntityTypeMapping TypeName="MessageSlipsWSGModel.sysdiagram">
         <MappingFragment StoreEntitySet="sysdiagrams">
@@ -27,19 +9,6 @@
           <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
           <ScalarProperty Name="version" ColumnName="version" />
           <ScalarProperty Name="definition" ColumnName="definition" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
-    <EntitySetMapping Name="Users">
-      <EntityTypeMapping TypeName="MessageSlipsWSGModel.User">
-        <MappingFragment StoreEntitySet="User">
-          <ScalarProperty Name="userID" ColumnName="userID" />
-          <ScalarProperty Name="userName" ColumnName="userName" />
-          <ScalarProperty Name="password" ColumnName="password" />
-          <ScalarProperty Name="email" ColumnName="email" />
-          <ScalarProperty Name="admin" ColumnName="admin" />
-          <ScalarProperty Name="firstName" ColumnName="firstName" />
-          <ScalarProperty Name="lastName" ColumnName="lastName" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
@@ -67,5 +36,34 @@
     </FunctionImportMapping>
     <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="MessageSlipsWSGModel.Store.sp_renamediagram" />
     <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="MessageSlipsWSGModel.Store.sp_upgraddiagrams" />
+    <EntitySetMapping Name="MessageSlips">
+      <EntityTypeMapping TypeName="MessageSlipsWSGModel.MessageSlip">
+        <MappingFragment StoreEntitySet="MessageSlip">
+          <ScalarProperty Name="userName" ColumnName="userName" />
+          <ScalarProperty Name="other" ColumnName="other" />
+          <ScalarProperty Name="location" ColumnName="location" />
+          <ScalarProperty Name="message" ColumnName="message" />
+          <ScalarProperty Name="phoneNum" ColumnName="phoneNum" />
+          <ScalarProperty Name="time" ColumnName="time" />
+          <ScalarProperty Name="date" ColumnName="date" />
+          <ScalarProperty Name="categories" ColumnName="categories" />
+          <ScalarProperty Name="receiver" ColumnName="receiver" />
+          <ScalarProperty Name="sender" ColumnName="sender" />
+          <ScalarProperty Name="mID" ColumnName="mID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Users">
+      <EntityTypeMapping TypeName="MessageSlipsWSGModel.User">
+        <MappingFragment StoreEntitySet="User">
+          <ScalarProperty Name="lastName" ColumnName="lastName" />
+          <ScalarProperty Name="firstName" ColumnName="firstName" />
+          <ScalarProperty Name="admin" ColumnName="admin" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="userName" ColumnName="userName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
   </EntityContainerMapping>
 </Mapping>

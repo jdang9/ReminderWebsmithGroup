@@ -25,7 +25,6 @@ namespace MessageSlips.Models
         public string location { get; set; }
         public string other { get; set; }
         public string userName { get; set; }
-        public int userID { get; set; }
     
         public virtual User User { get; set; }
     }

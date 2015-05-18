@@ -156,3 +156,11 @@ C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\en\Microsoft.Expression.Utility.resources.dll
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\obj\Debug\MessageSlips.dll
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\obj\Debug\MessageSlips.pdb
+\\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.Expression.Framework.dll
+\\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.Expression.Utility.dll
+\\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\System.Net.Http.Formatting.dll
+\\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\System.Web.Http.dll
+\\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\System.Net.Http.Formatting.xml
+\\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\System.Web.Http.xml
+\\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\en\Microsoft.Expression.Framework.resources.dll
+\\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\en\Microsoft.Expression.Utility.resources.dll
