@@ -1,14 +1,13 @@
 Reminder App @ Websmith Group
 
-CREATE TABLE [dbo].[User] (
-	[userID] int NOT NULL, 
-    [userName] nvarchar(max)  NOT NULL,
+CREATE TABLE [dbo].[User] ( 
+    [userName] nvarchar(30)  NOT NULL,
     [password] nvarchar(max)  NOT NULL,
     [email] nvarchar(max)  NULL,
     [admin] bit  NOT NULL,
     [firstName] nvarchar(max)  NOT NULL,
 	[lastName] nvarchar(max)  NOT NULL,
-	PRIMARY KEY ([userID])
+	PRIMARY KEY ([userName])
 );
 GO
 
@@ -36,13 +35,14 @@ CREATE TABLE [dbo].[MessageSlip] (
 	[time] time NOT NULL,
     [phoneNum] varchar(10)  NULL,
     [message] nvarchar(max)  NOT NULL,
-    [location] nvarchar(max)  NULL,
+    [email] nvarchar(max)  NULL,
     [other] nvarchar(max)  NULL,
-	[userName] nvarchar(max)  NOT NULL,
-	[userID] int NOT NULL, 
+	[userName] nvarchar(30)  NOT NULL,
 	PRIMARY KEY ([mID]),
-	FOREIGN KEY ([userID]) REFERENCES [dbo].[User]([userID])
+	FOREIGN KEY ([userName]) REFERENCES [dbo].[User]([userName])
 );
 GO
+
+DROP TABLE [dbo].[MessageSlip]
 
 DROP TABLE [dbo].[MessageSlips]
