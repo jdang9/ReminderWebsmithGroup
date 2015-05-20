@@ -1,8 +1,10 @@
-﻿@{
-    Layout = null;
-}
-@using System.Web.Security;
+﻿@using System.Web.Security;
+@using MessageSlips.Models;
 
+@{
+    Layout = null;
+    ViewBag.Title = "Please Sign in";
+}
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
@@ -17,12 +19,6 @@
     <link rel="stylesheet" href="~/Content/foundation-5/css/foundation.css" />
 
     <script src="~/Content/foundation-5/js/vendor/modernizr.js"></script>
-    <script>
-        function click(e) {
-            window.alert("Login successful");
-        };
-    </script>
-
 </head>
 <body class="main-background">
 
@@ -51,25 +47,80 @@
             <div class="large-6 columns">
                 <div id="main" class="radius panel">
                     <div class="row" id="login_form">
-                        <h6 class="text-center subheader" id="textstyle">Please Sign in</h6>
-                        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                        {
-                            <form method="post">
-                                <div class="large-8 columns small-12 small-centered">
-                                    <label id="textstyle">
-                                        User Name:<span style="color:red;">*</span>
-                                        <input type="text" name="userName" id="username" placeholder="Username" required>
-                                    </label>
-                                    <label id="textstyle">
-                                        Password:<span style="color:red;">*</span>
-                                        <input type="password" name="password" id="password" placeholder="Password" required>
-                                    </label>
-                                </div>
-                                <div class="large-3 small-8 columns small-centered">
-                                    <input type="submit" class="button special expand round" value="Sign in" />
-                                </div>
-                            </form>
-                        }
+                        <h6 class="text-center subheader" id="textstyle" name="messageHolder">@ViewBag.Title</h6>
+                        <div><h6 class="text-center subheader" id="textstyle"><p id="messageHolder" name="messageHolder" /></h6></div>
+                            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                            {
+                                    <script type="text/javascript">
+                                        /*$("btnLogin").click(function() {
+                                                $.getJSON("LoginMessage",
+                                                    $.ajax({
+                                                        type: "post",
+                                                        url: "~/Controllers/HomeController/LoginMessage",
+                                                        success: function (data) {
+                                                            alert("Woohoo");
+                                                        },
+                                                        error: function () {
+                                                            alert("asdasdasd");
+                                                        }
+                                                    })
+                                            );
+                                        });*/
+                                    /*function loginMessage() {
+                                        $.getJSON("LoginMessage",
+                                                $.ajax({
+                                                    type: "post",
+                                                    url: "~/HomeController/LoginMessage",
+                                                    success: function (data) {
+                                                        alert(data)                                                      
+                                                    },
+                                                    error: function () {
+                                                        alert("ohhhhh crapppppp error :( ");
+                                                    }
+                                                })
+                                            );
+                                    }*/
+                                    /*function loginMessage() {
+                                        $.getJSON("LogginMessage", function (data) {
+                                            alert(data);
+                                        });
+                                            $.ajax({
+                                                type: "POST",
+                                                URL: "~/Controllers/HomeController/LoginMessage",
+                                                success: function (respone) {
+                                                    $("#messageHolder").html("Successfully signed in!");
+                                                    {
+                                                        MessageSlips.Models.User login = new MessageSlips.Models.User();
+                                                        if (Membership.ValidateUser(login.userName, login.password))
+                                                        {
+                                                            
+                                                        }
+                                                    }
+                                                },
+                                                error: function () {
+                                                    $("#messageHolder").html("Incorrect username or password!!!");
+                                                }
+                                        }));
+                                    }*/
+                                </script>
+                                <form method="post">
+                                    <div class="large-8 columns small-12 small-centered">
+                                        <label id="textstyle">
+                                            Username:<span style="color:red;">*</span>
+                                            <input type="text" name="userName" id="username" placeholder="Username" required>
+                                        </label>
+                                        <label id="textstyle">
+                                            Password:<span style="color:red;">*</span>
+                                            <input type="password" name="password" id="password" placeholder="Password" required>
+                                        </label>
+                                    </div>
+                                    <div class="large-3 small-8 columns small-centered">
+                                        <input type="submit" class="button special expand round" name="btnLogin" onclick="loginMessage()" value="Sign in" />
+                                    </div>
+                                    
+                                </form>
+                            }
+
                     </div>
                 </div>
             </div>

@@ -8,10 +8,6 @@ namespace MessageSlips.Models
 {
     public class Index
     {
-        [Required]
-        public string username { get; set; }
-        [Required]
-        public string password { get; set; }
+        public IEnumerable<User> GetUsers { get; set; }
     }
-
 }

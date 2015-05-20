@@ -4,11 +4,11 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="fce455c4cb0f408489da4789efdfaf52" Name="Diagram1" ZoomLevel="80">
-        <EntityTypeShape EntityType="MessageSlipsWSGModel.sysdiagram" Width="1.5" PointX="5.625" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="MessageSlipsWSGModel.MessageSlip" Width="1.5" PointX="3.625" PointY="1.5" />
-        <EntityTypeShape EntityType="MessageSlipsWSGModel.User" Width="1.5" PointX="0.625" PointY="1.625" />
-        <AssociationConnector Association="MessageSlipsWSGModel.FK__MessageSl__userN__3A81B327" />
+      <Diagram DiagramId="151f1e4bf6bd42348f9bbc3d0d004f9a" Name="Diagram1">
+        <EntityTypeShape EntityType="MessageSlipsWSGModel.MessageSlip" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="MessageSlipsWSGModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="MessageSlipsWSGModel.User" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
+        <AssociationConnector Association="MessageSlipsWSGModel.FK__MessageSl__userN__60A75C0F" ManuallyRouted="false" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

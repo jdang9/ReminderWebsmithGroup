@@ -1,7 +1,9 @@
-﻿@using MessageSlips.Models
+﻿@using System.Web.Optimization
+@using MessageSlips.Models
+@model MessageSlips.Models.UsersViewModel
 @{
     ViewBag.Title = "Setting";
-    Layout = "~/Views/Shared/_SettingLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <head>
     <meta charset="utf-8" />
@@ -18,43 +20,60 @@
 </head>
 <body>
     <div class="row">
-        <div class="large-12 columns radius panel">
-            <h6 class="text-center subheader" id="textstyle">Enter required information below to create new user</h6>
-
+        <div class="large-12 columns">
+        <div class="large-5 columns radius panel">
+            <h6 class="text-center subheader" id="textstyle">Delete a user</h6>
             @using (Html.BeginForm("Setting", "Home", FormMethod.Post))
             {
-                <label id="textstyle">
-                    Username:<span style="color: red;">*</span>
-                    <input type="text" name="newUsername" placeholder="Username" required>
-                </label>
-                <label id="textstyle">
-                    Password:<span style="color: red;">*</span>
-                    <input type="password" name="newPassword" placeholder="Password" required>
-                </label>
-                <label id="textstyle">
-                    Confirmed password:<span style="color: red;">*</span>
-                    <input type="password" name="confirmedNewPassword" placeholder="Confirmed Password" required>
-                </label>
-                <label id="textstyle">
-                    Email:<span style="color: red;">*</span>
-                    <input type="email" name="newEmail" placeholder="Email" required>
-                </label>
-                <label id="textstyle">
-                    Admin:
-                    <input type="checkbox" name="adminStat">
-                </label>
-                <label id="textstyle">
-                    First Name:<span style="color: red;">*</span>
-                    <input type="text" name="newFirstName" placeholder="First Name" required>
-                </label>
-                <label id="textstyle">
-                    Last Name:<span style="color: red;">*</span>
-                    <input type="text" name="newLastName" placeholder="Last Name" required>
-                </label>
-                <div class="large-3 small-8 columns small-centered">
-                    <input type="submit" id="login" class="button special expand round" value="Submit" />
-                </div>
+                MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();                
+                <select name="users" size="1" style="background-color: whitesmoke">
+                    @foreach (var user in db.Users)
+                    {
+                        <option id="user" style="color: black" value="@user.userName">@user.userName</option>
+                    }
+                </select>
+            <div class="large-6 small-8 columns small-centered">
+                <input type="submit" id="login" class="button special expand round" value="Delete User" />
+            </div>
             }
+        </div>
+            <div class="large-7 columns radius panel">
+                <h6 class="text-center subheader" id="textstyle">Enter required information below to create new user</h6>
+                @using (Html.BeginForm("Setting", "Home", FormMethod.Post))
+                {
+                    <label id="textstyle">
+                        Username:<span style="color: red;">*</span>
+                        <input type="text" name="newUsername" placeholder="Username" required>
+                    </label>
+                    <label id="textstyle">
+                        Password:<span style="color: red;">*</span>
+                        <input type="password" name="newPassword" placeholder="Password" required>
+                    </label>
+                    <label id="textstyle">
+                        Confirmed password:<span style="color: red;">*</span>
+                        <input type="password" name="confirmedNewPassword" placeholder="Confirmed Password" required>
+                    </label>
+                    <label id="textstyle">
+                        Email:<span style="color: red;">*</span>
+                        <input type="email" name="newEmail" placeholder="Email" required>
+                    </label>
+                    <label id="textstyle">
+                        Admin:
+                        <input type="checkbox" name="adminStat">
+                    </label>
+                    <label id="textstyle">
+                        First Name:<span style="color: red;">*</span>
+                        <input type="text" name="newFirstName" placeholder="First Name" required>
+                    </label>
+                    <label id="textstyle">
+                        Last Name:<span style="color: red;">*</span>
+                        <input type="text" name="newLastName" placeholder="Last Name" required>
+                    </label>
+                    <div class="large-4 small-8 columns small-centered">
+                        <input type="submit" id="login" class="button special expand round" value="Create User" />
+                    </div>
+                }
+            </div>
         </div>
     </div>
 </body>

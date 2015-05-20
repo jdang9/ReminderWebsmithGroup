@@ -22,7 +22,7 @@ namespace MessageSlips.Models
         public System.TimeSpan time { get; set; }
         public string phoneNum { get; set; }
         public string message { get; set; }
-        public string location { get; set; }
+        public string email { get; set; }
         public string other { get; set; }
         public string userName { get; set; }
     
