@@ -1,6 +1,7 @@
 Reminder App @ Websmith Group
 
-CREATE TABLE [dbo].[User] ( 
+CREATE TABLE [dbo].[User] (
+	[userID] int IDENTITY(1,1) NOT NULL, 
     [userName] nvarchar(30)  NOT NULL,
     [password] nvarchar(max)  NOT NULL,
     [email] nvarchar(max)  NULL,
@@ -11,7 +12,9 @@ CREATE TABLE [dbo].[User] (
 );
 GO
 
-insert into [dbo].[User] values('1', 'admin','password', 'jadang31@gmail', true, 'Jason','Dang');
+ALTER TABLE [dbo].[User] ADD CONSTRAINT username_ID PRIMARY KEY ([userID], [userName]);
+SET IDENTITY_INSERT [dbo].[User] OFF
+insert into [dbo].[User] values('1', 'admin','password', 'jadang31@gmail', 1, 'Jason','Dang');
 
 DROP TABLE [dbo].[User]
 
@@ -44,5 +47,3 @@ CREATE TABLE [dbo].[MessageSlip] (
 GO
 
 DROP TABLE [dbo].[MessageSlip]
-
-DROP TABLE [dbo].[MessageSlips]
