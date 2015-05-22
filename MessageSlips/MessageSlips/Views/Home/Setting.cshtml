@@ -1,4 +1,5 @@
-﻿@using System.Web.Optimization
+﻿@using System.Data.Entity.Infrastructure
+@using System.Web.Optimization
 @using MessageSlips.Models
 @model MessageSlips.Models.UsersViewModel
 @{
@@ -47,7 +48,7 @@
                             }
                         </select>
                         <div class="large-6 small-8 columns small-centered">
-                            <input type="submit" id="login" class="button special expand round" value="Delete User" />
+                            <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Delete User" />
                         </div>
                     }
                 </div>
@@ -84,7 +85,7 @@
                             <input type="text" name="newLastName" placeholder="Last Name" required>
                         </label>
                         <div class="large-4 small-8 columns small-centered">
-                            <input type="submit" id="login" class="button special expand round" value="Create User" />
+                            <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Create User" />
                         </div>
                     }
                 </div>

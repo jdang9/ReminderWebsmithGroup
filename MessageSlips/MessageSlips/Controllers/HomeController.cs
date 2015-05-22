@@ -47,7 +47,7 @@ namespace MessageSlips.Controllers
                     {
                         CurrentAdmin = false;
                     }
-                    CurrentUserName = user.firstName;
+                    CurrentUserName = user.firstName + " " + user.lastName;
                     return RedirectToAction("Dashboard");
                 }
 
