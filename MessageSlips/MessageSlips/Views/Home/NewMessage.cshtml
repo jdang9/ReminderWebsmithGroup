@@ -1,4 +1,5 @@
-﻿@{
+﻿@using MessageSlips.Models
+@{
     ViewBag.Title = "Message";
 }
 <head>
@@ -20,6 +21,7 @@
             <h6 class="text-center subheader" id="textstyle">Create New Message Slip</h6>
             @using (Html.BeginForm("NewMessage", "Home", FormMethod.Post))
             {
+                MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
                 <div class="large-12 columns">
                     <label id="textstyle">
                         From:<span style="color: red;">*</span>
@@ -27,7 +29,15 @@
                     </label>
                     <label id="textstyle">
                         To:<span style="color: red;">*</span>
-                        <input type="text" name="mReceiver" placeholder="First, Last" required>
+                        <select name="mReceiver" required>
+                            @foreach (var user in db.Users)
+                            {
+
+                                <option value="@user.userName">@user.firstName @user.lastName</option>
+
+                            }
+                        </select>
+<!--<input type="text" name="mReceiver" placeholder="First, Last" required>-->
                     </label>
                     <label>
                         Categories:<span style="color: red;">*</span>

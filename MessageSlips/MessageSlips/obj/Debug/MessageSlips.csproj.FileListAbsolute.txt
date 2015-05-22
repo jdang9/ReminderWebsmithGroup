@@ -73,7 +73,6 @@
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\obj\Debug\MessageSlips.dll
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\obj\Debug\MessageSlips.pdb
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\MessageSlips.dll.config
-C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\obj\Debug\MessageSlips.csprojResolveAssemblyReference.cache
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.ApplicationInsights.Extensions.Intercept_x86.dll
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.ApplicationInsights.Extensions.Intercept_x64.dll
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\MessageSlips.dll.config
@@ -117,8 +116,6 @@ C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\System.Web.WebPages.Razor.dll
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\WebGrease.dll
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.Expression.Utility.dll
-C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\System.Net.Http.Formatting.dll
-C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\System.Web.Http.dll
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\EntityFramework.xml
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\EntityFramework.SqlServer.xml
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.ApplicationInsights.xml
@@ -150,8 +147,6 @@ C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.Owin.Security.Google.xml
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.Owin.Security.Twitter.xml
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\Microsoft.Owin.Security.MicrosoftAccount.xml
-C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\System.Net.Http.Formatting.xml
-C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\System.Web.Http.xml
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\en\Microsoft.Expression.Framework.resources.dll
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\en\Microsoft.Expression.Utility.resources.dll
 C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\obj\Debug\MessageSlips.dll
@@ -164,3 +159,4 @@ C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\System.Web.Http.xml
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\en\Microsoft.Expression.Framework.resources.dll
 \\psf\Home\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\bin\en\Microsoft.Expression.Utility.resources.dll
+C:\Users\Jason\Documents\GitHub\ReminderWebsmithGroup\MessageSlips\MessageSlips\obj\Debug\MessageSlips.csprojResolveAssemblyReference.cache
