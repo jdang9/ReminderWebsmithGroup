@@ -19,7 +19,9 @@ namespace MessageSlips.Controllers
     {
         
         private MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();
+        private static MessageSlips.Models.User _userlogin = new MessageSlips.Models.User();
 
+        public static String CurrentUserName;
         public ActionResult Index()
         {
             return View();
@@ -29,13 +31,12 @@ namespace MessageSlips.Controllers
         public ActionResult Index(FormCollection form)
         {
             MessageSlips.Models.User login = new MessageSlips.Models.User();
-            var count = 0;
             foreach (var user in db.Users)
             {
                 if (user.userName == form["username"] && user.password == form["password"])
                 {
-                    login = user;
-                        count++;
+                    _userlogin = user;
+                    CurrentUserName = user.firstName;
                     return RedirectToAction("Dashboard");
                 }
 
@@ -53,7 +54,6 @@ namespace MessageSlips.Controllers
         [HttpPost]
         public JsonResult LoginMessage(FormCollection form)
         {
-            MessageSlips.Models.User login = new MessageSlips.Models.User();
 
             bool check = false;
 
@@ -83,16 +83,44 @@ namespace MessageSlips.Controllers
             return View();
         }
 
-        public ActionResult NewMessage(FormCollection form)
+        public ActionResult NewMessage()
         {
-            MessageSlips.Models.MessageSlip ml = new MessageSlips.Models.MessageSlip();
-            SqlConnection con = new SqlConnection("Server=JASONDANGA73C\\SQLEXPRESS;Database=MessageSlipsWSG;Trusted_Connection = True");
-            {
-                SqlCommand xp = new SqlCommand("INSERT INTO MessageSlip(sender, receiver, categories, date, time, phoneNum, message, location, other, userName, userID) VALUES(@sender, @receiver, @categories, @date, @time, @phoneNum, @message, @location, @other, @userName, @userID", con);
-            }
             return View();
         }
 
+        [HttpPost]
+        public ActionResult NewMessage(FormCollection form)
+        {
+            MessageSlip mSlip = new MessageSlip();
+            DateTime mDate;
+            TimeSpan mTime;
+            DateTime.TryParse(form["mDate"], out mDate);
+            TimeSpan.TryParse(form["mTime"], out mTime);
+            String id = "";
+            mSlip.sender = form["mSender"];
+            mSlip.receiver = form["mReceiver"];
+            mSlip.categories = form["mCategories"];
+            mSlip.date = mDate;
+            mSlip.time = mTime;
+            mSlip.phoneNum = form["mTel"];
+            mSlip.message = form["mMessage"];
+            mSlip.email = form["mEmail"];
+            mSlip.other = form["mOther"];
+            foreach (var user in db.Users)
+            {
+                if (form["mReceiver"] == user.userName)
+                {
+                    id = user.userName;
+                }
+            }
+            mSlip.userName = id;
+            if (ModelState.IsValid)
+            {
+                db.MessageSlips.Add(mSlip);
+                db.SaveChanges();
+            }
+            return View();
+        }
 
         public ActionResult Setting()
         {
@@ -102,6 +130,16 @@ namespace MessageSlips.Controllers
         [HttpPost]
         public ActionResult Setting(FormCollection form)
         {
+            MessageSlips.Models.User login = new MessageSlips.Models.User();
+            foreach (var user in db.Users)
+            {
+                if (user.userName == form["username"] && user.password == form["password"])
+                {
+                    login = user;
+                }
+
+            }
+
             if (form.Keys[0] == "users")
             {
                 /*int id;
@@ -140,5 +178,6 @@ namespace MessageSlips.Controllers
             }
             return View(); 
         }
+
     }
 }

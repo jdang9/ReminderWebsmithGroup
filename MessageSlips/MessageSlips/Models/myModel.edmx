@@ -43,7 +43,7 @@
           <Property Name="firstName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="lastName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <Association Name="FK__MessageSl__userN__60A75C0F">
+        <Association Name="FK__MessageSl__userN__25869641">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="MessageSlip" Type="Self.MessageSlip" Multiplicity="*" />
           <ReferentialConstraint>
@@ -90,7 +90,7 @@
           <EntitySet Name="MessageSlip" EntityType="Self.MessageSlip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__MessageSl__userN__60A75C0F" Association="Self.FK__MessageSl__userN__60A75C0F">
+          <AssociationSet Name="FK__MessageSl__userN__25869641" Association="Self.FK__MessageSl__userN__25869641">
             <End Role="User" EntitySet="User" />
             <End Role="MessageSlip" EntitySet="MessageSlip" />
           </AssociationSet>
@@ -115,7 +115,7 @@
           <Property Name="email" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="other" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="userName" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="User" Relationship="Self.FK__MessageSl__userN__60A75C0F" FromRole="MessageSlip" ToRole="User" />
+          <NavigationProperty Name="User" Relationship="Self.FK__MessageSl__userN__25869641" FromRole="MessageSlip" ToRole="User" />
         </EntityType>
         <EntityType Name="sysdiagram">
           <Key>
@@ -138,9 +138,9 @@
           <Property Name="admin" Type="Boolean" Nullable="false" />
           <Property Name="firstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
           <Property Name="lastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" Nullable="false" />
-          <NavigationProperty Name="MessageSlips" Relationship="Self.FK__MessageSl__userN__60A75C0F" FromRole="User" ToRole="MessageSlip" />
+          <NavigationProperty Name="MessageSlips" Relationship="Self.FK__MessageSl__userN__25869641" FromRole="User" ToRole="MessageSlip" />
         </EntityType>
-        <Association Name="FK__MessageSl__userN__60A75C0F">
+        <Association Name="FK__MessageSl__userN__25869641">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="MessageSlip" Type="Self.MessageSlip" Multiplicity="*" />
           <ReferentialConstraint>
@@ -156,7 +156,7 @@
           <EntitySet Name="MessageSlips" EntityType="Self.MessageSlip" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
           <EntitySet Name="Users" EntityType="Self.User" />
-          <AssociationSet Name="FK__MessageSl__userN__60A75C0F" Association="Self.FK__MessageSl__userN__60A75C0F">
+          <AssociationSet Name="FK__MessageSl__userN__25869641" Association="Self.FK__MessageSl__userN__25869641">
             <End Role="User" EntitySet="Users" />
             <End Role="MessageSlip" EntitySet="MessageSlips" />
           </AssociationSet>
