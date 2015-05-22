@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using FormCollection = System.Web.Mvc.FormCollection;
 using WebMatrix.WebData;
 using System.Web.Security;
+using Microsoft.Ajax.Utilities;
 
 namespace MessageSlips.Controllers
 {
@@ -142,13 +143,21 @@ namespace MessageSlips.Controllers
 
             if (form.Keys[0] == "users")
             {
-                /*int id;
-                int.TryParse(form["users"], out id);*/
                 string dUser = form["users"];
                 User deleteUser = new User();
+                MessageSlip deleteMessage = new MessageSlip();
                 deleteUser = db.Users.Find(dUser);
                 if (ModelState.IsValid)
                 {
+                    foreach (var dMess in db.MessageSlips)
+                    {
+                        var mID = dMess.mID;
+                        if (dMess.userName == deleteUser.userName)
+                        {
+                            deleteMessage = db.MessageSlips.Find(mID);
+                            db.MessageSlips.Remove(deleteMessage);
+                        }
+                    }
                     db.Users.Remove(deleteUser);
                     db.SaveChanges();
                     return RedirectToAction("Setting");
