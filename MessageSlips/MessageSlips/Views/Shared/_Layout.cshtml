@@ -26,22 +26,22 @@
 </head>
 <body class="main-background">
     <div class="row top">
-        <div class="large-10 columns">
+        <div class="large-9 columns">
             <div class="large-only-text-center">
                 <h1 class="logo"><img src="~/Content/foundation-5/img/wsgh59i.png"></h1>
             </div>
         </div>
-        <div class="large-2 columns large-text-center">
+        <div class="large-3 columns large-text-center">
             <ul class="logo">
                 <li id="login">
                     @using (Html.BeginForm("LogOff", "Home", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
-                        <input type="submit" id="login" class="button special expand round" value="Sign out"/>
+    <input type="submit" id="login" class="button special round" style="font-family: 'Libre Baskerville', serif;" value="Sign out" />
                     }
                 </li>
             </ul>
-            <div><label style="color: white" >Hello @MessageSlips.Controllers.HomeController.CurrentUserName! </label></div>
+            <div><label style="color: white" id="textstyle">Hello @MessageSlips.Controllers.HomeController.CurrentUserName! </label></div>
         </div>
     </div>
 

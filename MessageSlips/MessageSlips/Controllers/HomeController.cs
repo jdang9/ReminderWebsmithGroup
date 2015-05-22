@@ -21,8 +21,10 @@ namespace MessageSlips.Controllers
         
         private MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();
         private static MessageSlips.Models.User _userlogin = new MessageSlips.Models.User();
-
+        private static MessageSlips.Models.User _useradmin = new MessageSlips.Models.User();
+        public static bool CurrentAdmin;
         public static String CurrentUserName;
+
         public ActionResult Index()
         {
             return View();
@@ -37,7 +39,15 @@ namespace MessageSlips.Controllers
                 if (user.userName == form["username"] && user.password == form["password"])
                 {
                     _userlogin = user;
-                    CurrentUserName = user.firstName;
+                    if (user.admin == true)
+                    {
+                        CurrentAdmin = true;
+                    }
+                    else
+                    {
+                        CurrentAdmin = false;
+                    }
+                    CurrentUserName = user.firstName + " " + user.lastName;
                     return RedirectToAction("Dashboard");
                 }
 
