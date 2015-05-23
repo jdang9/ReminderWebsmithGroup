@@ -182,7 +182,7 @@ namespace MessageSlips.Controllers
             {
                 Models.User newUser = new Models.User();
                 bool admin;
-                bool.TryParse(form["admin"], out admin);
+                bool.TryParse(form["adminStat"], out admin);
                 newUser.userName = form["newUsername"];
                 newUser.password = form["newPassword"];
                 newUser.email = form["newEmail"];
