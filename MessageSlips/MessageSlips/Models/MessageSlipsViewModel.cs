@@ -1,0 +1,12 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace MessageSlips.Models
+{
+    public class MessageSlipsViewModel
+    {
+        public IEnumerable<MessageSlip> Users { get; set; }
+    }
+}

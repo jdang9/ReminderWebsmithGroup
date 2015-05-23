@@ -21,12 +21,12 @@
 </head>
 <body>
 <div class="row">
-    <div class="large-12">
+    <div class="large-12 columns radius panel">
         <div class="large-9 columns">
-            <h3 id="textstyle" class="text-center" style="color: white">Message Slips</h3>
+            <h3 id="textstyle" class="text-center" style="color: black">Message Slips</h3>
         </div>
         <div class="large-3 columns">
-            @using (Html.BeginForm("Setting", "Home", FormMethod.Post))
+            @using (Html.BeginForm("NewMessage", "Home", FormMethod.Post))
             {
                 MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
                 <select name="users" size="1" style="background-color: whitesmoke">
@@ -37,9 +37,7 @@
                 </select>
             }
         </div>
+        <div>Message goes here</div>
     </div>
-</div>
-<div class="row">
-    <div class="large-12 columns radius panel">Something goes here</div>
 </div>
 </body>
