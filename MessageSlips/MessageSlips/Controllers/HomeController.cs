@@ -173,6 +173,7 @@ namespace MessageSlips.Controllers
                     return RedirectToAction("Setting");
                 }
             } 
+
            if (form["newPassword"] != form["confirmedNewPassword"])
             {
                 MessageBox.Show("Confirmed password does not match!");
@@ -182,11 +183,16 @@ namespace MessageSlips.Controllers
             {
                 Models.User newUser = new Models.User();
                 bool admin;
-                bool.TryParse(form["adminStat"], out admin);
+                if (!string.IsNullOrEmpty(form["admin"]))
+                {
+                    string stringAdmin = form["admin"];
+                    admin = Convert.ToBoolean(stringAdmin);
+                    newUser.admin = admin;
+                }
+                //bool.TryParse(form["admin"], out admin);
                 newUser.userName = form["newUsername"];
                 newUser.password = form["newPassword"];
                 newUser.email = form["newEmail"];
-                newUser.admin = admin;
                 newUser.firstName = form["newFirstName"];
                 newUser.lastName = form["newLastName"];
                 if (ModelState.IsValid)
