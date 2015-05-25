@@ -1,4 +1,5 @@
-﻿@using System.Data.SqlClient
+﻿@using System.Collections
+@using System.Data.SqlClient
 @using MessageSlips.Models
 @using System.Web.Mvc;
 @using System.Web.Services.Description
@@ -8,25 +9,23 @@
     ViewBag.Title = "Dashboard";
 }
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Websmith Group</title>
-    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/demo.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/component.css" />
-    <link rel="stylesheet" href="~/Content/foundation-5/foundation-icons.css" />
-    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/mainstyle.css" />
-    <link rel="stylesheet" href="~/Content/foundation-5/css/foundation.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/demo.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/component.css"/>
+    <link rel="stylesheet" href="~/Content/foundation-5/foundation-icons.css"/>
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/mainstyle.css"/>
+    <link rel="stylesheet" href="~/Content/foundation-5/css/foundation.css"/>
+    <link rel="stylesheet" href="~/Content/Site.css" />
 
     <script src="~/Content/foundation-5/js/vendor/modernizr.js"></script>
 </head>
 <body>
 <div class="row">
-    <div class="large-12 columns radius panel">
-        <div class="large-9 columns">
-            <h3 id="textstyle" class="text-center" style="color: black">Message Slips</h3>
-        </div>
-        <div class="large-3 columns">
-            @using (Html.BeginForm("NewMessage", "Home", FormMethod.Post))
+    <div class="large-4 columns radius panel">
+        @{
+            using (Html.BeginForm("Dashboard", "Home", FormMethod.Post))
             {
                 MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
                 <select name="users" size="1" style="background-color: whitesmoke">
@@ -35,9 +34,76 @@
                         <option id="user" style="color: black" value="@user.userName">@user.firstName @user.lastName</option>
                     }
                 </select>
+                <div>
+                    <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Select User"/>
+                </div>
             }
-        </div>
-        <div>Message goes here</div>
+
+        }
     </div>
+    <table>
+        <tr>
+            <th>
+                From
+            </th>
+            <th>
+                Category
+            </th>
+            <th>
+                Date
+            </th>
+            <th>
+                Time
+            </th>
+            <th>
+                Phone Number
+            </th>
+            <th>
+                Message
+            </th>
+            <th>
+                Email
+            </th>
+            <th>
+                Other
+            </th>
+        </tr>
+        @model List<MessageSlips.Models.MessageSlipsViewModel>
+        @{
+            if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Sender)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Categories)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Time)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Phone)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Message)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Other)
+                        </td>
+                    </tr>
+                }
+            }
+        }
+    </table>
+
 </div>
 </body>

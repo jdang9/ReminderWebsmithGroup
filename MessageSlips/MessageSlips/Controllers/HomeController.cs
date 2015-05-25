@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using FormCollection = System.Web.Mvc.FormCollection;
 using WebMatrix.WebData;
 using System.Web.Security;
+using System.Xml.XPath;
 using Microsoft.Ajax.Utilities;
 
 namespace MessageSlips.Controllers
@@ -56,11 +57,6 @@ namespace MessageSlips.Controllers
             return View("Index");
         }
 
-        public ActionResult GetLoginResult()
-        {
-            String result = "This causes too much pain";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
 
         [HttpPost]
         public JsonResult LoginMessage(FormCollection form)
@@ -89,9 +85,71 @@ namespace MessageSlips.Controllers
 
         public ActionResult Dashboard()
         {
-            ViewBag.Message = "Dashboard goes here";
-
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Dashboard(FormCollection form)
+        {
+            MessageSlip message = new MessageSlip();
+            /*using (db = new MessageSlipsWSGEntities())
+            {
+                if (form.Keys[0] == "users")
+                {
+                    string selectedUser = form["user"];
+                    foreach (var dMess in db.MessageSlips)
+                    {
+                        if (selectedUser == dMess.userName)
+                        {
+                            var model = from user in db.MessageSlips
+                                select new MessageSlipsViewModel
+                                {
+                                    Sender = user.sender,
+                                    Receiver = user.receiver,
+                                    Categories = user.categories,
+                                    Date = user.date,
+                                    Time = user.time,
+                                    Phone = user.phoneNum,
+                                    Message = user.message,
+                                    Email = user.email,
+                                    Other = user.other,
+                                    Username = user.userName,
+                                };
+                            return View(model.ToList());
+                        }
+                    }
+                }
+
+            }*/
+            MessageSlipsViewModel msMessageSlipsViewModel = new MessageSlipsViewModel();
+            List<MessageSlipsViewModel> result = new List<MessageSlipsViewModel>();
+            if (form.Keys[0] == "users")
+            {
+
+                string selectedUser = form["users"];
+
+                    foreach (var slip in db.MessageSlips)
+                    {
+                        
+                        if (selectedUser == slip.userName)
+                        {
+                            msMessageSlipsViewModel.Sender = slip.sender;
+                            msMessageSlipsViewModel.Receiver = slip.receiver;
+                            msMessageSlipsViewModel.Categories = slip.categories;
+                            msMessageSlipsViewModel.Date = slip.date;
+                            msMessageSlipsViewModel.Time = slip.time;
+                            msMessageSlipsViewModel.Phone = slip.phoneNum;
+                            msMessageSlipsViewModel.Message = slip.message;
+                            msMessageSlipsViewModel.Email = slip.email;
+                            msMessageSlipsViewModel.Other = slip.other;
+                            msMessageSlipsViewModel.Username = slip.userName;
+                            result.Add(msMessageSlipsViewModel);
+                        }
+                    }
+
+                //return View(result);
+            }
+            return View(result);
         }
 
         public ActionResult NewMessage()
