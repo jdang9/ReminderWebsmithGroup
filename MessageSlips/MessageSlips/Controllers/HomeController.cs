@@ -129,10 +129,10 @@ namespace MessageSlips.Controllers
                 string selectedUser = form["users"];
 
                     foreach (var slip in db.MessageSlips)
-                    {
-                        
+                    {                       
                         if (selectedUser == slip.userName)
                         {
+                            msMessageSlipsViewModel.MessageId = slip.mID;
                             msMessageSlipsViewModel.Sender = slip.sender;
                             msMessageSlipsViewModel.Receiver = slip.receiver;
                             msMessageSlipsViewModel.Categories = slip.categories;
@@ -144,12 +144,35 @@ namespace MessageSlips.Controllers
                             msMessageSlipsViewModel.Other = slip.other;
                             msMessageSlipsViewModel.Username = slip.userName;
                             result.Add(msMessageSlipsViewModel);
+                            msMessageSlipsViewModel = new MessageSlipsViewModel();
                         }
                     }
 
                 //return View(result);
             }
             return View(result);
+        }
+
+        public ActionResult Done(int id)
+        {
+            using (db = new MessageSlipsWSGEntities())
+            {
+                var d = db.MessageSlips.Find(id);
+                db.MessageSlips.Remove(d);
+                db.SaveChanges();
+            }
+
+            /*MessageSlip deleteMessage = new MessageSlip();
+            deleteMessage = db.MessageSlips.Find(id);
+            if (ModelState.IsValid)
+            {
+                foreach (var dMess in db.MessageSlips.ToArray())
+                {
+                        db.MessageSlips.Remove(deleteMessage);
+                        db.SaveChanges();
+                }              
+            }*/
+            return RedirectToAction("Dashboard");
         }
 
         public ActionResult NewMessage()

@@ -9,6 +9,7 @@ namespace MessageSlips.Models
 {
     public class MessageSlipsViewModel
     {
+        public int MessageId { set; get; }
         public string Sender { set; get; }
         public string Receiver { set; get; }
         public string Categories { set; get; }

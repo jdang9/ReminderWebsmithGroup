@@ -67,39 +67,48 @@
             <th>
                 Other
             </th>
+            <th>
+                Actions
+            </th>
         </tr>
         @model List<MessageSlips.Models.MessageSlipsViewModel>
         @{
-            if (Model != null)
-            {
-                foreach (var item in Model)
+            using (Html.BeginForm("Dashboard", "Home", FormMethod.Post)) { 
+                if (Model != null)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Sender)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Categories)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Date)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Time)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Phone)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Message)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Email)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Other)
-                        </td>
-                    </tr>
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Sender)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Categories)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Date)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Time)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Phone)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Message)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Email)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Other)
+                            </td>
+                            <td>
+                                <!--Html.ActionLink("Edit", "Dashboard", "MessageSlipsViewModel", new { id = item.MessageId, user = item.Username }) |-->
+                                @Html.Raw(Html.ActionLink("Done", "Done", "Home", new { id = item.MessageId }, new { onclick = "return confirm('Are you sure you want to delete this record?');" }))
+                            </td>
+                        </tr>
+                    }
                 }
             }
         }
