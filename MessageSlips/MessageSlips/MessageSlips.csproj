@@ -209,6 +209,7 @@
     <Compile Include="Models\MessageSlip.cs">
       <DependentUpon>myModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\MessageSlipsViewModel.cs" />
     <Compile Include="Models\myModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

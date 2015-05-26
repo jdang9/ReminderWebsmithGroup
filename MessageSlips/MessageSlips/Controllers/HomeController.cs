@@ -12,6 +12,7 @@ using System.Data.SqlClient;
 using FormCollection = System.Web.Mvc.FormCollection;
 using WebMatrix.WebData;
 using System.Web.Security;
+using System.Xml.XPath;
 using Microsoft.Ajax.Utilities;
 
 namespace MessageSlips.Controllers
@@ -21,9 +22,9 @@ namespace MessageSlips.Controllers
         
         private MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();
         private static MessageSlips.Models.User _userlogin = new MessageSlips.Models.User();
-        private static MessageSlips.Models.User _useradmin = new MessageSlips.Models.User();
         public static bool CurrentAdmin;
         public static String CurrentUserName;
+
 
         public ActionResult Index()
         {
@@ -39,6 +40,7 @@ namespace MessageSlips.Controllers
                 if (user.userName == form["username"] && user.password == form["password"])
                 {
                     _userlogin = user;
+
                     if (user.admin == true)
                     {
                         CurrentAdmin = true;
@@ -50,17 +52,11 @@ namespace MessageSlips.Controllers
                     CurrentUserName = user.firstName + " " + user.lastName;
                     return RedirectToAction("Dashboard");
                 }
-
             }
             
             return View("Index");
         }
 
-        public ActionResult GetLoginResult()
-        {
-            String result = "This causes too much pain";
-            return Json(result, JsonRequestBehavior.AllowGet);
-        }
 
         [HttpPost]
         public JsonResult LoginMessage(FormCollection form)
@@ -89,9 +85,71 @@ namespace MessageSlips.Controllers
 
         public ActionResult Dashboard()
         {
-            ViewBag.Message = "Dashboard goes here";
-
             return View();
+        }
+
+        [HttpPost]
+        public ActionResult Dashboard(FormCollection form)
+        {
+            MessageSlip message = new MessageSlip();
+            /*using (db = new MessageSlipsWSGEntities())
+            {
+                if (form.Keys[0] == "users")
+                {
+                    string selectedUser = form["user"];
+                    foreach (var dMess in db.MessageSlips)
+                    {
+                        if (selectedUser == dMess.userName)
+                        {
+                            var model = from user in db.MessageSlips
+                                select new MessageSlipsViewModel
+                                {
+                                    Sender = user.sender,
+                                    Receiver = user.receiver,
+                                    Categories = user.categories,
+                                    Date = user.date,
+                                    Time = user.time,
+                                    Phone = user.phoneNum,
+                                    Message = user.message,
+                                    Email = user.email,
+                                    Other = user.other,
+                                    Username = user.userName,
+                                };
+                            return View(model.ToList());
+                        }
+                    }
+                }
+
+            }*/
+            MessageSlipsViewModel msMessageSlipsViewModel = new MessageSlipsViewModel();
+            List<MessageSlipsViewModel> result = new List<MessageSlipsViewModel>();
+            if (form.Keys[0] == "users")
+            {
+
+                string selectedUser = form["users"];
+
+                    foreach (var slip in db.MessageSlips)
+                    {
+                        
+                        if (selectedUser == slip.userName)
+                        {
+                            msMessageSlipsViewModel.Sender = slip.sender;
+                            msMessageSlipsViewModel.Receiver = slip.receiver;
+                            msMessageSlipsViewModel.Categories = slip.categories;
+                            msMessageSlipsViewModel.Date = slip.date;
+                            msMessageSlipsViewModel.Time = slip.time;
+                            msMessageSlipsViewModel.Phone = slip.phoneNum;
+                            msMessageSlipsViewModel.Message = slip.message;
+                            msMessageSlipsViewModel.Email = slip.email;
+                            msMessageSlipsViewModel.Other = slip.other;
+                            msMessageSlipsViewModel.Username = slip.userName;
+                            result.Add(msMessageSlipsViewModel);
+                        }
+                    }
+
+                //return View(result);
+            }
+            return View(result);
         }
 
         public ActionResult NewMessage()
@@ -130,8 +188,15 @@ namespace MessageSlips.Controllers
                 db.MessageSlips.Add(mSlip);
                 db.SaveChanges();
             }
+
+            if (form.Keys[0] == "users")
+            {
+                MessageSlips.Models.MessageSlip newSlip = new MessageSlip();
+            }
             return View();
         }
+
+
 
         public ActionResult Setting()
         {
@@ -173,6 +238,7 @@ namespace MessageSlips.Controllers
                     return RedirectToAction("Setting");
                 }
             } 
+
            if (form["newPassword"] != form["confirmedNewPassword"])
             {
                 MessageBox.Show("Confirmed password does not match!");
@@ -182,11 +248,16 @@ namespace MessageSlips.Controllers
             {
                 Models.User newUser = new Models.User();
                 bool admin;
-                bool.TryParse(form["adminStat"], out admin);
+                if (!string.IsNullOrEmpty(form["admin"]))
+                {
+                    string stringAdmin = form["admin"];
+                    admin = Convert.ToBoolean(stringAdmin);
+                    newUser.admin = admin;
+                }
+                //bool.TryParse(form["admin"], out admin);
                 newUser.userName = form["newUsername"];
                 newUser.password = form["newPassword"];
                 newUser.email = form["newEmail"];
-                newUser.admin = admin;
                 newUser.firstName = form["newFirstName"];
                 newUser.lastName = form["newLastName"];
                 if (ModelState.IsValid)

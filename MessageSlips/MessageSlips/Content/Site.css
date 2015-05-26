@@ -22,3 +22,77 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.grid
+   {
+       width: 50%;
+       border: 0px;
+       border-collapse: collapse;
+   }
+     
+   .grid a
+   {
+       color: #000;
+   }
+     
+    .grid-row-style td
+    {
+        text-align:center
+    }
+    .grid-header th
+    {
+        padding-right:20px;
+        padding-left:20px;
+    }
+    .grid-alternating-row td
+    {
+        text-align:center
+    }
+   .grid-header
+   {
+       padding: 6px 5px;
+       text-align: center;
+       background-color: #e8eef4;
+       border-bottom: 2px solid #3966A2;
+       height: 40px;
+     
+       border-top: 2px solid #D6E8FF;
+       border-left: 2px solid #D6E8FF;
+       border-right: 2px solid #D6E8FF;
+   }
+     
+   .grid-footer
+   {
+       padding: 6px 5px;
+       text-align: center;
+       background-color: #e8eef4;
+       border-top: 2px solid #3966A2;
+       height: 30px;
+     
+       border-bottom: 2px solid #D6E8FF;
+      border-left: 2px solid #D6E8FF;
+       border-right: 2px solid #D6E8FF;
+   }
+     
+   .grid-alternating-row
+   {
+      height: 30px;
+       background-color: #f2f2f2;
+       border-bottom: 1px solid #d2d2d2;
+     
+       border-left: 2px solid #D6E8FF;
+       border-right: 2px solid #D6E8FF;
+  }
+    .grid-row-style
+   {
+      height: 30px;
+      border-bottom: 1px solid #d2d2d2;
+     
+      border-left: 2px solid #D6E8FF;
+       border-right: 2px solid #D6E8FF;
+   }
+     
+   .grid-selected-row
+   {
+       font-weight: bold;
+   }
