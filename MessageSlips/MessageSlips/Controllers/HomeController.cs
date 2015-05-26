@@ -24,7 +24,7 @@ namespace MessageSlips.Controllers
         private static MessageSlips.Models.User _userlogin = new MessageSlips.Models.User();
         public static bool CurrentAdmin;
         public static String CurrentUserName;
-
+        public static int currentMessageID;
 
         public ActionResult Index()
         {
@@ -132,12 +132,15 @@ namespace MessageSlips.Controllers
                     {                       
                         if (selectedUser == slip.userName)
                         {
+                            //DateTime dateOnly = slip.date.Date;
+                            //string timeOnly = slip.date.ToString("0:hh\\:mm");
+                            string timeOnly = String.Format("{0:hh}:{0:mm}", slip.time);
                             msMessageSlipsViewModel.MessageId = slip.mID;
                             msMessageSlipsViewModel.Sender = slip.sender;
                             msMessageSlipsViewModel.Receiver = slip.receiver;
                             msMessageSlipsViewModel.Categories = slip.categories;
-                            msMessageSlipsViewModel.Date = slip.date;
-                            msMessageSlipsViewModel.Time = slip.time;
+                            msMessageSlipsViewModel.Date = slip.date.ToString("MM/dd/yyyy");
+                            msMessageSlipsViewModel.Time = timeOnly;
                             msMessageSlipsViewModel.Phone = slip.phoneNum;
                             msMessageSlipsViewModel.Message = slip.message;
                             msMessageSlipsViewModel.Email = slip.email;
@@ -151,6 +154,19 @@ namespace MessageSlips.Controllers
                 //return View(result);
             }
             return View(result);
+        }
+
+        public ActionResult Edit(int id)
+        {
+
+                MessageSlipsViewModel mdb = new MessageSlipsViewModel();
+                var d = mdb.GetMessage(id);
+                if (Request.IsAjaxRequest())
+                {
+                    MessageSlip mSlip = new MessageSlip();
+                }
+
+            return View(d);
         }
 
         public ActionResult Done(int id)
@@ -292,5 +308,11 @@ namespace MessageSlips.Controllers
             return View(); 
         }
 
+        public ActionResult EditPopup(int id)
+        {
+            currentMessageID = id;
+
+            return View();
+        }
     }
 }
