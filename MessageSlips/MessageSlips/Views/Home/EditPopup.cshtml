@@ -8,6 +8,11 @@
     ViewBag.Title = "Edit Message";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script type="text/javascript">
+    function back() {
+        @Url.Content("~/Home/Dashboard")
+    }
+</script>
 <div class="row">
     <div class="large-3 columns"><h1></h1></div>
     <div class="large-6 columns radius panel">
@@ -54,7 +59,7 @@
                         <textarea rows="4" name="mOther" cols="40">@message.other</textarea>
                     </label>
                     <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Save" />
-                    <input type="button" id="login" oncancel="" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Cancel" />
+                    <div><a class="button special expand round" style="font-family: 'Libre Baskerville', serif;" href="@Url.Content("~/Home/Dashboard")">Back</a></div>
                 </div>
             }
         
