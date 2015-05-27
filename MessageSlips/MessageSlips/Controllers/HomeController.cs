@@ -14,6 +14,7 @@ using WebMatrix.WebData;
 using System.Web.Security;
 using System.Xml.XPath;
 using Microsoft.Ajax.Utilities;
+using System.Data.Entity.Validation;
 
 namespace MessageSlips.Controllers
 {
@@ -308,11 +309,95 @@ namespace MessageSlips.Controllers
             return View(); 
         }
 
+        [HttpGet]
         public ActionResult EditPopup(int id)
         {
             currentMessageID = id;
+            MessageSlip mSlip = new MessageSlip();
+            mSlip = db.MessageSlips.Find(id);
+            return View(mSlip);
+        }
 
+        
+        public ActionResult EditPopup(FormCollection form, int id)
+        {
+            currentMessageID = id;
+            MessageSlip mSlip = new MessageSlip();
+            mSlip.sender = form["mSender"];
+            mSlip.categories = form["mCategories"];
+            mSlip.phoneNum = form["mTel"];
+            mSlip.message = form["mMessage"];
+            mSlip.email = form["mEmail"];
+            mSlip.other = form["mOther"];
+            var original = db.MessageSlips.Find(id);
+            if (original != null)
+            {
+                original.sender = mSlip.sender;
+                original.categories = mSlip.categories;
+                original.phoneNum = mSlip.phoneNum;
+                original.message = mSlip.message;
+                original.email = mSlip.email;
+                original.other = mSlip.other;
+                db.SaveChanges();
+            }
+            /*using (var newdb = new MessageSlipsWSGEntities())
+            {
+                string newSender = form["mSender"];
+                string newPhoneNum = form["mTel"];
+                string newMessage = form["mMessage"];
+                string newEmail = form["mEmail"];
+                string newOther = form["mOther"];
+                string newUser = form["mReceiver"];
+                var updateSender = newdb.MessageSlips.SingleOrDefault(s => s.sender == newSender);
+                var updatePhone = newdb.MessageSlips.FirstOrDefault(p => p.phoneNum == newPhoneNum);
+                var updateMess = newdb.MessageSlips.FirstOrDefault(m => m.message == newMessage);
+                var updateEmail = newdb.MessageSlips.FirstOrDefault(e => e.email == newEmail);
+                var updateOther = newdb.MessageSlips.FirstOrDefault(o => o.other == newOther);
+                var updateUsername = newdb.MessageSlips.SingleOrDefault(u => u.userName == newUser);
+                
+
+                if (updateSender != null && updateMess != null && updateUsername != null)
+                {
+                    mSlip.sender = updateSender.sender;
+                    mSlip.phoneNum = updatePhone.phoneNum;
+                    mSlip.message = updateSender.message;
+                    mSlip.email = updateEmail.email;
+                    //mSlip.other = updateOther.other;
+                    //mSlip.userName = updateUsername.userName;
+                        db.SaveChanges();
+                    
+                }
+            }*/
             return View();
+            /*MessageSlip mSlip = new MessageSlip();
+            mSlip = db.MessageSlips.Find(id);
+            DateTime mDate;
+            TimeSpan mTime;
+            DateTime.TryParse(form["mDate"], out mDate);
+            TimeSpan.TryParse(form["mTime"], out mTime);
+            String userId = "";
+            mSlip.sender = form["mSender"];
+            mSlip.receiver = form["mReceiver"];
+            mSlip.categories = form["mCategories"];
+            mSlip.date = mDate;
+            mSlip.time = mTime;
+            mSlip.phoneNum = form["mTel"];
+            mSlip.message = form["mMessage"];
+            mSlip.email = form["mEmail"];
+            mSlip.other = form["mOther"];
+            foreach (var user in db.Users)
+            {
+                if (form["mReceiver"] == user.userName)
+                {
+                    userId = user.userName;
+                }
+            }
+            mSlip.userName = userId;
+            if (ModelState.IsValid)
+            {
+                db.SaveChanges();
+            }
+            return View();*/
         }
     }
 }

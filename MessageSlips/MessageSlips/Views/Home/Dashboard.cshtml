@@ -121,7 +121,7 @@
                                 @Html.DisplayFor(modelItem => item.Other)
                             </td>
                             <td>
-                                @Html.Raw(Html.ActionLink("Edit", "EditPopup", "Home", new { id = item.MessageId }, new { @class = "modal" })) |
+                                @Html.ActionLink("Edit", "EditPopup", new { id = item.MessageId }) |
                                 @Html.Raw(Html.ActionLink("Done", "Done", "Home", new { id = item.MessageId }, new { onclick = "return confirm('Are you sure you want to delete this record?');" }))
                             </td>
                         </tr>

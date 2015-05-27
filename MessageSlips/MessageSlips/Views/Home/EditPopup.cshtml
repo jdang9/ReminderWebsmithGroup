@@ -11,76 +11,53 @@
 <div class="row">
     <div class="large-3 columns"><h1></h1></div>
     <div class="large-6 columns radius panel">
-        <h6 class="text-center subheader" id="textstyle">Edit Message</h6>
-        @model List<MessageSlips.Models.MessageSlipsViewModel>
-        @{
-            using (Html.BeginForm("EditPopup", "Home", FormMethod.Post))
+        <h6 class="text-center subheader" id="textstyle">Edit Message</h6>           
+            @using (Html.BeginForm("EditPopup", "Home", FormMethod.Post, new { id = MessageSlips.Controllers.HomeController.currentMessageID }))
             {
-                            MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
-                            <div class="large-12 columns">
-                                <label id="textstyle">
-                                    From:<span style="color: red;">*</span>
-                                    <input type="text" name="mSender" value="" required>
-                                </label>
-                                <label id="textstyle">
-                                    To:<span style="color: red;">*</span>
-                                    <select name="mReceiver" required>
-                                        @foreach (var user in db.Users)
-                                        {
-
-                                            <option value="@user.userName">@user.firstName @user.lastName</option>
-
-                                        }
-                                    </select>
-                                    <!--<input type="text" name="mReceiver" placeholder="First, Last" required>-->
-                                </label>
-                                <label>
-                                    Categories:<span style="color: red;">*</span>
-                                    <select name="mCategories" required>
-                                        <optgroup label="Clients:">
-                                            <option value="New Client">New Client</option>
-                                            <option value="Current Client">Current Client</option>
-                                        </optgroup>
-                                        <optgroup label="Others:">
-                                            <option value="Telemarketing">Telemarketing</option>
-                                            <option value="Other">Other (Please specify in Other field below)</option>
-                                            <option value="N/A">N/A</option>
-                                        </optgroup>
-                                    </select>
-                                </label>
-                                <label>
-                                    Date:<span style="color: red;">*</span>
-                                    <input type="date" name="mDate" placeholder="mm-dd-yyyy" required>
-                                </label>
-                                <label>
-                                    Time:<span style="color: red;">*</span>
-                                    <input type="time" name="mTime" required>
-                                </label>
-                                <label>
-                                    Phone (if applicable):
-                                    <input type="tel" name="mTel" placeholder="xxx-xxx-xxxx" maxlength="10">
-                                </label>
-                                <label>
-                                    Message:<span style="color: red;">*</span>
-                                    <textarea rows="4" name="mMessage" cols="50" placeholder="Please enter message" required></textarea>
-                                </label>
-                                <label>
-                                    Email (if applicable):
-                                    <input type="email" name="mEmail" placeholder="Please enter address" maxlength="50">
-                                </label>
-                                <label>
-                                    Other (if applicable):
-                                    <textarea rows="4" name="mOther" cols="40" placeholder="Please enter other info."></textarea>
-                                </label>
-                            </div>
-                    }
-                }            
+                
+                MessageSlipsWSGEntities db = new MessageSlipsWSGEntities();
+                MessageSlip message = new MessageSlip();
+                message = db.MessageSlips.Find(MessageSlips.Controllers.HomeController.currentMessageID);
+                <div class="large-12 columns">
+                    <label id="textstyle">
+                        From:<span style="color: red;">*</span>
+                        <input type="text" name="mSender" value="@message.sender" required>
+                    </label>
+                    <label>
+                        Categories:<span style="color: red;">*</span>
+                        <select name="mCategories" onselect="@message.categories" required>
+                            <optgroup label="Clients:">
+                                <option value="New Client">New Client</option>
+                                <option value="Current Client">Current Client</option>
+                            </optgroup>
+                            <optgroup label="Others:">
+                                <option value="Telemarketing">Telemarketing</option>
+                                <option value="Other">Other (Please specify in Other field below)</option>
+                                <option value="N/A">N/A</option>
+                            </optgroup>
+                        </select>
+                    </label>
+                    <label>
+                        Phone (if applicable):
+                        <input type="tel" name="mTel" value="@message.phoneNum" maxlength="10">
+                    </label>
+                    <label>
+                        Message:<span style="color: red;">*</span>
+                        <textarea rows="4" name="mMessage" cols="50" required>@message.message</textarea>
+                    </label>
+                    <label>
+                        Email (if applicable):
+                        <input type="email" name="mEmail" value="@message.email" maxlength="50">
+                    </label>
+                    <label>
+                        Other (if applicable):
+                        <textarea rows="4" name="mOther" cols="40">@message.other</textarea>
+                    </label>
+                    <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Save" />
+                    <input type="button" id="login" oncancel="" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Cancel" />
+                </div>
+            }
         
-
-                <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Save" />
-                <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Cancel" />
-         
- 
     </div>
     <div class="large-3 columns"><h1></h1></div>
 </div>
