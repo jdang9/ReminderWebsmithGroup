@@ -7,6 +7,19 @@ namespace MessageSlips.Models
 {
     public class UsersViewModel
     {
+        public int userID { get; set; }
+
+        public string username { get; set;}
+
+        public string password { get; set; }
+
+        public string email { get; set; }
+
+        public bool admin { get; set; }
+
+        public string firstName { get; set; }
+
+        public string lastName { get; set; }
         public IEnumerable<User> Users { get; set; }
     }
 }

@@ -24,8 +24,10 @@ namespace MessageSlips.Controllers
         private MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();
         private static MessageSlips.Models.User _userlogin = new MessageSlips.Models.User();
         public static bool CurrentAdmin;
-        public static String CurrentUserName;
+        public static string CurrentUserName;
+        public static string CurrentLogin = _userlogin.userName;
         public static int currentMessageID;
+        public static int currentUserID = _userlogin.userID;
 
         public ActionResult Index()
         {
@@ -45,10 +47,14 @@ namespace MessageSlips.Controllers
                     if (user.admin == true)
                     {
                         CurrentAdmin = true;
+                        CurrentLogin = user.userName;
+                        //currentUserID = user.userID;
                     }
                     else
                     {
                         CurrentAdmin = false;
+                        CurrentLogin = user.userName;
+                        //currentUserID = user.userID;
                     }
                     CurrentUserName = user.firstName + " " + user.lastName;
                     return RedirectToAction("Dashboard");
