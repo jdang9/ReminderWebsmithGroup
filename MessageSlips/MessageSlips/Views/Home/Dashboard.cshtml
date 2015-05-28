@@ -75,40 +75,42 @@
         }
     </div>
     <table>
-        <tr>
-            <th>
-                From
-            </th>
-            <th>
-                Category
-            </th>
-            <th>
-                Date
-            </th>
-            <th>
-                Time
-            </th>
-            <th>
-                Phone Number
-            </th>
-            <th>
-                Message
-            </th>
-            <th>
-                Email
-            </th>
-            <th>
-                Other
-            </th>
-            <th>
-                Actions
-            </th>
-        </tr>
-        @model List<MessageSlips.Models.MessageSlipsViewModel>
-        @{
-            using (Html.BeginForm("Dashboard", "Home", FormMethod.Post)) {
-                //if (MessageSlips.Controllers.HomeController.CurrentAdmin == true) 
-                //{
+        <thead>
+            <tr>
+                <th>
+                    From
+                </th>
+                <th>
+                    Category
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Time
+                </th>
+                <th>
+                    Phone Number
+                </th>
+                <th width="500">
+                    Message
+                </th>
+                <th>
+                    Email
+                </th>
+                <th width="500">
+                    Other
+                </th>
+                <th width="50">
+                    Actions
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @model List<MessageSlips.Models.MessageSlipsViewModel>
+            @{
+                using (Html.BeginForm("Dashboard", "Home", FormMethod.Post))
+                {
                     if (Model != null)
                     {
                         foreach (var item in Model)
@@ -146,9 +148,9 @@
 
                         }
                     }
-                //}
+                }
             }
-    }
+        </tbody>
     </table>
     <div id="my-dialog"></div>
 </div>
