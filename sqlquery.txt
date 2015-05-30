@@ -47,3 +47,12 @@ CREATE TABLE [dbo].[MessageSlip] (
 GO
 
 DROP TABLE [dbo].[MessageSlip]
+
+CREATE TABLE [dbo].[Client] (
+	[clientID] int IDENTITY(1,1) NOT NULL, 
+    [clientName] nvarchar(100)  NOT NULL,
+	PRIMARY KEY ([clientID])
+);
+GO
+
+DROP TABLE [dbo].[Client]
