@@ -25,6 +25,7 @@ table {
     margin-bottom: 3em;
     width: 100%;
     background: #fff;
+    background-color: #f0a532;
 }
 td, th {
     padding: 0.75em 1.5em;
@@ -38,20 +39,20 @@ td, th {
 		line-height: 1;
 	}
 th {
-    background-color: #31bc86;
+    background-color: #f0a532;
     font-weight: bold;
     color: #fff;
     white-space: nowrap;
 }
 tbody th {
-	background-color: #2ea879;
+	background-color: #f0a532;
 }
 tbody tr:nth-child(2n-1) {
-    background-color: #f5f5f5;
+    background-color: #dfdfdf;
     transition: all .125s ease-in-out;
 }
 tbody tr:hover {
-    background-color: rgba(129,208,177,.3);
+    background-color: rgba(240, 219, 188, 1);
 }
 
 /* For appearance */
