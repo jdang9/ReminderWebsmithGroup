@@ -44,7 +44,13 @@
                         <select name="mCategories" required>
                             <optgroup label="Clients:">
                                 <option value="New Client">New Client</option>
-                                <option value="Current Client">Current Client</option>
+                                @using (Html.BeginForm("NewMessage", "Home", FormMethod.Post))
+                                {  
+                                    foreach (var client in db.CurrentClients)
+                                    {
+                                        <option value="@client.clientName">@client.clientName</option>
+                                    }
+                                }
                             </optgroup>
                             <optgroup label="Others:">
                                 <option value="Telemarketing">Telemarketing</option>
