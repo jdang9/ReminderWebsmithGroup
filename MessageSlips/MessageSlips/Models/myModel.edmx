@@ -50,7 +50,7 @@
           <Property Name="firstName" Type="nvarchar(max)" Nullable="false" />
           <Property Name="lastName" Type="nvarchar(max)" Nullable="false" />
         </EntityType>
-        <Association Name="FK__MessageSl__userN__25869641">
+        <Association Name="FK__MessageSl__userN__60A75C0F">
           <End Role="User" Type="Self.User" Multiplicity="1" />
           <End Role="MessageSlip" Type="Self.MessageSlip" Multiplicity="*" />
           <ReferentialConstraint>
@@ -98,7 +98,7 @@
           <EntitySet Name="MessageSlip" EntityType="Self.MessageSlip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
-          <AssociationSet Name="FK__MessageSl__userN__25869641" Association="Self.FK__MessageSl__userN__25869641">
+          <AssociationSet Name="FK__MessageSl__userN__60A75C0F" Association="Self.FK__MessageSl__userN__60A75C0F">
             <End Role="User" EntitySet="User" />
             <End Role="MessageSlip" EntitySet="MessageSlip" />
           </AssociationSet>
