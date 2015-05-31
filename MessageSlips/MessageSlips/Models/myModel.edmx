@@ -4,7 +4,21 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="MessageSlipsWSGModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="MessageSlipsWSGModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="clientID" />
+          </Key>
+          <Property Name="clientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="CurrentClient">
+          <Key>
+            <PropertyRef Name="clientName" />
+          </Key>
+          <Property Name="clientID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="clientName" Type="nvarchar" MaxLength="100" Nullable="false" />
+        </EntityType>
         <EntityType Name="MessageSlip">
           <Key>
             <PropertyRef Name="mID" />
@@ -87,6 +101,8 @@
         </Function>
         <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="MessageSlipsWSGModelStoreContainer">
+          <EntitySet Name="Client" EntityType="Self.Client" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CurrentClient" EntityType="Self.CurrentClient" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="MessageSlip" EntityType="Self.MessageSlip" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
@@ -95,8 +111,7 @@
             <End Role="MessageSlip" EntitySet="MessageSlip" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="MessageSlipsWSGModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -190,6 +205,8 @@
             <Parameter Name="new_diagramname" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_upgraddiagrams" />
+          <EntitySet Name="Clients" EntityType="MessageSlipsWSGModel.Client" />
+          <EntitySet Name="CurrentClients" EntityType="MessageSlipsWSGModel.CurrentClient" />
         </EntityContainer>
         <ComplexType Name="sp_helpdiagramdefinition_Result">
           <Property Type="Int32" Name="version" Nullable="true" />
@@ -202,6 +219,20 @@
           <Property Type="String" Name="Owner" Nullable="true" MaxLength="128" />
           <Property Type="Int32" Name="OwnerID" Nullable="false" />
         </ComplexType>
+        <EntityType Name="Client">
+          <Key>
+            <PropertyRef Name="clientID" />
+          </Key>
+          <Property Name="clientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clientName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="CurrentClient">
+          <Key>
+            <PropertyRef Name="clientName" />
+          </Key>
+          <Property Name="clientID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="clientName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -273,6 +304,22 @@
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="MessageSlipsWSGModel.Store.sp_renamediagram" />
           <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="MessageSlipsWSGModel.Store.sp_upgraddiagrams" />
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="MessageSlipsWSGModel.Client">
+              <MappingFragment StoreEntitySet="Client">
+                <ScalarProperty Name="clientName" ColumnName="clientName" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CurrentClients">
+            <EntityTypeMapping TypeName="MessageSlipsWSGModel.CurrentClient">
+              <MappingFragment StoreEntitySet="CurrentClient">
+                <ScalarProperty Name="clientName" ColumnName="clientName" />
+                <ScalarProperty Name="clientID" ColumnName="clientID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

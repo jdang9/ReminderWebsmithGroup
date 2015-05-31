@@ -99,35 +99,6 @@ namespace MessageSlips.Controllers
         public ActionResult Dashboard(FormCollection form)
         {
             MessageSlip message = new MessageSlip();
-            /*using (db = new MessageSlipsWSGEntities())
-            {
-                if (form.Keys[0] == "users")
-                {
-                    string selectedUser = form["user"];
-                    foreach (var dMess in db.MessageSlips)
-                    {
-                        if (selectedUser == dMess.userName)
-                        {
-                            var model = from user in db.MessageSlips
-                                select new MessageSlipsViewModel
-                                {
-                                    Sender = user.sender,
-                                    Receiver = user.receiver,
-                                    Categories = user.categories,
-                                    Date = user.date,
-                                    Time = user.time,
-                                    Phone = user.phoneNum,
-                                    Message = user.message,
-                                    Email = user.email,
-                                    Other = user.other,
-                                    Username = user.userName,
-                                };
-                            return View(model.ToList());
-                        }
-                    }
-                }
-
-            }*/
             MessageSlipsViewModel msMessageSlipsViewModel = new MessageSlipsViewModel();
             List<MessageSlipsViewModel> result = new List<MessageSlipsViewModel>();
             if (form.Keys[0] == "users")
@@ -157,8 +128,6 @@ namespace MessageSlips.Controllers
                             msMessageSlipsViewModel = new MessageSlipsViewModel();
                         }
                     }
-
-                //return View(result);
             }
             return View(result);
         }
@@ -185,16 +154,6 @@ namespace MessageSlips.Controllers
                 db.SaveChanges();
             }
 
-            /*MessageSlip deleteMessage = new MessageSlip();
-            deleteMessage = db.MessageSlips.Find(id);
-            if (ModelState.IsValid)
-            {
-                foreach (var dMess in db.MessageSlips.ToArray())
-                {
-                        db.MessageSlips.Remove(deleteMessage);
-                        db.SaveChanges();
-                }              
-            }*/
             return RedirectToAction("Dashboard");
         }
 
@@ -319,16 +278,14 @@ namespace MessageSlips.Controllers
         public ActionResult EditPopup(int id)
         {
             currentMessageID = id;
-            MessageSlip mSlip = new MessageSlip();
+            MessageSlips.Models.MessageSlip mSlip = new MessageSlips.Models.MessageSlip();
             mSlip = db.MessageSlips.Find(id);
             return View(mSlip);
         }
-
-        
         public ActionResult EditPopup(FormCollection form, int id)
         {
             currentMessageID = id;
-            MessageSlip mSlip = new MessageSlip();
+            MessageSlips.Models.MessageSlip mSlip = new MessageSlips.Models.MessageSlip();
             mSlip.sender = form["mSender"];
             mSlip.categories = form["mCategories"];
             mSlip.phoneNum = form["mTel"];
@@ -346,64 +303,56 @@ namespace MessageSlips.Controllers
                 original.other = mSlip.other;
                 db.SaveChanges();
             }
-            /*using (var newdb = new MessageSlipsWSGEntities())
-            {
-                string newSender = form["mSender"];
-                string newPhoneNum = form["mTel"];
-                string newMessage = form["mMessage"];
-                string newEmail = form["mEmail"];
-                string newOther = form["mOther"];
-                string newUser = form["mReceiver"];
-                var updateSender = newdb.MessageSlips.SingleOrDefault(s => s.sender == newSender);
-                var updatePhone = newdb.MessageSlips.FirstOrDefault(p => p.phoneNum == newPhoneNum);
-                var updateMess = newdb.MessageSlips.FirstOrDefault(m => m.message == newMessage);
-                var updateEmail = newdb.MessageSlips.FirstOrDefault(e => e.email == newEmail);
-                var updateOther = newdb.MessageSlips.FirstOrDefault(o => o.other == newOther);
-                var updateUsername = newdb.MessageSlips.SingleOrDefault(u => u.userName == newUser);
-                
-
-                if (updateSender != null && updateMess != null && updateUsername != null)
-                {
-                    mSlip.sender = updateSender.sender;
-                    mSlip.phoneNum = updatePhone.phoneNum;
-                    mSlip.message = updateSender.message;
-                    mSlip.email = updateEmail.email;
-                    //mSlip.other = updateOther.other;
-                    //mSlip.userName = updateUsername.userName;
-                        db.SaveChanges();
-                    
-                }
-            }*/
             return View();
-            /*MessageSlip mSlip = new MessageSlip();
-            mSlip = db.MessageSlips.Find(id);
-            DateTime mDate;
-            TimeSpan mTime;
-            DateTime.TryParse(form["mDate"], out mDate);
-            TimeSpan.TryParse(form["mTime"], out mTime);
-            String userId = "";
-            mSlip.sender = form["mSender"];
-            mSlip.receiver = form["mReceiver"];
-            mSlip.categories = form["mCategories"];
-            mSlip.date = mDate;
-            mSlip.time = mTime;
-            mSlip.phoneNum = form["mTel"];
-            mSlip.message = form["mMessage"];
-            mSlip.email = form["mEmail"];
-            mSlip.other = form["mOther"];
-            foreach (var user in db.Users)
+        }
+
+        public ActionResult Client()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Client(FormCollection form)
+        {
+            MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();
+            MessageSlips.Models.User login = new MessageSlips.Models.User();
+            foreach (var user in db.Users.ToList())
             {
-                if (form["mReceiver"] == user.userName)
+                if (user.userName == form["username"] && user.password == form["password"])
                 {
-                    userId = user.userName;
+                    login = user;
                 }
             }
-            mSlip.userName = userId;
+
+            Models.CurrentClient newClient = new Models.CurrentClient();
+            newClient.clientName = form["newClient"];
             if (ModelState.IsValid)
             {
+                db.CurrentClients.Add(newClient);
                 db.SaveChanges();
             }
-            return View();*/
+
+            
+           
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult DeleteClient(FormCollection form)
+        {
+            if (form.Keys[0] == "clients")
+            {
+                string dClient = form["clients"];
+                CurrentClient deleteClient = new CurrentClient();
+                deleteClient = db.CurrentClients.Find(dClient);
+                if (ModelState.IsValid)
+                {
+                    db.CurrentClients.Remove(deleteClient);
+                    db.SaveChanges();
+                    return RedirectToAction("Client");
+                }
+            }
+            return View();
         }
     }
 }

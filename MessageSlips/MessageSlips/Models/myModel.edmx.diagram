@@ -9,6 +9,8 @@
         <EntityTypeShape EntityType="MessageSlipsWSGModel.sysdiagram" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="MessageSlipsWSGModel.User" Width="1.5" PointX="0.75" PointY="1.375" IsExpanded="true" />
         <AssociationConnector Association="MessageSlipsWSGModel.FK__MessageSl__userN__25869641" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="MessageSlipsWSGModel.Client" Width="1.5" PointX="9.5" PointY="2.375" />
+        <EntityTypeShape EntityType="MessageSlipsWSGModel.CurrentClient" Width="1.5" PointX="0.75" PointY="5.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

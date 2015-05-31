@@ -205,6 +205,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\Client.cs">
+      <DependentUpon>myModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ClientViewModel.cs" />
+    <Compile Include="Models\CurrentClient.cs">
+      <DependentUpon>myModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Index.cs" />
     <Compile Include="Models\MessageSlip.cs">
       <DependentUpon>myModel.tt</DependentUpon>
@@ -340,6 +347,7 @@
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
     <Content Include="Views\Home\EditPopup.cshtml" />
+    <Content Include="Views\Home\Client.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
