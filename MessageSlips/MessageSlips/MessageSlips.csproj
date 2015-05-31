@@ -205,10 +205,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Models\Client.cs">
-      <DependentUpon>myModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ClientViewModel.cs" />
     <Compile Include="Models\CurrentClient.cs">
       <DependentUpon>myModel.tt</DependentUpon>
     </Compile>
