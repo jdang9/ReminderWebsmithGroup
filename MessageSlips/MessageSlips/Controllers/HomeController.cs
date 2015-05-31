@@ -180,6 +180,7 @@ namespace MessageSlips.Controllers
             mSlip.message = form["mMessage"];
             mSlip.email = form["mEmail"];
             mSlip.other = form["mOther"];
+
             foreach (var user in db.Users)
             {
                 if (form["mReceiver"] == user.userName)
@@ -331,7 +332,7 @@ namespace MessageSlips.Controllers
                 db.CurrentClients.Add(newClient);
                 db.SaveChanges();
             }
-
+            
             
            
             return View();
