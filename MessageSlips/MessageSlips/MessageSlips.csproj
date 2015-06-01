@@ -208,6 +208,7 @@
     <Compile Include="Models\CurrentClient.cs">
       <DependentUpon>myModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\EmailFormModel.cs" />
     <Compile Include="Models\Index.cs" />
     <Compile Include="Models\MessageSlip.cs">
       <DependentUpon>myModel.tt</DependentUpon>

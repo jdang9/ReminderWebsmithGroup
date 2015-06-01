@@ -15,6 +15,9 @@ using System.Web.Security;
 using System.Xml.XPath;
 using Microsoft.Ajax.Utilities;
 using System.Data.Entity.Validation;
+using System.Net;
+using System.Net.Mail;
+using System.Threading.Tasks;
 
 namespace MessageSlips.Controllers
 {
@@ -163,8 +166,12 @@ namespace MessageSlips.Controllers
         }
 
         [HttpPost]
-        public ActionResult NewMessage(FormCollection form)
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> NewMessage(FormCollection form)
         {
+            //https://www.google.com/settings/security/lesssecureapps
+            var email = "";
+            var notification = "";
             MessageSlip mSlip = new MessageSlip();
             DateTime mDate;
             TimeSpan mTime;
@@ -186,6 +193,12 @@ namespace MessageSlips.Controllers
                 if (form["mReceiver"] == user.userName)
                 {
                     id = user.userName;
+                    email = user.email;
+                    notification = "From: " + form["mSender"] + "<br />"
+                        + "Category: " + form["mCategories"] + "<br />"
+                        + "Phone: " + form["mTel"] + "<br />"
+                        + "Your Message: " + form["mMessage"] + "<br />"
+                        + "Other Info: " + form["mOther"];
                 }
             }
             mSlip.userName = id;
@@ -193,6 +206,27 @@ namespace MessageSlips.Controllers
             {
                 db.MessageSlips.Add(mSlip);
                 db.SaveChanges();
+
+                var message = new MailMessage();
+                message.To.Add(new MailAddress(email));
+                message.From = new MailAddress("jadang31@gmail.com");
+                message.Subject = "You got a message";
+                message.Body = notification;
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "jadang31@gmail.com",
+                        Password = "Virginia-2007#$%"
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                }
             }
 
             if (form.Keys[0] == "users")
@@ -202,7 +236,50 @@ namespace MessageSlips.Controllers
             return View();
         }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SendNotification(FormCollection form)
+        {
+            var email = "";
+            var notification = "";
+            if (ModelState.IsValid)
+            {
+                var body = "<p> Detail Information </p>";
+                var message = new MailMessage();
+                foreach (var user in db.Users)
+                {
+                    if (form["mReceiver"] == user.userName)
+                    {
+                        email = user.email;
+                        notification = "From: " + form["mSender"] + "\n"
+                            + "Category: " + form["mCategories"] + "\n"
+                            + "Phone: " + form["mTel"] + "\n"
+                            + "Your Message: " + form["mMessage"] + "\n"
+                            + "Other Info: " + form["mOther"];
+                    }
+                }
+                message.To.Add(new MailAddress(email));
+                message.From = new MailAddress("jadang31@gmail.com");
+                message.Subject = "You got a message";
+                message.Body = notification;
+                message.IsBodyHtml = true;
 
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "jadang31@gmail.com",
+                        Password = "Virginia-2007#$%"
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                }
+            }
+            return View();
+        }
 
         public ActionResult Setting()
         {
@@ -356,4 +433,52 @@ namespace MessageSlips.Controllers
             return View();
         }
     }
+
+    /*public partial class HomeController : AsyncController
+    {
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> NewMessage(EmailFormModel model, FormCollection form)
+        {
+            var email = "";
+            var notification = "";
+            if (ModelState.IsValid)
+            {
+                var body = "<p> Detail Information </p>";
+                var message = new MailMessage();
+                foreach (var user in db.Users)
+                {
+                if (form["mReceiver"] == user.userName)
+                    {
+                        email = user.email;
+                        notification = "From: " + form["mSender"] + "\n"
+                            + "Category: " + form["mCategories"] + "\n"
+                            + "Phone: " + form["mTel"] + "\n"
+                            + "Your Message: " + form["mMessage"] + "\n"
+                            + "Other Info: " + form["mOther"];
+                    }
+                }
+                message.To.Add(new MailAddress(email));
+                message.From = new MailAddress("jadang31@gmail.com");
+                message.Subject = "You got a message";
+                message.Body = notification;
+                message.IsBodyHtml = true;
+
+                using (var smtp = new SmtpClient())
+                {
+                    var credential = new NetworkCredential
+                    {
+                        UserName = "jadang31@gmail.com",
+                        Password = "Virginia-2007#$%"
+                    };
+                    smtp.Credentials = credential;
+                    smtp.Host = "smtp.gmail.com";
+                    smtp.Port = 587;
+                    smtp.EnableSsl = true;
+                    await smtp.SendMailAsync(message);
+                }
+            }
+            return View(model);
+        }
+    }*/
 }
