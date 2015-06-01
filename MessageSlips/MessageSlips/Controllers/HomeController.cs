@@ -194,7 +194,8 @@ namespace MessageSlips.Controllers
                 {
                     id = user.userName;
                     email = user.email;
-                    notification = "From: " + form["mSender"] + "<br />"
+                    notification = "Hi " + user.firstName + "! " + "You have a new message:" + "<br />" 
+                        + "From: " + form["mSender"] + "<br />"
                         + "Category: " + form["mCategories"] + "<br />"
                         + "Phone: " + form["mTel"] + "<br />"
                         + "Your Message: " + form["mMessage"] + "<br />"
@@ -210,7 +211,7 @@ namespace MessageSlips.Controllers
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(email));
                 message.From = new MailAddress("jadang31@gmail.com");
-                message.Subject = "You got a message";
+                message.Subject = "You Missed a Call!";
                 message.Body = notification;
                 message.IsBodyHtml = true;
 
@@ -236,7 +237,7 @@ namespace MessageSlips.Controllers
             return View();
         }
 
-        [HttpPost]
+        /*[HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> SendNotification(FormCollection form)
         {
@@ -279,7 +280,7 @@ namespace MessageSlips.Controllers
                 }
             }
             return View();
-        }
+        }*/
 
         public ActionResult Setting()
         {
