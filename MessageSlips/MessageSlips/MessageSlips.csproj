@@ -281,6 +281,10 @@
     <Content Include="bin\EntityFramework.xml" />
     <Content Include="bin\en\Microsoft.Expression.Framework.resources.dll" />
     <Content Include="bin\en\Microsoft.Expression.Utility.resources.dll" />
+    <Content Include="bin\Google.Apis.Auth.Mvc4.xml" />
+    <Content Include="bin\Google.Apis.Auth.PlatformServices.xml" />
+    <Content Include="bin\Google.Apis.Auth.xml" />
+    <Content Include="bin\Google.Apis.Core.xml" />
     <Content Include="bin\MessageSlips.dll" />
     <Content Include="bin\MessageSlips.pdb" />
     <Content Include="bin\Microsoft.ApplicationInsights.dll" />
