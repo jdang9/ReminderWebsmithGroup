@@ -18,12 +18,18 @@ using System.Data.Entity.Validation;
 using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
+using Owin;
+using Google.Apis.Auth.OAuth2;
+using Microsoft.Owin.Security.Cookies;
+using Microsoft.Owin;
+using Microsoft.AspNet.Identity.Owin;
 
 namespace MessageSlips.Controllers
 {
+    [RequireHttps]
     public class HomeController : Controller
     {
-        
+
         private MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();
         private static MessageSlips.Models.User _userlogin = new MessageSlips.Models.User();
         public static bool CurrentAdmin;
@@ -63,7 +69,7 @@ namespace MessageSlips.Controllers
                     return RedirectToAction("Dashboard");
                 }
             }
-            
+
             return View("Index");
         }
 
@@ -109,28 +115,28 @@ namespace MessageSlips.Controllers
 
                 string selectedUser = form["users"];
 
-                    foreach (var slip in db.MessageSlips)
-                    {                       
-                        if (selectedUser == slip.userName)
-                        {
-                            //DateTime dateOnly = slip.date.Date;
-                            //string timeOnly = slip.date.ToString("0:hh\\:mm");
-                            string timeOnly = String.Format("{0:hh}:{0:mm}", slip.time);
-                            msMessageSlipsViewModel.MessageId = slip.mID;
-                            msMessageSlipsViewModel.Sender = slip.sender;
-                            msMessageSlipsViewModel.Receiver = slip.receiver;
-                            msMessageSlipsViewModel.Categories = slip.categories;
-                            msMessageSlipsViewModel.Date = slip.date.ToString("MM/dd/yyyy");
-                            msMessageSlipsViewModel.Time = timeOnly;
-                            msMessageSlipsViewModel.Phone = slip.phoneNum;
-                            msMessageSlipsViewModel.Message = slip.message;
-                            msMessageSlipsViewModel.Email = slip.email;
-                            msMessageSlipsViewModel.Other = slip.other;
-                            msMessageSlipsViewModel.Username = slip.userName;
-                            result.Add(msMessageSlipsViewModel);
-                            msMessageSlipsViewModel = new MessageSlipsViewModel();
-                        }
+                foreach (var slip in db.MessageSlips)
+                {
+                    if (selectedUser == slip.userName)
+                    {
+                        //DateTime dateOnly = slip.date.Date;
+                        //string timeOnly = slip.date.ToString("0:hh\\:mm");
+                        string timeOnly = String.Format("{0:hh}:{0:mm}", slip.time);
+                        msMessageSlipsViewModel.MessageId = slip.mID;
+                        msMessageSlipsViewModel.Sender = slip.sender;
+                        msMessageSlipsViewModel.Receiver = slip.receiver;
+                        msMessageSlipsViewModel.Categories = slip.categories;
+                        msMessageSlipsViewModel.Date = slip.date.ToString("MM/dd/yyyy");
+                        msMessageSlipsViewModel.Time = timeOnly;
+                        msMessageSlipsViewModel.Phone = slip.phoneNum;
+                        msMessageSlipsViewModel.Message = slip.message;
+                        msMessageSlipsViewModel.Email = slip.email;
+                        msMessageSlipsViewModel.Other = slip.other;
+                        msMessageSlipsViewModel.Username = slip.userName;
+                        result.Add(msMessageSlipsViewModel);
+                        msMessageSlipsViewModel = new MessageSlipsViewModel();
                     }
+                }
             }
             return View(result);
         }
@@ -138,12 +144,12 @@ namespace MessageSlips.Controllers
         public ActionResult Edit(int id)
         {
 
-                MessageSlipsViewModel mdb = new MessageSlipsViewModel();
-                var d = mdb.GetMessage(id);
-                if (Request.IsAjaxRequest())
-                {
-                    MessageSlip mSlip = new MessageSlip();
-                }
+            MessageSlipsViewModel mdb = new MessageSlipsViewModel();
+            var d = mdb.GetMessage(id);
+            if (Request.IsAjaxRequest())
+            {
+                MessageSlip mSlip = new MessageSlip();
+            }
 
             return View(d);
         }
@@ -194,7 +200,7 @@ namespace MessageSlips.Controllers
                 {
                     id = user.userName;
                     email = user.email;
-                    notification = "Hi " + user.firstName + "! " + "You have a new message:" + "<br />" 
+                    notification = "Hi " + user.firstName + "! " + "You have a new message:" + "<br />"
                         + "From: " + form["mSender"] + "<br />"
                         + "Category: " + form["mCategories"] + "<br />"
                         + "Phone: " + form["mTel"] + "<br />"
@@ -210,7 +216,7 @@ namespace MessageSlips.Controllers
 
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(email));
-                message.From = new MailAddress("jadang31@gmail.com");
+                message.From = new MailAddress("messageslips@gmail.com");
                 message.Subject = "You Missed a Call!";
                 message.Body = notification;
                 message.IsBodyHtml = true;
@@ -219,8 +225,8 @@ namespace MessageSlips.Controllers
                 {
                     var credential = new NetworkCredential
                     {
-                        UserName = "jadang31@gmail.com",
-                        Password = "Virginia-2007#$%"
+                        UserName = "messageslips@gmail.com",
+                        Password = "changemerichmondva"
                     };
                     smtp.Credentials = credential;
                     smtp.Host = "smtp.gmail.com";
@@ -321,9 +327,9 @@ namespace MessageSlips.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Setting");
                 }
-            } 
+            }
 
-           if (form["newPassword"] != form["confirmedNewPassword"])
+            if (form["newPassword"] != form["confirmedNewPassword"])
             {
                 MessageBox.Show("Confirmed password does not match!");
                 return RedirectToAction("Setting");
@@ -350,7 +356,7 @@ namespace MessageSlips.Controllers
                     db.SaveChanges();
                 }
             }
-            return View(); 
+            return View();
         }
 
         [HttpGet]
@@ -410,9 +416,9 @@ namespace MessageSlips.Controllers
                 db.CurrentClients.Add(newClient);
                 db.SaveChanges();
             }
-            
-            
-           
+
+
+
             return View();
         }
 
@@ -434,6 +440,7 @@ namespace MessageSlips.Controllers
             return View();
         }
     }
+}
 
     /*public partial class HomeController : AsyncController
     {
@@ -482,4 +489,3 @@ namespace MessageSlips.Controllers
             return View(model);
         }
     }*/
-}

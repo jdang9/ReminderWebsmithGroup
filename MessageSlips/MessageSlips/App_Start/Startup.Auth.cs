@@ -25,7 +25,7 @@ namespace MessageSlips
             app.UseCookieAuthentication(new CookieAuthenticationOptions
             {
                 AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("/Account/Login"),
+                LoginPath = new PathString("/Home/Index"),
                 Provider = new CookieAuthenticationProvider
                 {
                     // Enables the application to validate the security stamp when the user logs in.
@@ -58,11 +58,11 @@ namespace MessageSlips
             //   appId: "",
             //   appSecret: "");
 
-            //app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-            //{
-            //    ClientId = "",
-            //    ClientSecret = ""
-            //});
+            app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+            {
+                ClientId = "744487569555-kt74gfddda25epbk1bkfnc66gv2eu72k.apps.googleusercontent.com",
+                ClientSecret = "YeWdSwFtKw_QMIhOpiT7YPf_"
+            });
         }
     }
 }
