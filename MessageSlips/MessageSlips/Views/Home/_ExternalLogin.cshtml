@@ -1,0 +1,53 @@
+﻿@using System.Web.Security;
+@using MessageSlips.Models;
+@using MessageSlips.Models.ExternalLoginListViewModel;
+@using Microsoft.Owin.Security;
+
+@{
+    Layout = null;
+    ViewBag.Title = "Please Sign in using Google account";
+}
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @Styles.Render("~/Content/bootstrap-theme.min.css")
+    <title>Message Slips - Websmith Group</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/component.css" />
+    <link rel="stylesheet" href="~/Content/foundation-5/foundation-icons.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/mainstyle.css" />
+    <link rel="stylesheet" href="~/Content/foundation-5/css/foundation.css" />
+
+    <script src="~/Content/foundation-5/js/vendor/modernizr.js"></script>
+</head>
+<body>
+    @{
+        var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
+        if (loginProviders.Count() == 0)
+        {
+            <div>
+                <p>
+                    There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
+                    for details on setting up this ASP.NET application to support logging in via external services.
+                </p>
+            </div>
+        }
+        else
+        {
+            using (Html.BeginForm("ExternalLogin", "Home", new { ReturnUrl = Model.ReturnUrl }))
+            {
+                @Html.AntiForgeryToken()
+                <div id="socialLoginList">
+                    <p>
+                        @foreach (AuthenticationDescription p in loginProviders)
+                        {
+                            <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
+                        }
+                    </p>
+                </div>
+            }
+        }
+    }
+</body>

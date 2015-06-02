@@ -131,17 +131,9 @@
                 <div id="main" class="radius panel">
                     <div class="row" id="login_form">
                         <h6 class="text-center subheader" id="textstyle">Sign in using your Google account</h6>
-                        <!--using (Html.BeginForm("ExternalLogin", "Home", new { ReturnUrl = Model.ReturnUrl })) {
-                        Html.AntiForgeryToken()
-                        <div id="socialLoginList">
-                            <p>
-                                foreach (AuthenticationDescription p in loginProviders)
-                                {
-                                    <button type="submit" class="btn btn-default" id="p.AuthenticationType" name="provider" value="p.AuthenticationType" title="Log in using your p.Caption account">p.AuthenticationType</button>
-                                }                               
-                            </p>
-                        </div>
-                        }-->
+                        <section id="socialLoginForm">
+                            @Html.Partial("_ExternalLogin", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
+                        </section>
                     </div>
                 </div>
             </div>

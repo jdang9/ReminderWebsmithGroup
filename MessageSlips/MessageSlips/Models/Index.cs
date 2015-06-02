@@ -10,4 +10,16 @@ namespace MessageSlips.Models
     {
         public IEnumerable<User> GetUsers { get; set; }
     }
+
+    public class ExternalLoginConfirmationViewModel
+    {
+        [Required]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+    }
+
+    public class ExternalLoginListViewModel
+    {
+        public string ReturnUrl { get; set; }
+    }
 }
