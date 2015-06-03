@@ -450,7 +450,7 @@ namespace MessageSlips.Controllers
             
             var success = name;
             var successEmail = email;
-            /*var names = success.Split(' ');
+            var names = success.Split(' ');
             string firstName = names[0];
             string lastname = names[0];
 
@@ -464,7 +464,7 @@ namespace MessageSlips.Controllers
             if (ModelState.IsValid) {
                 db.Users.Add(googleUser);
                 db.SaveChanges();
-            }*/
+            }
 
             return Json(new { success, successEmail });
         }
