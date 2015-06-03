@@ -1,14 +1,11 @@
 ﻿@using System.Web.Security;
 @using MessageSlips.Models;
-@using MessageSlips.Models.ExternalLoginListViewModel;
 @using Microsoft.Owin.Security;
 
 @{
     Layout = null;
     ViewBag.Title = "Please Sign in using Google account";
 }
-<!DOCTYPE html>
-<html class="no-js" lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -21,33 +18,31 @@
     <link rel="stylesheet" href="~/Content/foundation-5/css/foundation.css" />
 
     <script src="~/Content/foundation-5/js/vendor/modernizr.js"></script>
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/userinfo.email">
+    <meta name="google-signin-client_id" content="744487569555-kt74gfddda25epbk1bkfnc66gv2eu72k.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </head>
 <body>
-    @{
-        var loginProviders = Context.GetOwinContext().Authentication.GetExternalAuthenticationTypes();
-        if (loginProviders.Count() == 0)
-        {
-            <div>
-                <p>
-                    There are no external authentication services configured. See <a href="http://go.microsoft.com/fwlink/?LinkId=403804">this article</a>
-                    for details on setting up this ASP.NET application to support logging in via external services.
-                </p>
-            </div>
-        }
-        else
-        {
-            using (Html.BeginForm("ExternalLogin", "Home", new { ReturnUrl = Model.ReturnUrl }))
-            {
-                @Html.AntiForgeryToken()
-                <div id="socialLoginList">
-                    <p>
-                        @foreach (AuthenticationDescription p in loginProviders)
-                        {
-                            <button type="submit" class="btn btn-default" id="@p.AuthenticationType" name="provider" value="@p.AuthenticationType" title="Log in using your @p.Caption account">@p.AuthenticationType</button>
-                        }
-                    </p>
-                </div>
-            }
-        }
-    }
+    <div class="row">
+        <div class="large-12 columns">
+            <div class="large-3 columns"> </div>
+            <div class="g-signin2 large-6 columns" data-onsuccess="onSignIn" data-theme="dark"></div>
+            <script>
+                function onSignIn(googleUser) {
+                    // Useful data for your client-side scripts:
+                    var profile = googleUser.getBasicProfile();
+                    console.log("ID: " + profile.getId()); // Don't send this directly to your server!
+                    console.log("Name: " + profile.getName());
+                    console.log("Image URL: " + profile.getImageUrl());
+                    console.log("Email: " + profile.getEmail());
+
+                    // The ID token you need to pass to your backend:
+                    var id_token = googleUser.getAuthResponse().id_token;
+                    console.log("ID Token: " + id_token);
+                };
+            </script>
+            <div class="large-3 columns"> </div>
+        </div>
+    </div>  
+
 </body>

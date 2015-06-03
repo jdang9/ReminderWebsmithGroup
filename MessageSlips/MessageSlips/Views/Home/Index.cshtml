@@ -19,6 +19,11 @@
     <link rel="stylesheet" href="~/Content/foundation-5/css/foundation.css"/>
 
     <script src="~/Content/foundation-5/js/vendor/modernizr.js"></script>
+    
+    <meta name="google-signin-scope" content="https://www.googleapis.com/auth/userinfo.profile">
+    <meta name="google-signin-client_id" content="744487569555-kt74gfddda25epbk1bkfnc66gv2eu72k.apps.googleusercontent.com">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <!--<script src="https://apis.google.com/js/client:platform.js" async defer></script>-->
 </head>
 <body class="main-background">
 
@@ -129,12 +134,105 @@
 
             <div class="large-6 columns">
                 <div id="main" class="radius panel">
-                    <div class="row" id="login_form">
-                        <h6 class="text-center subheader" id="textstyle">Sign in using your Google account</h6>
-                        <section id="socialLoginForm">
-                            @Html.Partial("_ExternalLogin", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
-                        </section>
+                    <div class="row">
+                        <h6 class="text-center subheader" id="textstyle">Or sign in using your Google account</h6>
+                        <!--<div class="large-6 columns" id="textstyle"><p>Sign in using your Google account</p></div>-->
+                            <!--Html.Partial("_ExternalLogin", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })-->                        
                     </div>
+                    <div class="row">
+                        
+                        <div class="small-2 large-4 columns"> <br /></div>
+                        <div class="small-4 large-4 columns">
+                            <div class="g-signin2" id="googleBtn" data-onsuccess="onSignIn" data-theme="dark"></div>                      
+                            <!---<span id="signinButtons">
+                                <span class="g-signin"
+                                      data-callback="signinCallback"
+                                      data-clientid="744487569555-kt74gfddda25epbk1bkfnc66gv2eu72k.apps.googleusercontent.com"
+                                      data-cookiepolicy="single_host_origin"
+                                      data-requestvisibleactions="http://schema.org/AddAction"
+                                      data-scope="https://www.googleapis.com/auth/plus.login"
+                                      data-onsuccess="onSignIn">
+                                </span>
+                            </span>
+                                -->
+                        </div>
+                        <div class="small-6 large-4 columns"> <br /></div>
+                           
+                        
+                    </div>
+                    <script>
+                        function onSignIn(googleUser) {
+                            // Useful data for your client-side scripts:
+                            var profile = googleUser.getBasicProfile();
+                            alert("Name: " + profile.getName()
+                                + "Email: " + profile.getEmail());
+
+                            // The ID token you need to pass to your backend:
+                            var id_token = googleUser.getAuthResponse().id_token;
+                            console.log("ID Token: " + id_token);
+                            var googleName = profile.getName();
+                            var googleEmail = profile.getEmail();
+                            $.ajax({
+                                type: 'POST',
+                                url: 'ExternalLogin',
+                                data: {
+                                    name: googleName,
+                                    email: googleEmail
+                                },
+                                success: function (result) {
+                                    alert("You are signed in as " + result.success);
+                                },
+                                error: function (xhr, status, error) {
+                                    alert(xhr.responseText);
+                                    alert("I dont want to go here")
+                                }
+                            });
+                            
+                        };
+                    </script>
+                        <!--function googleSignin() {
+                            function onSignin(googleUser) {
+                                var profile = googleUser.getBasicProfile();
+                                var detailInfo = {
+                                    "userGoogleName": profile.getName(),
+                                    "userGoogleEmail": profile.getEmail()
+                                };
+                                $.ajax({
+                                    type: "POST",
+                                    url: '~/HomeController/ExternalLogin',
+                                    data: detailInfo,
+                                    success: function (result) {
+                                        alert(result);
+                                    },
+                                    error: function (e) {
+                                        alert("Shit went wrong");
+                                    }
+                                });
+                            }
+                        }        -->
+                    
+
+                    <!--<script>
+                        function signinCallback(authResult) {
+                            if (authResult['status']['signed_in']) {
+                                var request = gapi.client.plus.people.get({
+                                    'userId': 'me'
+                                    //Html.ActionLink("ExternalLogin", "Home", new { name = "userID"});
+                                });
+                                // Update the app to reflect a signed in user
+                                // Hide the sign-in button now that the user is authorized, for example:
+                                document.getElementById('signinButton').setAttribute('style', 'display: none');
+                            } else {
+                                // Update the app to reflect a signed out user
+                                // Possible error values:
+                                //   "user_signed_out" - User is signed-out
+                                //   "access_denied" - User denied access to your app
+                                //   "immediate_failed" - Could not automatically log in the user
+                                console.log('Sign-in state: ' + authResult['error']);
+                            }
+
+                        }
+                    </script>-->
                 </div>
             </div>
 

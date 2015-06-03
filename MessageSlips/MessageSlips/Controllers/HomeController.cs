@@ -443,7 +443,19 @@ namespace MessageSlips.Controllers
             return View();
         }
 
-        private ApplicationSignInManager _signInManager;
+        [HttpPost]
+        public JsonResult ExternalLogin(string name, string email)
+        {
+            //var userGoogle = detailInfo[0];
+            //var userEmail = detailInfo[1];
+            var success = name;
+            var secondsuccess = email;
+
+
+            return Json(new { success, secondsuccess });
+        }
+
+        /*private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
          public HomeController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
@@ -593,7 +605,7 @@ namespace MessageSlips.Controllers
                 return Redirect(returnUrl);
             }
             return RedirectToAction("Index", "Home");
-        }
+        }*/
     }
 }
 
