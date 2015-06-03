@@ -180,7 +180,7 @@
                                     email: googleEmail
                                 },
                                 success: function (result) {
-                                    alert("You are signed in as " + result.success);
+                                    alert(result.success + result.secondsuccess);
                                 },
                                 error: function (xhr, status, error) {
                                     alert(xhr.responseText);
