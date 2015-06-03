@@ -246,51 +246,6 @@ namespace MessageSlips.Controllers
             return View();
         }
 
-        /*[HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> SendNotification(FormCollection form)
-        {
-            var email = "";
-            var notification = "";
-            if (ModelState.IsValid)
-            {
-                var body = "<p> Detail Information </p>";
-                var message = new MailMessage();
-                foreach (var user in db.Users)
-                {
-                    if (form["mReceiver"] == user.userName)
-                    {
-                        email = user.email;
-                        notification = "From: " + form["mSender"] + "\n"
-                            + "Category: " + form["mCategories"] + "\n"
-                            + "Phone: " + form["mTel"] + "\n"
-                            + "Your Message: " + form["mMessage"] + "\n"
-                            + "Other Info: " + form["mOther"];
-                    }
-                }
-                message.To.Add(new MailAddress(email));
-                message.From = new MailAddress("jadang31@gmail.com");
-                message.Subject = "You got a message";
-                message.Body = notification;
-                message.IsBodyHtml = true;
-
-                using (var smtp = new SmtpClient())
-                {
-                    var credential = new NetworkCredential
-                    {
-                        UserName = "jadang31@gmail.com",
-                        Password = "Virginia-2007#$%"
-                    };
-                    smtp.Credentials = credential;
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(message);
-                }
-            }
-            return View();
-        }*/
-
         public ActionResult Setting()
         {
             return View();
@@ -446,14 +401,15 @@ namespace MessageSlips.Controllers
         [HttpPost]
         public JsonResult ExternalLogin(string name, string email)
         {
-            User googleUser = new User();
+
             
             var success = name;
-            var successEmail = email;
+            var secondsuccess = email;
+            
             var names = success.Split(' ');
             string firstName = names[0];
-            string lastname = names[0];
-
+            string lastname = names[1];
+            User googleUser = new User();
             googleUser.firstName = firstName;
             googleUser.lastName = lastname;
             googleUser.admin = false;
@@ -461,12 +417,14 @@ namespace MessageSlips.Controllers
             googleUser.userName = email;
             googleUser.password = "changeme";
 
+            
+
             if (ModelState.IsValid) {
                 db.Users.Add(googleUser);
                 db.SaveChanges();
             }
 
-            return Json(new { success, successEmail });
+            return Json(new { success, secondsuccess });
         }
 
         /*private ApplicationSignInManager _signInManager;
