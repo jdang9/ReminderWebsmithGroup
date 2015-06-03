@@ -229,7 +229,7 @@ namespace MessageSlips.Controllers
                     var credential = new NetworkCredential
                     {
                         UserName = "messageslips@gmail.com",
-                        Password = "changemerichmondva"
+                        Password = "changemerva"
                     };
                     smtp.Credentials = credential;
                     smtp.Host = "smtp.gmail.com";
@@ -446,13 +446,27 @@ namespace MessageSlips.Controllers
         [HttpPost]
         public JsonResult ExternalLogin(string name, string email)
         {
-            //var userGoogle = detailInfo[0];
-            //var userEmail = detailInfo[1];
+            User googleUser = new User();
+            
             var success = name;
-            var secondsuccess = email;
+            var successEmail = email;
+            /*var names = success.Split(' ');
+            string firstName = names[0];
+            string lastname = names[0];
 
+            googleUser.firstName = firstName;
+            googleUser.lastName = lastname;
+            googleUser.admin = false;
+            googleUser.email = email;
+            googleUser.userName = email;
+            googleUser.password = "changeme";
 
-            return Json(new { success, secondsuccess });
+            if (ModelState.IsValid) {
+                db.Users.Add(googleUser);
+                db.SaveChanges();
+            }*/
+
+            return Json(new { success, successEmail });
         }
 
         /*private ApplicationSignInManager _signInManager;
