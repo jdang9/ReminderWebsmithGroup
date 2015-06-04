@@ -53,6 +53,26 @@
                             </div>
                         }
                     </div>
+                    <div class="radius panel">
+                        <h6 class="text-center subheader" id="textstyle">Set Admin</h6>
+                        @using (Html.BeginForm("SetAdmin", "Home", FormMethod.Post))
+                        {
+                            MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
+                            <select name="newAdminUser" size="1" style="background-color: whitesmoke">
+                                @foreach (var user in db.Users)
+                                {
+                                    <option id="user" style="color: black" value="@user.userName">@user.userName</option>
+                                }
+                            </select>
+                            <label id="textstyle">
+                                Set this user as admin:
+                                <input type="checkbox" value="true" name="setAdmin">
+                            </label>
+                            <div class="large-6 small-8 columns small-centered">
+                                <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Set Admin" />
+                            </div>
+                        }
+                    </div>
                 </div>
                 <div class="large-6 columns radius panel">
                     <h6 class="text-center subheader" id="textstyle">Enter required information below to create new user</h6>

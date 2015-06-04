@@ -314,6 +314,28 @@ namespace MessageSlips.Controllers
                     db.SaveChanges();
                 }
             }
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SetAdmin(FormCollection form)
+        {
+            foreach (var user in db.Users.ToList())
+            {
+                if (form["setAdminUser"] == user.userName)
+                {
+                    var setAdminUser = db.Users.Find(form["setAdminUser"]);
+                    bool admin;
+                    if (!string.IsNullOrEmpty(form["setAdmin"]))
+                    {
+                        string stringAdmin = form["setAdmin"];
+                        admin = Convert.ToBoolean(stringAdmin);
+                        setAdminUser.admin = admin;
+                        db.SaveChanges();
+                    }
+                }
+            }
             return View();
         }
 
@@ -345,6 +367,22 @@ namespace MessageSlips.Controllers
                 original.email = mSlip.email;
                 original.other = mSlip.other;
                 db.SaveChanges();
+            }
+
+            foreach (var user in db.Users.ToList())
+            {
+                if (form["users"] == user.userName)
+                {
+                    var setAdminUser = db.Users.Find(form["users"]);
+                    bool admin;
+                    if (!string.IsNullOrEmpty(form["setAdmin"]))
+                    {
+                        string stringAdmin = form["setAdmin"];
+                        admin = Convert.ToBoolean(stringAdmin);
+                        setAdminUser.admin = admin;
+                        db.SaveChanges();
+                    }
+                }
             }
             return View();
         }
