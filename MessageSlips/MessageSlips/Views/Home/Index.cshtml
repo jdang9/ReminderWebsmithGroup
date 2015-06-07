@@ -180,11 +180,12 @@
                                     email: googleEmail
                                 },
                                 success: function (result) {
-                                    alert(result.success + result.secondsuccess);
+                                    //alert(result.success + result.secondsuccess);
+                                    alert("Welcome! Now you can use your websmith email and default password to log in!")
                                 },
                                 error: function (xhr, status, error) {
-                                    alert(xhr.responseText);
-                                    alert("I dont want to go here")
+                                    //alert(xhr.responseText);
+                                    alert("Something is wrong. Please check with your administrator!")
                                 }
                             });
                             
