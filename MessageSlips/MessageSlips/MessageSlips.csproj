@@ -458,6 +458,7 @@
     <Content Include="Views\Home\EditPopup.cshtml" />
     <Content Include="Views\Home\Client.cshtml" />
     <Content Include="Views\Home\_ExternalLogin.cshtml" />
+    <Content Include="Views\Home\UserSetting.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -318,9 +318,30 @@ namespace MessageSlips.Controllers
             return View();
         }
 
-        [HttpPost]
-        public ActionResult SetAdmin(FormCollection form)
+        public ActionResult UserSetting()
         {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult UserSetting(FormCollection form)
+        {
+            foreach (var userPass in db.Users.ToList())
+            {
+                Models.User newUserPass = new Models.User();
+                //string idString = currentUserID.ToString();
+                newUserPass = db.Users.Find(CurrentLogin);
+                if (userPass.password == form["currentPassword"])
+                {
+                    if (form["newPassword"] == form["confirmedNewPassword"])
+                    {
+                        string newPassword = form["newPassword"];
+                        newUserPass.password = newPassword;
+                        db.SaveChanges();
+                    }
+                }
+            }
+
             foreach (var user in db.Users.ToList())
             {
                 if (form["setAdminUser"] == user.userName)

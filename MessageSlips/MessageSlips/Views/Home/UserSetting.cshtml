@@ -1,0 +1,94 @@
+﻿@using System.Data.Entity.Infrastructure
+@using System.Web.Optimization
+@using MessageSlips.Models
+@model MessageSlips.Models.UsersViewModel
+@{
+    ViewBag.Title = "User Setting";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    @Styles.Render("~/Content/bootstrap-theme.min.css")
+    <title>Message Slips - Websmith Group</title>
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/demo.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/component.css" />
+    <link rel="stylesheet" href="~/Content/foundation-5/foundation-icons.css" />
+    <link rel="stylesheet" type="text/css" href="~/Content/foundation-5/css/mainstyle.css" />
+    <link rel="stylesheet" href="~/Content/foundation-5/css/foundation.css" />
+
+    <script src="~/Content/foundation-5/js/vendor/modernizr.js"></script>
+</head>
+<body>
+<div class="row">
+    <div class="large-3 columns"><br /></div>
+    <div class="large-6 columns radius panel text-center">
+        <h6 id="textstyle">Need to change your password?</h6>
+        @using (Html.BeginForm("UserSetting", "Home", FormMethod.Post))
+        {
+            <label id="textstyle">
+                Current Password:<span style="color: red;">*</span>
+                <input type="password" name="currentPassword" placeholder="Current Password" required>
+            </label>
+            <label id="textstyle">
+                New Password:<span style="color: red;">*</span>
+                <input type="password" name="newPassword" placeholder="New Password" required>
+            </label>
+            <label id="textstyle">
+                Confirmed new password:<span style="color: red;">*</span>
+                <input type="password" name="confirmedNewPassword" placeholder="Confirmed Password" required>
+            </label>
+            <div class="large-6 small-8 columns small-centered">
+                <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Change Password" />
+            </div>
+        }
+    </div>
+    <div class="large-3 columns"><br /></div>
+</div>
+
+
+@using (Html.BeginForm("UserSetting", "Home", FormMethod.Post))
+{
+    if (MessageSlips.Controllers.HomeController.CurrentAdmin == false)
+    {      
+        <div class="row">
+            <div class="large-3 columns"><br /></div>
+            <div class="large-6 columns radius panel text-center">
+                <h6 id="textstyle">Sorry, you have to be an admin in order to edit admin!</h6>
+            </div>
+            <div class="large-3 columns"><br /></div>
+        </div>
+    }
+    else if (MessageSlips.Controllers.HomeController.CurrentAdmin == true)
+    {
+        <div class="row">
+            <div class="large-3 columns"><br /></div>
+            <div class="radius panel large-6 columns">
+                <h6 class="text-center subheader" id="textstyle">Set Admin</h6>
+                @using (Html.BeginForm("UserSetting", "Home", FormMethod.Post))
+                {
+                    MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
+                    <select name="setAdminUser" size="1" style="background-color: whitesmoke">
+                        @foreach (var user in db.Users)
+                        {
+                            if (user.admin == false)
+                            {
+                                <option id="userAdmin" style="color: black" value="@user.userName">@user.userName</option>
+                            }
+                        }
+                    </select>
+                    <label id="textstyle">
+                        Set this user as admin:
+                        <input type="checkbox" value="true" name="setAdmin">
+                    </label>
+                    <div class="large-6 small-8 columns small-centered">
+                        <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Set Admin" />
+                    </div>
+                }
+            </div>
+            <div class="large-3 columns"><br /></div>
+        </div>
+        
+    }
+}
+</body>
