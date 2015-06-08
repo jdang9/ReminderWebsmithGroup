@@ -63,21 +63,23 @@
                     }
                
                     <h6 class="text-center subheader" id="textstyle">Delete a Client</h6>
-                    Choose client to delete:<span style="color: red;">*</span>
-                    @using (Html.BeginForm("DeleteClient", "Home", FormMethod.Post))
-                    {
-                        MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
-                        <select name="clients" size="1" style="background-color:whitesmoke">
-                            @foreach (var client in db.CurrentClients)
-                            {
-                                <option id="clients" style="color: black" value="@client.clientName">@client.clientName</option>
-                            }
-                        </select>
-                        <div class="large-6 small-8 columns small-centered">
-                            <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Delete Client" />
-                        </div>
-                    }
-                </div>
+                    <label id="textstyle">
+                        Choose client to delete:<span style="color: red;">*</span>
+                    </label>
+                        @using (Html.BeginForm("DeleteClient", "Home", FormMethod.Post))
+                        {
+                            MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
+                            <select name="clients" size="1" style="background-color:whitesmoke">
+                                @foreach (var client in db.CurrentClients)
+                                {
+                                    <option id="clients" style="color: black" value="@client.clientName">@client.clientName</option>
+                                }
+                            </select>
+                            <div class="large-6 small-8 columns small-centered">
+                                <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Delete Client" />
+                            </div>
+                        }
+</div>
 
 
             }
