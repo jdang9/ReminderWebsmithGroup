@@ -24,68 +24,63 @@
 </head>
 <body>
     <div class="row">
-        <div class="large-12 columns radius panel">
+        <div class="large-7 columns radius panel">
             <h6 class="text-left subheader" id="textstyle">List of Clients:</h6>
             @using (Html.BeginForm())
             {
                 MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
-               <ul class="list-inline">
+                <ul class="list-inline">
                     @foreach (var client in db.CurrentClients)
                     {
                         <li id="clients" style="color: black; font-family: 'Libre Baskerville', serif;">@client.clientName</li>
-                        
+
                     }
                 </ul>
             }
         </div>
-    </div>
-    @using (Html.BeginForm("Client", "Home", FormMethod.Post))
-    {
-        if (MessageSlips.Controllers.HomeController.CurrentAdmin == false)
+        <div class="large-1 columns"><br /></div>
+        @using (Html.BeginForm("Client", "Home", FormMethod.Post))
         {
-            <div class="row">
-                <div class="large-3 columns"><br /></div>
-                <div class="large-6 columns radius panel text-center">
+            if (MessageSlips.Controllers.HomeController.CurrentAdmin == false)
+            {
+                <div class="large-4 columns radius panel text-center">
                     <h6 id="textstyle">Sorry, you need to be an admin to add/delete clients!</h6>
                 </div>
-                <div class="large-3 columns"><br /></div>
-            </div>
-        }
-        else if (MessageSlips.Controllers.HomeController.CurrentAdmin == true)
-        {
-            <div class="row">
-                <div class="large-12 columns">
-                    <div class="medium-4 columns radius panel">
-                        <h6 class="text-center subheader" id="textstyle">Add a Client</h6>
-                        @using (Html.BeginForm("Client", "Home", FormMethod.Post))
-                        {
-                            <label id="textstyle">
-                                Client Name:<span style="color: red;">*</span>
-                                <input type="text" name="newClient" placeholder="Please Enter Client Name" required>
-                            </label>
-                            <div class="large-6 small-8 columns small-centered">
-                                <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Add Client" />
-                            </div>
-                        }
-                    </div>
-                    <div class="medium-4 columns radius panel">
-                        <h6 class="text-center subheader" id="textstyle">Delete a Client</h6>
-                        @using (Html.BeginForm("DeleteClient", "Home", FormMethod.Post))
-                        {
-                            MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
-                            <select name="clients" size="1" style="background-color:whitesmoke">
-                                @foreach (var client in db.CurrentClients) 
-                                {
-                                    <option id="clients" style="color: black" value="@client.clientName">@client.clientName</option>
-                                }
-                            </select>
-                            <div class="large-6 small-8 columns small-centered">
-                                <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Delete Client" />
-                            </div>
-                        }
-                    </div>
+            }
+            else if (MessageSlips.Controllers.HomeController.CurrentAdmin == true)
+            {
+                <div class="large-4 columns radius panel">
+                    <h6 class="text-center subheader" id="textstyle">Add a Client</h6>
+                    @using (Html.BeginForm("Client", "Home", FormMethod.Post))
+                    {
+                        <label id="textstyle">
+                            Client Name:<span style="color: red;">*</span>
+                            <input type="text" name="newClient" placeholder="Please Enter Client Name" required>
+                        </label>
+                        <div class="large-6 small-8 columns small-centered">
+                            <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Add Client" />
+                        </div>
+                    }
+               
+                    <h6 class="text-center subheader" id="textstyle">Delete a Client</h6>
+                    Choose client to delete:<span style="color: red;">*</span>
+                    @using (Html.BeginForm("DeleteClient", "Home", FormMethod.Post))
+                    {
+                        MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
+                        <select name="clients" size="1" style="background-color:whitesmoke">
+                            @foreach (var client in db.CurrentClients)
+                            {
+                                <option id="clients" style="color: black" value="@client.clientName">@client.clientName</option>
+                            }
+                        </select>
+                        <div class="large-6 small-8 columns small-centered">
+                            <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Delete Client" />
+                        </div>
+                    }
                 </div>
-            </div>
+
+
+            }
         }
-    }
+    </div>
 </body>
