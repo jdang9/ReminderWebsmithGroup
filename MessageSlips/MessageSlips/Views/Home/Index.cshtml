@@ -165,7 +165,7 @@
                             // Useful data for your client-side scripts:
                             var profile = googleUser.getBasicProfile();
                             //alert("Name: " + profile.getName()
-                                + "Email: " + profile.getEmail());
+                                //+ "Email: " + profile.getEmail());
 
                             // The ID token you need to pass to your backend:
                             var id_token = googleUser.getAuthResponse().id_token;
@@ -181,7 +181,8 @@
                                 },
                                 success: function (result) {
                                     //alert(result.success + result.secondsuccess);
-                                    alert("Welcome! Now you can use your websmith email and default password to log in!")
+                                    alert("Welcome! Now you can use your websmith email to log in!")
+                                    window.location.href = "ChangePassword"
                                 },
                                 error: function (xhr, status, error) {
                                     //alert(xhr.responseText);

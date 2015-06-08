@@ -476,7 +476,8 @@ namespace MessageSlips.Controllers
             googleUser.userName = email;
             googleUser.password = "changeme";
 
-            
+            CurrentLogin = email;
+            CurrentUserName = firstName + " " + lastname;
 
             if (ModelState.IsValid) {
                 db.Users.Add(googleUser);
@@ -486,6 +487,28 @@ namespace MessageSlips.Controllers
             return Json(new { success, secondsuccess });
         }
 
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(FormCollection form)
+        {
+            foreach (var userPass in db.Users.ToList())
+            {
+                Models.User newUserPass = new Models.User();
+                newUserPass = db.Users.Find(CurrentLogin);
+                if (form["newPassword"] == form["confirmedNewPassword"])
+                {
+                    string newPassword = form["newPassword"];
+                    newUserPass.password = newPassword;
+                    db.SaveChanges();
+                    return RedirectToAction("Dashboard");
+                }              
+            }
+            return View();
+        }
         /*private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
 
