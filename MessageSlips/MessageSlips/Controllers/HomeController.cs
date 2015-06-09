@@ -32,26 +32,34 @@ namespace MessageSlips.Controllers
     public class HomeController : Controller
     {
 
-        private MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();
-        private static MessageSlips.Models.User _userlogin = new MessageSlips.Models.User();
-        public static bool CurrentAdmin;
-        public static string CurrentUserName;
-        public static string CurrentLogin = _userlogin.userName;
-        public static int currentMessageID;
-        public static int currentUserID = _userlogin.userID;
-        private const string XsrfKey = "XsrfId";
+        private MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();  //database
+        private static MessageSlips.Models.User _userlogin = new MessageSlips.Models.User();    //current user
+        public static bool CurrentAdmin;    //check if current user is admin
+        public static string CurrentUserName;       //current user first + last name
+        public static string CurrentLogin = _userlogin.userName;    //current login user
+        public static int currentMessageID;     //current messageID (needed for edit and delete a message)
+        public static int currentUserID = _userlogin.userID;    //current user ID
 
+        //Index View
         public ActionResult Index()
         {
             return View();
         }
 
+        /*
+         * Index to control login
+         * @para: form - getting inputs from View
+         * */
         [HttpPost]
         public ActionResult Index(FormCollection form)
         {
             MessageSlips.Models.User login = new MessageSlips.Models.User();
             foreach (var user in db.Users)
             {
+                /*
+                 * if username and password are matched
+                 * return current user admin status, name, and username
+                 * */
                 if (user.userName == form["username"] && user.password == form["password"])
                 {
                     _userlogin = user;
@@ -60,40 +68,24 @@ namespace MessageSlips.Controllers
                     {
                         CurrentAdmin = true;
                         CurrentLogin = user.userName;
-                        //currentUserID = user.userID;
                     }
                     else
                     {
                         CurrentAdmin = false;
-                        CurrentLogin = user.userName;
-                        //currentUserID = user.userID;
+                        CurrentLogin = user.userName;                       
                     }
                     CurrentUserName = user.firstName + " " + user.lastName;
-                    return RedirectToAction("Dashboard");
+                    return RedirectToAction("Dashboard");   //Go to dashboard if success
                 }
+                ModelState.AddModelError("SigninError", "Username or password provided is in corrected. Please try again!");    //throw error message
             }
 
-            return View("Index");
+            return View("Index"); //Stay on Index if fail
         }
 
-
-        [HttpPost]
-        public JsonResult LoginMessage(FormCollection form)
-        {
-
-            bool check = false;
-
-            foreach (var user in db.Users)
-            {
-                if (user.userName == form["username"] && user.password == form["password"])
-                {
-                    check = true;
-                }
-            }
-
-            return Json(check, JsonRequestBehavior.AllowGet);
-        }
-
+        /*
+         * Log out option
+         * */
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult LogOff()
@@ -102,28 +94,32 @@ namespace MessageSlips.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        //Dashboard View
         public ActionResult Dashboard()
         {
             return View();
         }
 
+        /*
+         * Dashboard to control messages
+         * @para: form
+         * */
         [HttpPost]
         public ActionResult Dashboard(FormCollection form)
         {
-            MessageSlip message = new MessageSlip();
-            MessageSlipsViewModel msMessageSlipsViewModel = new MessageSlipsViewModel();
-            List<MessageSlipsViewModel> result = new List<MessageSlipsViewModel>();
+            MessageSlip message = new MessageSlip();    //Single message
+            MessageSlipsViewModel msMessageSlipsViewModel = new MessageSlipsViewModel();    //Message Model
+            List<MessageSlipsViewModel> result = new List<MessageSlipsViewModel>(); //List of all fields in message model
             if (form.Keys[0] == "users")
             {
 
-                string selectedUser = form["users"];
+                string selectedUser = form["users"];    //chosen user's message
 
+                //getting message fields from Message model
                 foreach (var slip in db.MessageSlips)
                 {
                     if (selectedUser == slip.userName)
                     {
-                        //DateTime dateOnly = slip.date.Date;
-                        //string timeOnly = slip.date.ToString("0:hh\\:mm");
                         string timeOnly = String.Format("{0:hh}:{0:mm}", slip.time);
                         msMessageSlipsViewModel.MessageId = slip.mID;
                         msMessageSlipsViewModel.Sender = slip.sender;
@@ -144,6 +140,9 @@ namespace MessageSlips.Controllers
             return View(result);
         }
 
+        /*
+         * Edit to edit a single message
+         * */
         public ActionResult Edit(int id)
         {
 
@@ -157,6 +156,9 @@ namespace MessageSlips.Controllers
             return View(d);
         }
 
+        /*
+         * Done to delete a message
+         * */
         public ActionResult Done(int id)
         {
             using (db = new MessageSlipsWSGEntities())
@@ -169,18 +171,27 @@ namespace MessageSlips.Controllers
             return RedirectToAction("Dashboard");
         }
 
+        //NewMessage View
         public ActionResult NewMessage()
         {
             return View();
         }
 
+        /*
+         * NewMessage to create a message
+         * @para: form - getting inputs from user
+         * */
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> NewMessage(FormCollection form)
         {
             //https://www.google.com/settings/security/lesssecureapps
-            var email = "";
-            var notification = "";
+            var email = "";     //user's email
+            var notification = "";      //Message to send to email
+
+            /*
+             * Getting user's input and send to database
+             * */
             MessageSlip mSlip = new MessageSlip();
             DateTime mDate;
             TimeSpan mTime;
@@ -197,6 +208,7 @@ namespace MessageSlips.Controllers
             mSlip.email = form["mEmail"];
             mSlip.other = form["mOther"];
 
+            //Generate message that will be send to receiver
             foreach (var user in db.Users)
             {
                 if (form["mReceiver"] == user.userName)
@@ -208,7 +220,8 @@ namespace MessageSlips.Controllers
                         + "Category: " + form["mCategories"] + "<br />"
                         + "Phone: " + form["mTel"] + "<br />"
                         + "Your Message: " + form["mMessage"] + "<br />"
-                        + "Other Info: " + form["mOther"];
+                        + "Other Info: " + form["mOther"] + "<br />" + "<br /" + "<br />"
+                        + "Attention: This is an automated message. Do not reply to this email! - WebsmithGroup";
                 }
             }
             mSlip.userName = id;
@@ -219,18 +232,20 @@ namespace MessageSlips.Controllers
 
                 var message = new MailMessage();
                 message.To.Add(new MailAddress(email));
-                message.From = new MailAddress("messageslips@gmail.com");
-                message.Subject = "You Missed a Call!";
-                message.Body = notification;
+                message.From = new MailAddress("messageslips@gmail.com");       //defaule sender
+                message.Subject = "You Missed a Call!";     //email subject
+                message.Body = notification;    //email body = notification
                 message.IsBodyHtml = true;
 
                 using (var smtp = new SmtpClient())
                 {
+                    //credential set up
                     var credential = new NetworkCredential
                     {
                         UserName = "messageslips@gmail.com",
                         Password = "changemerva"
                     };
+                    //smtp set up
                     smtp.Credentials = credential;
                     smtp.Host = "smtp.gmail.com";
                     smtp.Port = 587;
@@ -246,32 +261,31 @@ namespace MessageSlips.Controllers
             return View();
         }
 
+        //Setting (Add/Delete User) View
         public ActionResult Setting()
         {
             return View();
         }
 
+        /*
+         * Setting to add or delete a user
+         * @para: form - getting new user's information
+         * */
         [HttpPost]
         public ActionResult Setting(FormCollection form)
         {
             MessageSlips.Models.User login = new MessageSlips.Models.User();
-            foreach (var user in db.Users)
-            {
-                if (user.userName == form["username"] && user.password == form["password"])
-                {
-                    login = user;
-                }
 
-            }
-
+            //Delete a user
             if (form.Keys[0] == "users")
             {
                 string dUser = form["users"];
                 User deleteUser = new User();
                 MessageSlip deleteMessage = new MessageSlip();
-                deleteUser = db.Users.Find(dUser);
+                deleteUser = db.Users.Find(dUser);  //find user
                 if (ModelState.IsValid)
                 {
+                    //Delete all remain messages of deleted user
                     foreach (var dMess in db.MessageSlips)
                     {
                         var mID = dMess.mID;
@@ -287,61 +301,83 @@ namespace MessageSlips.Controllers
                 }
             }
 
-            if (form["newPassword"] != form["confirmedNewPassword"])
+            //try to make new username, if username is already taken throw catch
+            try
             {
-                MessageBox.Show("Confirmed password does not match!");
-                return RedirectToAction("Setting");
+                //Add a user
+                if (form["newPassword"] != form["confirmedNewPassword"]) //won't allow adding a user if passwords don't match
+                {
+                    ModelState.AddModelError("PasswordsValidation", "Confirmed password doesn't match! Please try again!"); //throw error message
+                }
+                else if (form["newPassword"] == form["confirmedNewPassword"])   //continue if matched
+                {
+                    Models.User newUser = new Models.User();    //new user account
+                    bool admin;
+                    //getting new user's info
+                    if (!string.IsNullOrEmpty(form["admin"]))
+                    {
+                        string stringAdmin = form["admin"];
+                        admin = Convert.ToBoolean(stringAdmin);
+                        newUser.admin = admin;
+                    }
+                    newUser.userName = form["newUsername"];
+                    newUser.password = form["newPassword"];
+                    newUser.email = form["newEmail"];
+                    newUser.firstName = form["newFirstName"];
+                    newUser.lastName = form["newLastName"];
+                    if (ModelState.IsValid)
+                    {
+                        db.Users.Add(newUser);  //add
+                        db.SaveChanges();
+                    }
+                }
             }
-            else if (form["newPassword"] == form["confirmedNewPassword"])
+            catch (Exception e) //catch showing username is taken
             {
-                Models.User newUser = new Models.User();
-                bool admin;
-                if (!string.IsNullOrEmpty(form["admin"]))
-                {
-                    string stringAdmin = form["admin"];
-                    admin = Convert.ToBoolean(stringAdmin);
-                    newUser.admin = admin;
-                }
-                //bool.TryParse(form["admin"], out admin);
-                newUser.userName = form["newUsername"];
-                newUser.password = form["newPassword"];
-                newUser.email = form["newEmail"];
-                newUser.firstName = form["newFirstName"];
-                newUser.lastName = form["newLastName"];
-                if (ModelState.IsValid)
-                {
-                    db.Users.Add(newUser);
-                    db.SaveChanges();
-                }
+                ModelState.AddModelError("UserExist", "Username is already taken. Please choose another username!");    //throw error message
             }
+            
 
             return View();
         }
 
+        //UserSetting (Account Setting) View
         public ActionResult UserSetting()
         {
             return View();
         }
 
+        /*
+         * UserSetting to change user password and set admin
+         * */
         [HttpPost]
         public ActionResult UserSetting(FormCollection form)
         {
+            //Change password
             foreach (var userPass in db.Users.ToList())
             {
                 Models.User newUserPass = new Models.User();
-                //string idString = currentUserID.ToString();
                 newUserPass = db.Users.Find(CurrentLogin);
-                if (userPass.password == form["currentPassword"])
+                if (userPass.password == form["currentPassword"]) //current password check
                 {
-                    if (form["newPassword"] == form["confirmedNewPassword"])
+                    if (form["newPassword"] == form["confirmedNewPassword"])    //new passwords check
                     {
                         string newPassword = form["newPassword"];
-                        newUserPass.password = newPassword;
+                        newUserPass.password = newPassword;         //password changed
                         db.SaveChanges();
                     }
+                    else
+                    {
+                        ModelState.AddModelError("PasswordsValidation", "Confirmed password doesn't match! Please try again!");     //throw error message
+                    }
+                }
+                else if (userPass.password != form["currentPassword"])
+                {
+                    ModelState.AddModelError("CurrentPasswordValidation", "Current password is incorrect! Please try again!");      //throw error message
                 }
             }
 
+            //Set admin for a user
             foreach (var user in db.Users.ToList())
             {
                 if (form["setAdminUser"] == user.userName)
@@ -352,7 +388,7 @@ namespace MessageSlips.Controllers
                     {
                         string stringAdmin = form["setAdmin"];
                         admin = Convert.ToBoolean(stringAdmin);
-                        setAdminUser.admin = admin;
+                        setAdminUser.admin = admin;     //set admin
                         db.SaveChanges();
                     }
                 }
@@ -360,17 +396,27 @@ namespace MessageSlips.Controllers
             return View();
         }
 
+        /*
+         * EditPopup to view edit message
+         * @para: message id
+         * */
         [HttpGet]
         public ActionResult EditPopup(int id)
         {
             currentMessageID = id;
             MessageSlips.Models.MessageSlip mSlip = new MessageSlips.Models.MessageSlip();
-            mSlip = db.MessageSlips.Find(id);
+            mSlip = db.MessageSlips.Find(id);       //find the message
             return View(mSlip);
         }
+
+        /*
+         * EditPopup to make changes to the message
+         * @para: form - gather inputs, id - the message id
+         * */ 
         public ActionResult EditPopup(FormCollection form, int id)
         {
-            currentMessageID = id;
+            currentMessageID = id;  //current message id
+            //Getting editable info
             MessageSlips.Models.MessageSlip mSlip = new MessageSlips.Models.MessageSlip();
             mSlip.sender = form["mSender"];
             mSlip.categories = form["mCategories"];
@@ -378,7 +424,9 @@ namespace MessageSlips.Controllers
             mSlip.message = form["mMessage"];
             mSlip.email = form["mEmail"];
             mSlip.other = form["mOther"];
-            var original = db.MessageSlips.Find(id);
+
+            var original = db.MessageSlips.Find(id);    //find original message
+            //Edit orginial message
             if (original != null)
             {
                 original.sender = mSlip.sender;
@@ -387,37 +435,29 @@ namespace MessageSlips.Controllers
                 original.message = mSlip.message;
                 original.email = mSlip.email;
                 original.other = mSlip.other;
-                db.SaveChanges();
+                db.SaveChanges();   //save edit message
             }
 
-            foreach (var user in db.Users.ToList())
-            {
-                if (form["users"] == user.userName)
-                {
-                    var setAdminUser = db.Users.Find(form["users"]);
-                    bool admin;
-                    if (!string.IsNullOrEmpty(form["setAdmin"]))
-                    {
-                        string stringAdmin = form["setAdmin"];
-                        admin = Convert.ToBoolean(stringAdmin);
-                        setAdminUser.admin = admin;
-                        db.SaveChanges();
-                    }
-                }
-            }
             return View();
         }
 
+        //Client View
         public ActionResult Client()
         {
             return View();
         }
 
+        /*
+         * Client to add new client
+         * @para: form - getting new client name
+         * avaibable to only admin users
+         * */
         [HttpPost]
         public ActionResult Client(FormCollection form)
         {
             MessageSlips.Models.MessageSlipsWSGEntities db = new Models.MessageSlipsWSGEntities();
             MessageSlips.Models.User login = new MessageSlips.Models.User();
+            //check if user is admin
             foreach (var user in db.Users.ToList())
             {
                 if (user.userName == form["username"] && user.password == form["password"])
@@ -427,10 +467,10 @@ namespace MessageSlips.Controllers
             }
 
             Models.CurrentClient newClient = new Models.CurrentClient();
-            newClient.clientName = form["newClient"];
+            newClient.clientName = form["newClient"];   //get client name
             if (ModelState.IsValid)
             {
-                db.CurrentClients.Add(newClient);
+                db.CurrentClients.Add(newClient);       //add client
                 db.SaveChanges();
             }
 
@@ -439,17 +479,20 @@ namespace MessageSlips.Controllers
             return View();
         }
 
+        /*
+         * Delete client
+         * */
         [HttpPost]
         public ActionResult DeleteClient(FormCollection form)
         {
             if (form.Keys[0] == "clients")
             {
-                string dClient = form["clients"];
+                string dClient = form["clients"];   //get client
                 CurrentClient deleteClient = new CurrentClient();
                 deleteClient = db.CurrentClients.Find(dClient);
                 if (ModelState.IsValid)
                 {
-                    db.CurrentClients.Remove(deleteClient);
+                    db.CurrentClients.Remove(deleteClient); //delete client
                     db.SaveChanges();
                     return RedirectToAction("Client");
                 }
@@ -457,41 +500,49 @@ namespace MessageSlips.Controllers
             return View();
         }
 
+        /*
+         * Json getting para from Google Sign in
+         * @para: user's name and email
+         * */
         [HttpPost]
         public JsonResult ExternalLogin(string name, string email)
         {
-
+            var success = name;     //user's name as first passing success
+            var secondsuccess = email;  //user's email as second passing success
             
-            var success = name;
-            var secondsuccess = email;
-            
-            var names = success.Split(' ');
+            var names = success.Split(' '); //split first and last name
             string firstName = names[0];
             string lastname = names[1];
             User googleUser = new User();
+            //Autotamically create new user account when choosing Google sign in
             googleUser.firstName = firstName;
             googleUser.lastName = lastname;
-            googleUser.admin = false;
+            googleUser.admin = false;       //all users using Google sign in will be non-admin
             googleUser.email = email;
             googleUser.userName = email;
-            googleUser.password = "changeme";
+            googleUser.password = "changeme";       //default password will be forced to change
 
             CurrentLogin = email;
             CurrentUserName = firstName + " " + lastname;
 
             if (ModelState.IsValid) {
-                db.Users.Add(googleUser);
+                db.Users.Add(googleUser);   //add new user
                 db.SaveChanges();
             }
 
             return Json(new { success, secondsuccess });
         }
 
+        //ChangePassword View
         public ActionResult ChangePassword()
         {
             return View();
         }
 
+        /*
+         * ChangePassword to force new user from Google sign in to change their password (set up a new password)
+         * @para: form - getting passwords
+         * */
         [HttpPost]
         public ActionResult ChangePassword(FormCollection form)
         {
@@ -499,214 +550,16 @@ namespace MessageSlips.Controllers
             {
                 Models.User newUserPass = new Models.User();
                 newUserPass = db.Users.Find(CurrentLogin);
-                if (form["newPassword"] == form["confirmedNewPassword"])
+                if (form["newPassword"] == form["confirmedNewPassword"])   //Passwords have to be matched 
                 {
                     string newPassword = form["newPassword"];
-                    newUserPass.password = newPassword;
+                    newUserPass.password = newPassword;         //new password created
                     db.SaveChanges();
                     return RedirectToAction("Dashboard");
-                }              
+                }
+                ModelState.AddModelError("PasswordsValidation", "Confirmed password doesn't match! Please try again!");     //throw error message
             }
             return View();
         }
-        /*private ApplicationSignInManager _signInManager;
-        private ApplicationUserManager _userManager;
-
-         public HomeController(ApplicationUserManager userManager, ApplicationSignInManager signInManager )
-        {
-            UserManager = userManager;
-            SignInManager = signInManager;
-        }
-
-         public ApplicationSignInManager SignInManager
-         {
-             get
-             {
-                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
-             }
-             private set
-             {
-                 _signInManager = value;
-             }
-         }
-
-         public ApplicationUserManager UserManager
-         {
-             get
-             {
-                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
-             }
-             private set
-             {
-                 _userManager = value;
-             }
-         }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExternalLogin(string provider, string returnUrl)
-        {
-            // Request a redirect to the external login provider
-            return new ChallengeResult(provider, Url.Action("ExternalLoginCallback", "Account", new { ReturnUrl = returnUrl }));
-        }
-
-        [AllowAnonymous]
-        public async Task<ActionResult> ExternalLoginCallback(string returnUrl)
-        {
-            var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync(XsrfKey, User.Identity.GetUserId());
-            //if (loginInfo == null)
-            //{
-                //return RedirectToAction();
-            //}
-
-            // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
-                //case SignInStatus.LockedOut:
-                    //return View("Lockout");
-                //case SignInStatus.RequiresVerification:
-                    //return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
-            }
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl)
-        {
-            if (User.Identity.IsAuthenticated)
-            {
-                return RedirectToAction("Index", "Manage");
-            }
-
-            if (ModelState.IsValid)
-            {
-                // Get the information about the user from the external login provider
-                var info = await AuthenticationManager.GetExternalLoginInfoAsync();
-                //if (info == null)
-                //{
-                    return View();
-                //}
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var result = await UserManager.CreateAsync(user);
-                if (result.Succeeded)
-                {
-                    result = await UserManager.AddLoginAsync(user.Id, info.Login);
-                    if (result.Succeeded)
-                    {
-                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                        return RedirectToLocal(returnUrl);
-                    }
-                }
-                AddErrors(result);
-            }
-
-            ViewBag.ReturnUrl = returnUrl;
-            return View(model);
-        }
-
-        internal class ChallengeResult : HttpUnauthorizedResult
-        {
-            public ChallengeResult(string provider, string redirectUri)
-                : this(provider, redirectUri, null)
-            {
-            }
-
-            public ChallengeResult(string provider, string redirectUri, string userId)
-            {
-                LoginProvider = provider;
-                RedirectUri = redirectUri;
-                UserId = userId;
-            }
-
-            public string LoginProvider { get; set; }
-            public string RedirectUri { get; set; }
-            public string UserId { get; set; }
-
-            public override void ExecuteResult(ControllerContext context)
-            {
-                var properties = new AuthenticationProperties { RedirectUri = RedirectUri };
-                if (UserId != null)
-                {
-                    properties.Dictionary[XsrfKey] = UserId;
-                }
-                context.HttpContext.GetOwinContext().Authentication.Challenge(properties, LoginProvider);
-            }
-        }
-
-        private void AddErrors(IdentityResult result)
-        {
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError("", error);
-            }
-        }
-
-        private ActionResult RedirectToLocal(string returnUrl)
-        {
-            if (Url.IsLocalUrl(returnUrl))
-            {
-                return Redirect(returnUrl);
-            }
-            return RedirectToAction("Index", "Home");
-        }*/
     }
 }
-
-    /*public partial class HomeController : AsyncController
-    {
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> NewMessage(EmailFormModel model, FormCollection form)
-        {
-            var email = "";
-            var notification = "";
-            if (ModelState.IsValid)
-            {
-                var body = "<p> Detail Information </p>";
-                var message = new MailMessage();
-                foreach (var user in db.Users)
-                {
-                if (form["mReceiver"] == user.userName)
-                    {
-                        email = user.email;
-                        notification = "From: " + form["mSender"] + "\n"
-                            + "Category: " + form["mCategories"] + "\n"
-                            + "Phone: " + form["mTel"] + "\n"
-                            + "Your Message: " + form["mMessage"] + "\n"
-                            + "Other Info: " + form["mOther"];
-                    }
-                }
-                message.To.Add(new MailAddress(email));
-                message.From = new MailAddress("jadang31@gmail.com");
-                message.Subject = "You got a message";
-                message.Body = notification;
-                message.IsBodyHtml = true;
-
-                using (var smtp = new SmtpClient())
-                {
-                    var credential = new NetworkCredential
-                    {
-                        UserName = "jadang31@gmail.com",
-                        Password = "Virginia-2007#$%"
-                    };
-                    smtp.Credentials = credential;
-                    smtp.Host = "smtp.gmail.com";
-                    smtp.Port = 587;
-                    smtp.EnableSsl = true;
-                    await smtp.SendMailAsync(message);
-                }
-            }
-            return View(model);
-        }
-    }*/

@@ -3,6 +3,7 @@
     ViewBag.Title = "Message";
 }
 <head>
+    <!--import Foundation 5-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Websmith Group</title>
@@ -19,11 +20,10 @@
         <div class="large-3 columns"><h1></h1></div>
         <div class="large-6 columns radius panel">
             <h6 class="text-center subheader" id="textstyle">Create New Message Slip</h6>
+            <!--Create a message - HomeController - NewMessage-->
             @using (Html.BeginForm("NewMessage", "Home", FormMethod.Post))
             {
                 MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
-                //using (Html.BeginForm())
-                //{
                     @Html.AntiForgeryToken()
                     <div class="large-12 columns">
                         <label id="textstyle">
@@ -40,7 +40,6 @@
 
                                 }
                             </select>
-    <!--<input type="text" name="mReceiver" placeholder="First, Last" required>-->
                         </label>
                         <label>
                             Categories:<span style="color: red;">*</span>
@@ -90,7 +89,6 @@
                     <div class="large-3 small-8 columns small-centered">
                         <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Submit" />
                     </div>
-                //}
             }
         </div>
         <div class="large-3 columns"><h1></h1></div>

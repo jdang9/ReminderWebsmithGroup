@@ -13,6 +13,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <!--import Foudation 5-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - Websmith Group</title>
@@ -28,12 +29,13 @@
     <div class="row top">
         <div class="large-9 columns">
             <div class="large-only-text-center">
-                <h1 class="logo"><img src="~/Content/foundation-5/img/wsgh59i.png"></h1>
+                <h1 class="logo"><img src="~/Content/foundation-5/img/wsgh59i.png"></h1>    <!--logo-->
             </div>
         </div>
         <div class="large-3 columns large-text-center">
             <ul class="logo">
                 <li id="login">
+                    <!--Sign out option-->
                     @using (Html.BeginForm("LogOff", "Home", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
@@ -44,7 +46,7 @@
             <div><label style="color: white" id="textstyle">Hello @MessageSlips.Controllers.HomeController.CurrentUserName! </label></div>
         </div>
     </div>
-
+    <!--Navigation bar, including 5 tabs-->
     <div class="row" id="navbar">
         <div class="icon-bar five-up radius">
             <a class="item" href="@Url.Content("~/Home/Dashboard")">

@@ -1,4 +1,11 @@
-﻿@using System.Web.Security;
+﻿<!--
+    Message Slips Web Application
+    Jason Dang
+    Web application to keep track with call-backs and messages for Websmith Group staff
+    Building base on .NET MVC framework and using C#, HTML5, JQuery, JavaScript, CSS, Foundation 5, and SQL
+-->
+
+@using System.Web.Security;
 @using MessageSlips.Models;
 
 @{
@@ -8,6 +15,7 @@
 <!DOCTYPE html>
 <html class="no-js" lang="en">
 <head>
+    <!--import Foundation 5-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @Styles.Render("~/Content/bootstrap-theme.min.css")
@@ -20,14 +28,15 @@
 
     <script src="~/Content/foundation-5/js/vendor/modernizr.js"></script>
     
+    <!--Google Auth2-->
     <meta name="google-signin-scope" content="https://www.googleapis.com/auth/userinfo.profile">
     <meta name="google-signin-client_id" content="744487569555-kt74gfddda25epbk1bkfnc66gv2eu72k.apps.googleusercontent.com">
     <script src="https://apis.google.com/js/platform.js" async defer></script>
-    <!--<script src="https://apis.google.com/js/client:platform.js" async defer></script>-->
+
 </head>
 <body class="main-background">
 
-    <!--header-->
+    <!--header including logo and title-->
     <div>
         <div class="row top">
             <div class="large-12 columns">
@@ -56,105 +65,42 @@
                     <div class="row" id="login_form">
                         <h6 class="text-center subheader" id="textstyle" name="messageHolder">@ViewBag.Title</h6>
                         <div><h6 class="text-center subheader" id="textstyle"><p id="messageHolder" name="messageHolder" /></h6></div>
-                            @using (Html.BeginForm("Index", "Home", FormMethod.Post))
-                            {
-                                    <script type="text/javascript">
-                                        /*$("btnLogin").click(function() {
-                                                $.getJSON("LoginMessage",
-                                                    $.ajax({
-                                                        type: "post",
-                                                        url: "~/Controllers/HomeController/LoginMessage",
-                                                        success: function (data) {
-                                                            alert("Woohoo");
-                                                        },
-                                                        error: function () {
-                                                            alert("asdasdasd");
-                                                        }
-                                                    })
-                                            );
-                                        });*/
-                                        /*function loginMessage() {
-                                        $.getJSON("LoginMessage",
-                                                $.ajax({
-                                                    type: "post",
-                                                    url: "~/HomeController/LoginMessage",
-                                                    success: function (data) {
-                                                        alert(data)                                                      
-                                                    },
-                                                    error: function () {
-                                                        alert("ohhhhh crapppppp error :( ");
-                                                    }
-                                                })
-                                            );
-                                    }*/
-                                        /*function loginMessage() {
-                                        $.getJSON("LogginMessage", function (data) {
-                                            alert(data);
-                                        });
-                                            $.ajax({
-                                                type: "POST",
-                                                URL: "~/Controllers/HomeController/LoginMessage",
-                                                success: function (respone) {
-                                                    $("#messageHolder").html("Successfully signed in!");
-                                                    {
-                                                        MessageSlips.Models.User login = new MessageSlips.Models.User();
-                                                        if (Membership.ValidateUser(login.userName, login.password))
-                                                        {
-                                                            
-                                                        }
-                                                    }
-                                                },
-                                                error: function () {
-                                                    $("#messageHolder").html("Incorrect username or password!!!");
-                                                }
-                                        }));
-                                    }*/
-                                    </script>
-                                <form method="post">
-                                    <div class="large-8 columns small-12 small-centered">
-                                        <label id="textstyle">
-                                            Username:<span style="color:red;">*</span>
-                                            <input type="text" name="userName" id="username" placeholder="Username" required>
-                                        </label>
-                                        <label id="textstyle">
-                                            Password:<span style="color:red;">*</span>
-                                            <input type="password" name="password" id="password" placeholder="Password" required>
-                                        </label>
-                                    </div>
-                                    <div class="large-3 small-8 columns small-centered">
-                                        <input type="submit" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" name=" btnlogin" onclick="loginMessage()" value="Sign in" />
-                                    </div>
-                                    
-                                </form>
-                            }
-
+                        <!--User login (HomeController - Index)-->
+                        @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+                        {
+                            <form method="post">
+                                <label id="textstyle" style="text-align: center; color: red;">
+                                    @Html.ValidationMessage("SigninError")
+                                </label>
+                                <div class="large-8 columns small-12 small-centered">
+                                    <label id="textstyle">
+                                        Username:<span style="color:red;">*</span>
+                                        <input type="text" name="userName" id="username" placeholder="Username" required>
+                                    </label>
+                                    <label id="textstyle">
+                                        Password:<span style="color:red;">*</span>
+                                        <input type="password" name="password" id="password" placeholder="Password" required>
+                                    </label>
+                                </div>
+                                <div class="large-3 small-8 columns small-centered">
+                                    <input type="submit" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" name=" btnlogin" onclick="loginMessage()" value="Sign in" />
+                                </div>                                                                                            
+                            </form>
+                        }
                     </div>
                 </div>
             </div>
-
+            <!--Create account using Google email (user can create account on their own without contacting admin)-->
             <div class="large-6 columns">
                 <div id="main" class="radius panel">
                     <div class="row">
-                        <h6 class="text-center subheader" id="textstyle">Or create an account using Google email!</h6>
-                        <!--<div class="large-6 columns" id="textstyle"><p>Sign in using your Google account</p></div>-->
-                            <!--Html.Partial("_ExternalLogin", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })-->                        
+                        <h6 class="text-center subheader" id="textstyle">Or create an account using Google email!</h6>                               
                     </div>
-                    <div class="row">
-                        
+                    <div class="row">                       
                         <div class="small-2 large-4 columns"> <br /></div>
                         <div class="small-4 large-4 columns">
+                            <!--Google sign in button-->
                             <div class="g-signin2" id="googleBtn" data-onsuccess="onSignIn" data-theme="dark"></div>                      
-                            <!---<span id="signinButtons">
-                                <span class="g-signin"
-                                      data-callback="signinCallback"
-                                      data-clientid="744487569555-kt74gfddda25epbk1bkfnc66gv2eu72k.apps.googleusercontent.com"
-                                      data-cookiepolicy="single_host_origin"
-                                      data-requestvisibleactions="http://schema.org/AddAction"
-                                      data-scope="https://www.googleapis.com/auth/plus.login"
-                                      data-onsuccess="onSignIn">
-                                </span>
-                            </span>
-                                -->
                         </div>
                         <div class="small-6 large-4 columns"> <br /></div>
                            
@@ -162,16 +108,13 @@
                     </div>
                     <script>
                         function onSignIn(googleUser) {
-                            // Useful data for your client-side scripts:
+                            //Getting basic profile from Google user
                             var profile = googleUser.getBasicProfile();
-                            //alert("Name: " + profile.getName()
-                                //+ "Email: " + profile.getEmail());
-
-                            // The ID token you need to pass to your backend:
-                            var id_token = googleUser.getAuthResponse().id_token;
-                            console.log("ID Token: " + id_token);
+                            //User first + last name
                             var googleName = profile.getName();
+                            //User email address
                             var googleEmail = profile.getEmail();
+                            //Passing back to HomeController - ExternalLogin
                             $.ajax({
                                 type: 'POST',
                                 url: 'ExternalLogin',
@@ -180,61 +123,19 @@
                                     email: googleEmail
                                 },
                                 success: function (result) {
-                                    //alert(result.success + result.secondsuccess);
+                                    //Sign in success
                                     alert("Welcome! Now you can use your websmith email to log in!")
-                                    window.location.href = "ChangePassword"
+                                    window.location.href = "ChangePassword" //Force user to set up/change default password
                                 },
                                 error: function (xhr, status, error) {
-                                    //alert(xhr.responseText);
+                                    //Sign in fail
+                                    //Resolvable by sign off all google account and quit web browser
                                     alert("Something is wrong. Please check with your administrator!")
                                 }
                             });
                             
                         };
-                    </script>
-                        <!--function googleSignin() {
-                            function onSignin(googleUser) {
-                                var profile = googleUser.getBasicProfile();
-                                var detailInfo = {
-                                    "userGoogleName": profile.getName(),
-                                    "userGoogleEmail": profile.getEmail()
-                                };
-                                $.ajax({
-                                    type: "POST",
-                                    url: '~/HomeController/ExternalLogin',
-                                    data: detailInfo,
-                                    success: function (result) {
-                                        alert(result);
-                                    },
-                                    error: function (e) {
-                                        alert("Shit went wrong");
-                                    }
-                                });
-                            }
-                        }        -->
-                    
-
-                    <!--<script>
-                        function signinCallback(authResult) {
-                            if (authResult['status']['signed_in']) {
-                                var request = gapi.client.plus.people.get({
-                                    'userId': 'me'
-                                    //Html.ActionLink("ExternalLogin", "Home", new { name = "userID"});
-                                });
-                                // Update the app to reflect a signed in user
-                                // Hide the sign-in button now that the user is authorized, for example:
-                                document.getElementById('signinButton').setAttribute('style', 'display: none');
-                            } else {
-                                // Update the app to reflect a signed out user
-                                // Possible error values:
-                                //   "user_signed_out" - User is signed-out
-                                //   "access_denied" - User denied access to your app
-                                //   "immediate_failed" - Could not automatically log in the user
-                                console.log('Sign-in state: ' + authResult['error']);
-                            }
-
-                        }
-                    </script>-->
+                    </script> 
                 </div>
             </div>
 

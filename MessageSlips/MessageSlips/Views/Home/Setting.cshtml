@@ -6,7 +6,12 @@
     ViewBag.Title = "Add/Delete User";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<!--
+    Admin user funtion only
+    Add/Delelte any users manually
+-->
 <head>
+    <!--import Foundation 5-->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     @Styles.Render("~/Content/bootstrap-theme.min.css")
@@ -20,6 +25,7 @@
     <script src="~/Content/foundation-5/js/vendor/modernizr.js"></script>
 </head>
 <body>
+    <!--Non-admin users block access-->
 @using (Html.BeginForm("Setting", "Home", FormMethod.Post))
 {
     if (MessageSlips.Controllers.HomeController.CurrentAdmin == false)
@@ -39,6 +45,10 @@
                 <div class="large-5 columns">
                     <div class="radius panel">
                         <h6 class="text-center subheader" id="textstyle">Delete a User</h6>
+                        <!--
+                            Delete a user
+                            Providing all users' account
+                        -->
                         @using (Html.BeginForm("Setting", "Home", FormMethod.Post))
                         {
                             MessageSlips.Models.MessageSlipsWSGEntities db = new MessageSlips.Models.MessageSlipsWSGEntities();
@@ -56,39 +66,51 @@
                 </div>
                 <div class="large-6 columns radius panel">
                     <h6 class="text-center subheader" id="textstyle">Enter required information below to create new user</h6>
+                    <!--
+                        Create a user account
+                        All fields are required except Admin is optional
+                    -->
                     @using (Html.BeginForm("Setting", "Home", FormMethod.Post))
                     {
-                        <label id="textstyle">
-                            Username:<span style="color: red;">*</span>
-                            <input type="text" name="newUsername" placeholder="Username" required>
-                        </label>
-                        <label id="textstyle">
-                            Password:<span style="color: red;">*</span>
-                            <input type="password" name="newPassword" placeholder="Password" required>
-                        </label>
-                        <label id="textstyle">
-                            Confirmed password:<span style="color: red;">*</span>
-                            <input type="password" name="confirmedNewPassword" placeholder="Confirmed Password" required>
-                        </label>
-                        <label id="textstyle">
-                            Email:<span style="color: red;">*</span>
-                            <input type="email" name="newEmail" placeholder="Email" required>
-                        </label>
-                        <label id="textstyle">
-                            Admin:
-                            <input type="checkbox" value="true" name="admin">
-                        </label>
-                        <label id="textstyle">
-                            First Name:<span style="color: red;">*</span>
-                            <input type="text" name="newFirstName" placeholder="First Name" required>
-                        </label>
-                        <label id="textstyle">
-                            Last Name:<span style="color: red;">*</span>
-                            <input type="text" name="newLastName" placeholder="Last Name" required>
-                        </label>
-                        <div class="large-4 small-8 columns small-centered">
-                            <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Create User" />
-                        </div>
+                        <form method="post">
+                            <label id="textstyle" style="text-align: center; color: red;">
+                                @Html.ValidationMessage("PasswordsValidation")
+                            </label>
+                            <label id="textstyle" style="text-align: center; color: red;">
+                                @Html.ValidationMessage("UserExist")
+                            </label>
+                            <label id="textstyle">
+                                Username:<span style="color: red;">*</span>
+                                <input type="text" name="newUsername" placeholder="Username" required>
+                            </label>
+                            <label id="textstyle">
+                                Password:<span style="color: red;">*</span>
+                                <input type="password" name="newPassword" placeholder="Password" required>
+                            </label>
+                            <label id="textstyle">
+                                Confirmed password:<span style="color: red;">*</span>
+                                <input type="password" name="confirmedNewPassword" placeholder="Confirmed Password" required>
+                            </label>
+                            <label id="textstyle">
+                                Email:<span style="color: red;">*</span>
+                                <input type="email" name="newEmail" placeholder="Email" required>
+                            </label>
+                            <label id="textstyle">
+                                Admin:
+                                <input type="checkbox" value="true" name="admin">
+                            </label>
+                            <label id="textstyle">
+                                First Name:<span style="color: red;">*</span>
+                                <input type="text" name="newFirstName" placeholder="First Name" required>
+                            </label>
+                            <label id="textstyle">
+                                Last Name:<span style="color: red;">*</span>
+                                <input type="text" name="newLastName" placeholder="Last Name" required>
+                            </label>
+                            <div class="large-4 small-8 columns small-centered">
+                                <input type="submit" id="login" class="button special expand round" style="font-family: 'Libre Baskerville', serif;" value="Create User" />
+                            </div>                           
+                        </form>                      
                     }
                 </div>
             </div>
