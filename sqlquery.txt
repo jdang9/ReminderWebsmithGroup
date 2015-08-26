@@ -31,15 +31,20 @@ GO
 
 CREATE TABLE [dbo].[MessageSlip] (
     [mID] int IDENTITY(1,1) NOT NULL,
-    [sender] nvarchar(max)  NOT NULL,
+    [first_name] nvarchar(max)  NOT NULL,
+	[last_name] nvarchar(max)  NOT NULL,
 	[receiver] nvarchar(max) NOT NULL,
+	[orga_comp] nvarchar(max) NOT NULL,
 	[categories] nvarchar(max) NOT NULL,
     [date] date NOT NULL,
 	[time] time NOT NULL,
     [phoneNum] varchar(10)  NULL,
     [message] nvarchar(max)  NOT NULL,
     [email] nvarchar(max)  NULL,
-    [other] nvarchar(max)  NULL,
+	[tel_radio] bit  NULL,
+	[plscall_radio] bit  NULL,
+	[comeby_radio] bit  NULL,
+	[urgent] bit  NULL,
 	[userName] nvarchar(30)  NOT NULL,
 	PRIMARY KEY ([mID]),
 	FOREIGN KEY ([userName]) REFERENCES [dbo].[User]([userName])
